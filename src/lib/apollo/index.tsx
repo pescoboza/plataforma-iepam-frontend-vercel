@@ -1,4 +1,4 @@
-import type { FC } from 'react';
+import type { FC, ReactNode } from 'react';
 import { ApolloProvider, ApolloClient, InMemoryCache, ApolloLink, HttpLink } from '@apollo/client';
 import { persistCache, LocalStorageWrapper } from 'apollo3-cache-persist';
 import { NEXT_PUBLIC_GQL_ENDPOINT } from '@/lib/env/client';
@@ -33,6 +33,6 @@ const client = new ApolloClient({
     headers: {},
 });
 
-export const ApolloPersistentProvider: FC = ({children}) => (
+export const ApolloPersistentProvider: FC<{children?: ReactNode}> = ({children}) => (
     <ApolloProvider client={client}>{children}</ApolloProvider>
 );
