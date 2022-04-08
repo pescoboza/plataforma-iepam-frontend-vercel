@@ -1,0 +1,18 @@
+schema: ${NEXT_PUBLIC_GQL_ENDPOINT}
+
+generates:
+  ./src/lib/codegen/client/index.ts:
+    documents:
+      - ./src/lib/codegen/client/documents/*.gql
+    plugins:
+      - typescript
+      - typescript-operations
+      - typescript-react-apollo
+
+  ./src/lib/codegen/server/schema.ts:
+    documents:
+      - ./src/lib/codegen/server/documents/*.gql
+    plugins:
+      - typescript
+      - typescript-operations
+      - typescript-graphql-request

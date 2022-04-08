@@ -13,8 +13,16 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
-    "incremental": true
+    "incremental": true,
+    "baseUrl": "./src",
+    "paths": {
+        "@/lib/*": ["lib/*"],
+        "@/config": ["config"],
+        "@/codegen/*": ["lib/codegen/*"],
+        "@/codegen/client": ["lib/codegen/client"],
+        "@/codegen/server": ["lib/codegen/server"]
+    }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": ["next-env.d.ts", "./src/**/*.ts", ".src/**/*.tsx", "src/lib/apollo/index.tsx"],
   "exclude": ["node_modules"]
 }
