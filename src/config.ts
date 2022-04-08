@@ -1,2 +1,0 @@
-export const NEXT_PUBLIC_GQL_ENDPOINT = process.env.NEXT_PUBLIC_GQL_ENDPOINT || (() => { throw new Error("Missing env var NEXT_PUBLIC_GQL_ENDPOINT"); })();
-export const GQL_AUTH_TOKEN = process.env.GQL_AUTH_TOKEN || (() => { throw new Error("Missing env var GQL_AUTH_TOKEN"); })();

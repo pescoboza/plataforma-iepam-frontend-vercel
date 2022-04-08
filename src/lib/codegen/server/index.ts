@@ -1,6 +1,8 @@
 import { GraphQLClient } from 'graphql-request';
 import { getSdk } from './schema';
-import { NEXT_PUBLIC_GQL_ENDPOINT, GQL_AUTH_TOKEN } from "@/config"
+import { GQL_AUTH_TOKEN } from "@/env/server";
+import { NEXT_PUBLIC_GQL_ENDPOINT } from "@/env/client";
+
 
 /**
  * Serverside admin-authenticated requests.

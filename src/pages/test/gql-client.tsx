@@ -3,11 +3,13 @@ import { useEmpresasQuery } from "@/codegen/client";
 
 const Page: FC = () => {
     const { data, error, loading } = useEmpresasQuery();
-
+    if (error) console.error(error);
+    
     return <div>
-        <h1>Hello</h1>
+        <h1>Query Hook</h1>
         {loading && <span>Cargando...</span>}
-        <pre>{JSON.stringify(data)}</pre>
+        {error && <p>{error.message}</p>}
+        <pre>{JSON.stringify(data, null,4)}</pre>
     </div>
 };
 

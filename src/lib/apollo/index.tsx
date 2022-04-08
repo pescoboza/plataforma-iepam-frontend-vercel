@@ -1,7 +1,7 @@
 import type { FC } from 'react';
 import { ApolloProvider, ApolloClient, InMemoryCache, ApolloLink, HttpLink } from '@apollo/client';
 import { persistCache, LocalStorageWrapper } from 'apollo3-cache-persist';
-import { NEXT_PUBLIC_GQL_ENDPOINT } from '@/config';
+import { NEXT_PUBLIC_GQL_ENDPOINT } from '@/lib/env/client';
 
 const cache = new InMemoryCache();
 
