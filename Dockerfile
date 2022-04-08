@@ -13,6 +13,7 @@ COPY . .
 ENV NEXT_TELEMETRY_DISABLED 1
 ARG NEXT_PUBLIC_GQL_ENDPOINT
 ARG GQL_AUTH_TOKEN
+ENV NODE_ENV production
 RUN yarn build
 
 # 3. Production image, copy all the files and run next
