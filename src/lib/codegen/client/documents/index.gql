@@ -1,7 +1,6 @@
 query Empresas {
   empresa {
     id
-    descripcion
     nombre
   }
 }
