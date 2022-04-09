@@ -6,6 +6,6 @@ module.exports = {
       error_file: './logs/service_gateway.err',
       log_date_format: 'YYYY-MM-DD HH:mm:ss SSS',
       exec_mode: "cluster",
-      instances  : 2,
+      instances  : 1,
     }]
   }
