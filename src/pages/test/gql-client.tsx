@@ -2,7 +2,7 @@ import type { FC } from "react";
 import { useEmpresasQuery } from "@/codegen/client";
 
 const Page: FC = () => {
-    const { data, error, loading } = useEmpresasQuery();
+    const { data, error, loading } = useEmpresasQuery({ fetchPolicy: "cache-and-network" });
     if (error) console.error(error);
 
     return (
