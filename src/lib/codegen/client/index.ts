@@ -24,6 +24,9 @@ export type Query = {
   empresa?: Maybe<Array<Maybe<Empresa>>>;
   empresa_aggregated?: Maybe<Array<Maybe<Empresa_Aggregated>>>;
   empresa_by_id?: Maybe<Empresa>;
+  puesto?: Maybe<Array<Maybe<Puesto>>>;
+  puesto_aggregated?: Maybe<Array<Maybe<Puesto_Aggregated>>>;
+  puesto_by_id?: Maybe<Puesto>;
 };
 
 
@@ -47,6 +50,30 @@ export type QueryEmpresa_AggregatedArgs = {
 
 
 export type QueryEmpresa_By_IdArgs = {
+  id: Scalars['ID'];
+};
+
+
+export type QueryPuestoArgs = {
+  filter?: InputMaybe<Puesto_Filter>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  page?: InputMaybe<Scalars['Int']>;
+  search?: InputMaybe<Scalars['String']>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+
+export type QueryPuesto_AggregatedArgs = {
+  filter?: InputMaybe<Puesto_Filter>;
+  groupBy?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  search?: InputMaybe<Scalars['String']>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+
+export type QueryPuesto_By_IdArgs = {
   id: Scalars['ID'];
 };
 
@@ -88,6 +115,7 @@ export type Empresa = {
   __typename?: 'empresa';
   actualizadoPor?: Maybe<Scalars['String']>;
   creadoPor?: Maybe<Scalars['String']>;
+  descripcion?: Maybe<Scalars['String']>;
   fechaActualizacion?: Maybe<Scalars['Date']>;
   fechaActualizacion_func?: Maybe<Datetime_Functions>;
   fechaCreacion?: Maybe<Scalars['Date']>;
@@ -120,6 +148,7 @@ export type Empresa_Filter = {
   _or?: InputMaybe<Array<InputMaybe<Empresa_Filter>>>;
   actualizadoPor?: InputMaybe<String_Filter_Operators>;
   creadoPor?: InputMaybe<String_Filter_Operators>;
+  descripcion?: InputMaybe<String_Filter_Operators>;
   fechaActualizacion?: InputMaybe<Date_Filter_Operators>;
   fechaActualizacion_func?: InputMaybe<Datetime_Function_Filter_Operators>;
   fechaCreacion?: InputMaybe<Date_Filter_Operators>;
@@ -142,6 +171,67 @@ export type Number_Filter_Operators = {
   _null?: InputMaybe<Scalars['Boolean']>;
 };
 
+export type Puesto = {
+  __typename?: 'puesto';
+  actualizadoPor?: Maybe<Scalars['String']>;
+  creadoPor?: Maybe<Scalars['String']>;
+  empresa?: Maybe<Empresa>;
+  fechaActualizacion?: Maybe<Scalars['Date']>;
+  fechaActualizacion_func?: Maybe<Datetime_Functions>;
+  fechaCreacion?: Maybe<Scalars['Date']>;
+  fechaCreacion_func?: Maybe<Datetime_Functions>;
+  id?: Maybe<Scalars['ID']>;
+  nombre?: Maybe<Scalars['String']>;
+  numVacantes?: Maybe<Scalars['Int']>;
+  status: Scalars['String'];
+};
+
+
+export type PuestoEmpresaArgs = {
+  filter?: InputMaybe<Empresa_Filter>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  page?: InputMaybe<Scalars['Int']>;
+  search?: InputMaybe<Scalars['String']>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+export type Puesto_Aggregated = {
+  __typename?: 'puesto_aggregated';
+  avg?: Maybe<Puesto_Aggregated_Fields>;
+  avgDistinct?: Maybe<Puesto_Aggregated_Fields>;
+  count?: Maybe<Puesto_Aggregated_Fields>;
+  countDistinct?: Maybe<Puesto_Aggregated_Fields>;
+  group?: Maybe<Scalars['JSON']>;
+  max?: Maybe<Puesto_Aggregated_Fields>;
+  min?: Maybe<Puesto_Aggregated_Fields>;
+  sum?: Maybe<Puesto_Aggregated_Fields>;
+  sumDistinct?: Maybe<Puesto_Aggregated_Fields>;
+};
+
+export type Puesto_Aggregated_Fields = {
+  __typename?: 'puesto_aggregated_fields';
+  empresa?: Maybe<Scalars['Float']>;
+  id?: Maybe<Scalars['Float']>;
+  numVacantes?: Maybe<Scalars['Float']>;
+};
+
+export type Puesto_Filter = {
+  _and?: InputMaybe<Array<InputMaybe<Puesto_Filter>>>;
+  _or?: InputMaybe<Array<InputMaybe<Puesto_Filter>>>;
+  actualizadoPor?: InputMaybe<String_Filter_Operators>;
+  creadoPor?: InputMaybe<String_Filter_Operators>;
+  empresa?: InputMaybe<Empresa_Filter>;
+  fechaActualizacion?: InputMaybe<Date_Filter_Operators>;
+  fechaActualizacion_func?: InputMaybe<Datetime_Function_Filter_Operators>;
+  fechaCreacion?: InputMaybe<Date_Filter_Operators>;
+  fechaCreacion_func?: InputMaybe<Datetime_Function_Filter_Operators>;
+  id?: InputMaybe<Number_Filter_Operators>;
+  nombre?: InputMaybe<String_Filter_Operators>;
+  numVacantes?: InputMaybe<Number_Filter_Operators>;
+  status?: InputMaybe<String_Filter_Operators>;
+};
+
 export type String_Filter_Operators = {
   _contains?: InputMaybe<Scalars['String']>;
   _empty?: InputMaybe<Scalars['Boolean']>;
@@ -162,14 +252,16 @@ export type String_Filter_Operators = {
 export type EmpresasQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type EmpresasQuery = { __typename?: 'Query', empresa?: Array<{ __typename?: 'empresa', id?: string | null, nombre?: string | null } | null> | null };
+export type EmpresasQuery = { __typename?: 'Query', empresa?: Array<{ __typename?: 'empresa', id?: string | null, fechaCreacion?: any | null, nombre?: string | null, descripcion?: string | null } | null> | null };
 
 
 export const EmpresasDocument = gql`
     query Empresas {
   empresa {
     id
+    fechaCreacion
     nombre
+    descripcion
   }
 }
     `;
