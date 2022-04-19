@@ -20,7 +20,7 @@ export default function ForgotPassword() {
         <>
             <div className="flex flex-col justify-center py-20 sm:px-4">
                 <div className="sm:mx-auto sm:w-full sm:max-w-md">
-                    <Link href="/" passHref>
+                    <Link href="/">
                         <img
                             className="mx-auto h-16 w-auto cursor-pointer"
                             src="/images/iepam-logo.svg"
@@ -72,7 +72,7 @@ export default function ForgotPassword() {
                                     Hemos enviado un email con un link para que restablezca su contraseña.
                                 </span>
                                 <div className="w-full">
-                                    <Link href="/" passHref>
+                                    <Link href="/">
                                         <div className="focus:outline-none flex w-full cursor-pointer justify-center rounded-md border border-gray-600 py-2 px-4 text-sm font-medium text-gray-800 hover:bg-gray-50 focus:ring-0">
                                             Volver al Inicio
                                         </div>

@@ -1,7 +1,7 @@
-import { IconUser } from "../icons";
+import { iconUser } from "../icons";
 
 const icons = {
-    user: IconUser,
+    user: iconUser,
 };
 
 const ContactInfo = () => {

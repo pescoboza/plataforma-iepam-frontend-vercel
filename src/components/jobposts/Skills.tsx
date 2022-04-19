@@ -1,7 +1,7 @@
-import { IconStack } from "../icons";
+import { iconStack } from "../icons";
 
 const icons = {
-    stack: IconStack,
+    stack: iconStack,
 };
 
 const Skills = () => {

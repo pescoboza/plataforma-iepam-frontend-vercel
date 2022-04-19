@@ -1,7 +1,7 @@
-import { IconBuilding } from "../icons";
+import { iconBuilding } from "@/components/icons";
 
 const icons = {
-    building: IconBuilding,
+    building: iconBuilding,
 };
 
 const EmployerInfo = () => {

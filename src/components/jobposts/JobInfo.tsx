@@ -1,7 +1,7 @@
-import { IconDollar } from "../icons";
+import { iconDollar } from "../icons";
 
 const icons = {
-    dollar: IconDollar,
+    dollar: iconDollar,
 };
 
 const JobInfo = () => {

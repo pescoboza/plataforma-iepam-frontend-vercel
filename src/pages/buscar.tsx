@@ -1,8 +1,7 @@
 import Head from "next/head";
-import NavbarSignedOut from "../components/general/NavbarSignedOut";
-import Footer from "../components/general/Footer";
-import Welcome from "../components/landing/Welcome";
-import LogoClouds from "../components/landing/LogoClouds";
+import Navbar from "@/components/general/Navbar";
+import Footer from "@/components/general/Footer";
+import Dashboard from "@/components/dashboard/Dashboard";
 
 const Page = () => {
     return (
@@ -13,12 +12,11 @@ const Page = () => {
                 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
             </Head>
             <header>
-                <NavbarSignedOut />
+                <Navbar />
             </header>
             <main className="overflow-hidden bg-white">
                 <div className="mt-4 pt-12">
-                    <Welcome />
-                    <LogoClouds />
+                    <Dashboard />
                 </div>
             </main>
             <Footer />

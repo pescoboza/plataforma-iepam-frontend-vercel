@@ -19,7 +19,7 @@ const BreadCrumbs: FC<{ breadcrumbs: { name: string; href: string; current: bool
                             <ol className="flex items-center space-x-4">
                                 <li>
                                     <div>
-                                        <Link href="/" passHref>
+                                        <Link href="/">
                                             <div className="cursor-pointer text-gray-400 hover:text-gray-500">
                                                 <span className="sr-only">Home</span>
                                                 <icons.home className="h-5 w-5 flex-shrink-0" aria-hidden="true" />

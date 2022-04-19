@@ -66,12 +66,14 @@ const MobileDropDown: FC<{ open: boolean }> = ({ open }) => {
                                     <div className="flex items-center justify-between px-2">
                                         <div className="flex items-center">
                                             <Link href="/">
-                                                <span className="sr-only">Home</span>
-                                                <img
-                                                    className="h-12 w-auto md:ml-2 md:mt-1 md:h-14"
-                                                    src="/images/iepam-logo.svg"
-                                                    alt="Gobierno Nuevo León"
-                                                />
+                                                <>
+                                                    <span className="sr-only">Home</span>
+                                                    <img
+                                                        className="h-12 w-auto md:ml-2 md:mt-1 md:h-14"
+                                                        src="/images/iepam-logo.svg"
+                                                        alt="Gobierno Nuevo León"
+                                                    />
+                                                </>
                                             </Link>
                                             <span className="ml-3 rounded-md border border-gray-500 bg-gray-50 py-1 px-3 text-center text-sm leading-none tracking-tighter text-gray-600">
                                                 Candidatos

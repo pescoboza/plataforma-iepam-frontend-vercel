@@ -1,8 +1,8 @@
-import { IconCircledCheck, IconPlus } from "@/components/icons";
+import { iconCircledCheck, iconPlus } from "@/components/icons";
 
 const icons = {
-    circledCheck: IconCircledCheck,
-    plus: IconPlus,
+    circledCheck: iconCircledCheck,
+    plus: iconPlus,
 };
 
 const Abilities = () => {

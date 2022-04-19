@@ -26,7 +26,7 @@ export default function SignIn() {
         <>
             <div className="flex flex-col justify-center py-20 sm:px-4">
                 <div className="sm:mx-auto sm:w-full sm:max-w-md">
-                    <Link href="/" passHref>
+                    <Link href="/">
                         <a className="flex items-center  justify-center">
                             <img
                                 className="h-16 w-auto cursor-pointer"
