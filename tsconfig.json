@@ -18,7 +18,10 @@
         "paths": {
             "@/lib/*": ["lib/*"],
             "@/env/*": ["lib/env/*"],
-            "@/codegen/*": ["lib/codegen/*"]
+            "@/helpers/*": ["lib/helpers/*"],
+            "@/codegen/*": ["lib/codegen/*"],
+            "@/components/*": ["components/*"],
+            "@/hooks/*": ["lib/hooks/*"]
         }
     },
     "include": ["next-env.d.ts", "./**/*.ts", "../**/*.tsx"],
