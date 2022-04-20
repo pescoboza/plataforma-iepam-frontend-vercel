@@ -1,8 +1,26 @@
 query Empresas {
-  empresa {
-    id
-    fechaCreacion
-    nombre
-    descripcion
-  }
+    empresa {
+        id
+        fechaCreacion
+        nombre
+        descripcion
+    }
+}
+
+query EmpresasTest {
+    empresa(filter: { nombre: { _contains: "Sapos" } }) {
+        id
+        fechaCreacion
+        nombre
+        descripcion
+    }
+}
+
+query EmpresasTest2($startsWith: String!) {
+    empresa(filter: { nombre: { _starts_with: $startsWith } }) {
+        id
+        fechaCreacion
+        nombre
+        descripcion
+    }
 }

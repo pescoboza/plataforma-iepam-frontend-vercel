@@ -254,6 +254,18 @@ export type EmpresasQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type EmpresasQuery = { __typename?: 'Query', empresa?: Array<{ __typename?: 'empresa', id?: string | null, fechaCreacion?: any | null, nombre?: string | null, descripcion?: string | null } | null> | null };
 
+export type EmpresasTestQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type EmpresasTestQuery = { __typename?: 'Query', empresa?: Array<{ __typename?: 'empresa', id?: string | null, fechaCreacion?: any | null, nombre?: string | null, descripcion?: string | null } | null> | null };
+
+export type EmpresasTest2QueryVariables = Exact<{
+  startsWith: Scalars['String'];
+}>;
+
+
+export type EmpresasTest2Query = { __typename?: 'Query', empresa?: Array<{ __typename?: 'empresa', id?: string | null, fechaCreacion?: any | null, nombre?: string | null, descripcion?: string | null } | null> | null };
+
 
 export const EmpresasDocument = gql`
     query Empresas {
@@ -292,3 +304,78 @@ export function useEmpresasLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<E
 export type EmpresasQueryHookResult = ReturnType<typeof useEmpresasQuery>;
 export type EmpresasLazyQueryHookResult = ReturnType<typeof useEmpresasLazyQuery>;
 export type EmpresasQueryResult = Apollo.QueryResult<EmpresasQuery, EmpresasQueryVariables>;
+export const EmpresasTestDocument = gql`
+    query EmpresasTest {
+  empresa(filter: {nombre: {_contains: "Sapos"}}) {
+    id
+    fechaCreacion
+    nombre
+    descripcion
+  }
+}
+    `;
+
+/**
+ * __useEmpresasTestQuery__
+ *
+ * To run a query within a React component, call `useEmpresasTestQuery` and pass it any options that fit your needs.
+ * When your component renders, `useEmpresasTestQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useEmpresasTestQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useEmpresasTestQuery(baseOptions?: Apollo.QueryHookOptions<EmpresasTestQuery, EmpresasTestQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<EmpresasTestQuery, EmpresasTestQueryVariables>(EmpresasTestDocument, options);
+      }
+export function useEmpresasTestLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<EmpresasTestQuery, EmpresasTestQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<EmpresasTestQuery, EmpresasTestQueryVariables>(EmpresasTestDocument, options);
+        }
+export type EmpresasTestQueryHookResult = ReturnType<typeof useEmpresasTestQuery>;
+export type EmpresasTestLazyQueryHookResult = ReturnType<typeof useEmpresasTestLazyQuery>;
+export type EmpresasTestQueryResult = Apollo.QueryResult<EmpresasTestQuery, EmpresasTestQueryVariables>;
+export const EmpresasTest2Document = gql`
+    query EmpresasTest2($startsWith: String!) {
+  empresa(filter: {nombre: {_starts_with: $startsWith}}) {
+    id
+    fechaCreacion
+    nombre
+    descripcion
+  }
+}
+    `;
+
+/**
+ * __useEmpresasTest2Query__
+ *
+ * To run a query within a React component, call `useEmpresasTest2Query` and pass it any options that fit your needs.
+ * When your component renders, `useEmpresasTest2Query` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useEmpresasTest2Query({
+ *   variables: {
+ *      startsWith: // value for 'startsWith'
+ *   },
+ * });
+ */
+export function useEmpresasTest2Query(baseOptions: Apollo.QueryHookOptions<EmpresasTest2Query, EmpresasTest2QueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<EmpresasTest2Query, EmpresasTest2QueryVariables>(EmpresasTest2Document, options);
+      }
+export function useEmpresasTest2LazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<EmpresasTest2Query, EmpresasTest2QueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<EmpresasTest2Query, EmpresasTest2QueryVariables>(EmpresasTest2Document, options);
+        }
+export type EmpresasTest2QueryHookResult = ReturnType<typeof useEmpresasTest2Query>;
+export type EmpresasTest2LazyQueryHookResult = ReturnType<typeof useEmpresasTest2LazyQuery>;
+export type EmpresasTest2QueryResult = Apollo.QueryResult<EmpresasTest2Query, EmpresasTest2QueryVariables>;
