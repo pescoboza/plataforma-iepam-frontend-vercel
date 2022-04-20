@@ -12,7 +12,7 @@ export default function Navbar() {
     const [user, setuser] = useState(false);
     useEffect(() => {
         if (typeof window === "undefined") return;
-        setuser(JSON.parse(localStorage.getItem("user") || ""));
+        setuser(JSON.parse(localStorage.getItem("user") ?? "null"));
     }, []);
     return (
         <div className="fixed z-10 w-full">

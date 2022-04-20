@@ -1,4 +1,5 @@
 import "../styles/globals.css";
+
 import type { FC } from "react";
 import type { AppProps } from "next/app";
 import { ApolloPersistentProvider } from "@/lib/apollo";

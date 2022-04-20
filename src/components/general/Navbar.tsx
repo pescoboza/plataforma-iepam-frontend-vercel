@@ -20,7 +20,7 @@ const icons = {
 export default function Navbar() {
     const [user, setuser] = useState(false);
     useEffect(() => {
-        setuser(JSON.parse(localStorage.getItem("user") || ""));
+        if (typeof window !== "undefined") setuser(JSON.parse(localStorage.getItem("user") ?? "null"));
     }, []);
     return (
         <div className="fixed z-10 w-full">

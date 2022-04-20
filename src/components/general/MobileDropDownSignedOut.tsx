@@ -20,7 +20,7 @@ const MobileDropDown: FC<{ open: boolean }> = ({ open }) => {
     const [user, setuser] = useState(false);
     useEffect(() => {
         if (typeof window === "undefined") return;
-        setuser(JSON.parse(localStorage.getItem("user") ?? ""));
+        setuser(JSON.parse(localStorage.getItem("user") ?? "null"));
     }, []);
 
     return (
