@@ -4,6 +4,20 @@ query Empresas {
     }
 }
 
+query Listas {
+  puesto {
+    id
+    nombre
+    jornada
+    empresa {
+      nombreComercial
+      ciudad
+    }
+    status
+    fechaCreacion
+  }
+}
+
 query FormPage_PuestosStaticPaths {
     puestos: puesto(filter: { status: { _eq: "published" } }) {
         id

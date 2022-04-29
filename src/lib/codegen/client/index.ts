@@ -332,6 +332,21 @@ export type PuestosQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type PuestosQuery = { __typename?: 'Query', puesto?: Array<{ __typename?: 'puesto', id?: string | null, fechaCreacion?: any | null, nivelEstudios?: string | null, nombre: string, jornada: string, turno: string, descripcion: string, numVacantes?: number | null } | null> | null };
 
+export type ListasQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type ListasQuery = { __typename?: 'Query', puesto?: Array<{ __typename?: 'puesto', id?: string | null, nombre: string, jornada: string, status: string, fechaCreacion?: any | null, empresa?: { __typename?: 'empresa', nombreComercial: string, ciudad: string } | null } | null> | null };
+
+export type DescripcionQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type DescripcionQuery = { __typename?: 'Query', puesto?: Array<{ __typename?: 'puesto', id?: string | null, descripcion: string, nivelEstudios?: string | null, numVacantes?: number | null, turno: string } | null> | null };
+
+export type FilterListQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type FilterListQuery = { __typename?: 'Query', puesto?: Array<{ __typename?: 'puesto', id?: string | null, nombre: string, jornada: string, status: string, fechaCreacion?: any | null, empresa?: { __typename?: 'empresa', nombreComercial: string, ciudad: string } | null } | null> | null };
+
 export type SubmitFormAplicacionMutationVariables = Exact<{
   data: Create_Aplicacion_Input;
 }>;
@@ -381,6 +396,128 @@ export function usePuestosLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Pu
 export type PuestosQueryHookResult = ReturnType<typeof usePuestosQuery>;
 export type PuestosLazyQueryHookResult = ReturnType<typeof usePuestosLazyQuery>;
 export type PuestosQueryResult = Apollo.QueryResult<PuestosQuery, PuestosQueryVariables>;
+export const ListasDocument = gql`
+    query Listas {
+  puesto {
+    id
+    nombre
+    jornada
+    empresa {
+      nombreComercial
+      ciudad
+    }
+    status
+    fechaCreacion
+  }
+}
+    `;
+
+/**
+ * __useListasQuery__
+ *
+ * To run a query within a React component, call `useListasQuery` and pass it any options that fit your needs.
+ * When your component renders, `useListasQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useListasQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useListasQuery(baseOptions?: Apollo.QueryHookOptions<ListasQuery, ListasQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<ListasQuery, ListasQueryVariables>(ListasDocument, options);
+      }
+export function useListasLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ListasQuery, ListasQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<ListasQuery, ListasQueryVariables>(ListasDocument, options);
+        }
+export type ListasQueryHookResult = ReturnType<typeof useListasQuery>;
+export type ListasLazyQueryHookResult = ReturnType<typeof useListasLazyQuery>;
+export type ListasQueryResult = Apollo.QueryResult<ListasQuery, ListasQueryVariables>;
+export const DescripcionDocument = gql`
+    query Descripcion {
+  puesto(filter: {id: {_eq: 2}}) {
+    id
+    descripcion
+    nivelEstudios
+    numVacantes
+    turno
+  }
+}
+    `;
+
+/**
+ * __useDescripcionQuery__
+ *
+ * To run a query within a React component, call `useDescripcionQuery` and pass it any options that fit your needs.
+ * When your component renders, `useDescripcionQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useDescripcionQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useDescripcionQuery(baseOptions?: Apollo.QueryHookOptions<DescripcionQuery, DescripcionQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<DescripcionQuery, DescripcionQueryVariables>(DescripcionDocument, options);
+      }
+export function useDescripcionLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<DescripcionQuery, DescripcionQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<DescripcionQuery, DescripcionQueryVariables>(DescripcionDocument, options);
+        }
+export type DescripcionQueryHookResult = ReturnType<typeof useDescripcionQuery>;
+export type DescripcionLazyQueryHookResult = ReturnType<typeof useDescripcionLazyQuery>;
+export type DescripcionQueryResult = Apollo.QueryResult<DescripcionQuery, DescripcionQueryVariables>;
+export const FilterListDocument = gql`
+    query filterList {
+  puesto(filter: {nombre: {_contains: "M"}}) {
+    id
+    nombre
+    jornada
+    empresa {
+      nombreComercial
+      ciudad
+    }
+    status
+    fechaCreacion
+  }
+}
+    `;
+
+/**
+ * __useFilterListQuery__
+ *
+ * To run a query within a React component, call `useFilterListQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFilterListQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFilterListQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useFilterListQuery(baseOptions?: Apollo.QueryHookOptions<FilterListQuery, FilterListQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<FilterListQuery, FilterListQueryVariables>(FilterListDocument, options);
+      }
+export function useFilterListLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FilterListQuery, FilterListQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<FilterListQuery, FilterListQueryVariables>(FilterListDocument, options);
+        }
+export type FilterListQueryHookResult = ReturnType<typeof useFilterListQuery>;
+export type FilterListLazyQueryHookResult = ReturnType<typeof useFilterListLazyQuery>;
+export type FilterListQueryResult = Apollo.QueryResult<FilterListQuery, FilterListQueryVariables>;
 export const SubmitFormAplicacionDocument = gql`
     mutation SubmitFormAplicacion($data: create_aplicacion_input!) {
   success: create_aplicacion_item(data: $data)

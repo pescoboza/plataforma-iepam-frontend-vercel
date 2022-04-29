@@ -332,6 +332,11 @@ export type EmpresasQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type EmpresasQuery = { __typename?: 'Query', empresa?: Array<{ __typename?: 'empresa', id?: string | null } | null> | null };
 
+export type ListasQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type ListasQuery = { __typename?: 'Query', puesto?: Array<{ __typename?: 'puesto', id?: string | null, nombre: string, jornada: string, status: string, fechaCreacion?: any | null, empresa?: { __typename?: 'empresa', nombreComercial: string, ciudad: string } | null } | null> | null };
+
 export type FormPage_PuestosStaticPathsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -349,6 +354,21 @@ export const EmpresasDocument = gql`
     query Empresas {
   empresa {
     id
+  }
+}
+    `;
+export const ListasDocument = gql`
+    query Listas {
+  puesto {
+    id
+    nombre
+    jornada
+    empresa {
+      nombreComercial
+      ciudad
+    }
+    status
+    fechaCreacion
   }
 }
     `;
@@ -390,6 +410,9 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
   return {
     Empresas(variables?: EmpresasQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<EmpresasQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<EmpresasQuery>(EmpresasDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'Empresas', 'query');
+    },
+    Listas(variables?: ListasQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<ListasQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<ListasQuery>(ListasDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'Listas', 'query');
     },
     FormPage_PuestosStaticPaths(variables?: FormPage_PuestosStaticPathsQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<FormPage_PuestosStaticPathsQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<FormPage_PuestosStaticPathsQuery>(FormPage_PuestosStaticPathsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'FormPage_PuestosStaticPaths', 'query');

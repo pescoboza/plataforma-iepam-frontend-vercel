@@ -11,6 +11,44 @@ query Puestos {
     }
 }
 
+query Listas {
+  puesto {
+    id
+    nombre
+    jornada
+    empresa {
+      nombreComercial
+      ciudad
+    }
+    status
+    fechaCreacion
+  }
+}
+
+query Descripcion {
+  puesto(filter: {id: {_eq: 2}}) {
+    id
+    descripcion
+    nivelEstudios
+    numVacantes
+    turno
+  }
+}
+
+query filterList {
+  puesto(filter: {nombre: {_contains: "M"}}) {
+    id
+    nombre
+    jornada
+    empresa {
+      nombreComercial
+      ciudad
+    }
+    status
+    fechaCreacion
+  }
+}
+
 mutation SubmitFormAplicacion($data: create_aplicacion_input!) {
     success: create_aplicacion_item(data: $data)
 }
