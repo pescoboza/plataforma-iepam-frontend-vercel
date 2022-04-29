@@ -12,7 +12,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
         paths.push(`/empleos/${id}`);
     });
 
-    return { paths, fallback: "blocking" };
+    return { paths, fallback: true };
 };
 
 type Props = NonNullable<Awaited<ReturnType<typeof sdk["FormPage_PuestoById"]>>["puesto"]> & {
