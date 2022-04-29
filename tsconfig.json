@@ -21,7 +21,8 @@
             "@/helpers/*": ["lib/helpers/*"],
             "@/codegen/*": ["lib/codegen/*"],
             "@/components/*": ["components/*"],
-            "@/hooks/*": ["lib/hooks/*"]
+            "@/hooks/*": ["lib/hooks/*"],
+            "@/styles/*":["styles/*"]
         }
     },
     "include": ["next-env.d.ts", "./**/*.ts", "./**/*.tsx"],
