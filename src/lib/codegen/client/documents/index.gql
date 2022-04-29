@@ -1,26 +1,16 @@
-query Empresas {
-    empresa {
+query Puestos {
+    puesto {
         id
         fechaCreacion
+        nivelEstudios
         nombre
+        jornada
+        turno
         descripcion
+        numVacantes
     }
 }
 
-query EmpresasTest {
-    empresa(filter: { nombre: { _contains: "Sapos" } }) {
-        id
-        fechaCreacion
-        nombre
-        descripcion
-    }
-}
-
-query EmpresasTest2($startsWith: String!) {
-    empresa(filter: { nombre: { _starts_with: $startsWith } }) {
-        id
-        fechaCreacion
-        nombre
-        descripcion
-    }
+mutation SubmitFormAplicacion($data: create_aplicacion_input!) {
+    success: create_aplicacion_item(data: $data)
 }

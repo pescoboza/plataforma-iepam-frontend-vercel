@@ -1,8 +1,5 @@
 query Empresas {
-  empresa {
-    id
-    fechaCreacion
-    nombre
-    descripcion
-  }
+    empresa {
+        id
+    }
 }

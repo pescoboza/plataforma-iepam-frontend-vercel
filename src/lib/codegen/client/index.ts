@@ -19,6 +19,22 @@ export type Scalars = {
   JSON: any;
 };
 
+export type Mutation = {
+  __typename?: 'Mutation';
+  create_aplicacion_item?: Maybe<Scalars['Boolean']>;
+  create_aplicacion_items?: Maybe<Scalars['Boolean']>;
+};
+
+
+export type MutationCreate_Aplicacion_ItemArgs = {
+  data: Create_Aplicacion_Input;
+};
+
+
+export type MutationCreate_Aplicacion_ItemsArgs = {
+  data?: InputMaybe<Array<Create_Aplicacion_Input>>;
+};
+
 export type Query = {
   __typename?: 'Query';
   empresa?: Maybe<Array<Maybe<Empresa>>>;
@@ -77,6 +93,25 @@ export type QueryPuesto_By_IdArgs = {
   id: Scalars['ID'];
 };
 
+export type Create_Aplicacion_Input = {
+  apellidoMaterno: Scalars['String'];
+  apellidoPaterno: Scalars['String'];
+  correo: Scalars['String'];
+  direccion: Scalars['String'];
+  fechaActualizacion?: InputMaybe<Scalars['Date']>;
+  fechaActualizacion_func?: InputMaybe<Datetime_FunctionsInput>;
+  fechaCreacion?: InputMaybe<Scalars['Date']>;
+  fechaCreacion_func?: InputMaybe<Datetime_FunctionsInput>;
+  fechaNacimiento: Scalars['Date'];
+  fechaNacimiento_func?: InputMaybe<Date_FunctionsInput>;
+  id?: InputMaybe<Scalars['ID']>;
+  otrosNombres?: InputMaybe<Scalars['String']>;
+  primerNombre: Scalars['String'];
+  sexo: Scalars['String'];
+  status: Scalars['String'];
+  telefono: Scalars['String'];
+};
+
 export type Date_Filter_Operators = {
   _eq?: InputMaybe<Scalars['String']>;
   _gt?: InputMaybe<Scalars['String']>;
@@ -86,6 +121,14 @@ export type Date_Filter_Operators = {
   _neq?: InputMaybe<Scalars['String']>;
   _nnull?: InputMaybe<Scalars['Boolean']>;
   _null?: InputMaybe<Scalars['Boolean']>;
+};
+
+export type Date_FunctionsInput = {
+  day?: InputMaybe<Scalars['Int']>;
+  month?: InputMaybe<Scalars['Int']>;
+  week?: InputMaybe<Scalars['Int']>;
+  weekday?: InputMaybe<Scalars['Int']>;
+  year?: InputMaybe<Scalars['Int']>;
 };
 
 export type Datetime_Function_Filter_Operators = {
@@ -111,18 +154,39 @@ export type Datetime_Functions = {
   year?: Maybe<Scalars['Int']>;
 };
 
+export type Datetime_FunctionsInput = {
+  day?: InputMaybe<Scalars['Int']>;
+  hour?: InputMaybe<Scalars['Int']>;
+  minute?: InputMaybe<Scalars['Int']>;
+  month?: InputMaybe<Scalars['Int']>;
+  second?: InputMaybe<Scalars['Int']>;
+  week?: InputMaybe<Scalars['Int']>;
+  weekday?: InputMaybe<Scalars['Int']>;
+  year?: InputMaybe<Scalars['Int']>;
+};
+
 export type Empresa = {
   __typename?: 'empresa';
-  actualizadoPor?: Maybe<Scalars['String']>;
-  creadoPor?: Maybe<Scalars['String']>;
-  descripcion?: Maybe<Scalars['String']>;
+  calle: Scalars['String'];
+  ciudad: Scalars['String'];
+  clave: Scalars['String'];
+  codigoPostal: Scalars['String'];
+  colonia: Scalars['String'];
+  correo: Scalars['String'];
+  direccion: Scalars['String'];
+  estado: Scalars['String'];
   fechaActualizacion?: Maybe<Scalars['Date']>;
   fechaActualizacion_func?: Maybe<Datetime_Functions>;
   fechaCreacion?: Maybe<Scalars['Date']>;
   fechaCreacion_func?: Maybe<Datetime_Functions>;
   id?: Maybe<Scalars['ID']>;
-  nombre?: Maybe<Scalars['String']>;
+  industria: Scalars['String'];
+  nombreComercial: Scalars['String'];
+  pais: Scalars['String'];
+  razonSocial: Scalars['String'];
+  rfc: Scalars['String'];
   status: Scalars['String'];
+  telefono: Scalars['String'];
 };
 
 export type Empresa_Aggregated = {
@@ -146,16 +210,26 @@ export type Empresa_Aggregated_Fields = {
 export type Empresa_Filter = {
   _and?: InputMaybe<Array<InputMaybe<Empresa_Filter>>>;
   _or?: InputMaybe<Array<InputMaybe<Empresa_Filter>>>;
-  actualizadoPor?: InputMaybe<String_Filter_Operators>;
-  creadoPor?: InputMaybe<String_Filter_Operators>;
-  descripcion?: InputMaybe<String_Filter_Operators>;
+  calle?: InputMaybe<String_Filter_Operators>;
+  ciudad?: InputMaybe<String_Filter_Operators>;
+  clave?: InputMaybe<String_Filter_Operators>;
+  codigoPostal?: InputMaybe<String_Filter_Operators>;
+  colonia?: InputMaybe<String_Filter_Operators>;
+  correo?: InputMaybe<String_Filter_Operators>;
+  direccion?: InputMaybe<String_Filter_Operators>;
+  estado?: InputMaybe<String_Filter_Operators>;
   fechaActualizacion?: InputMaybe<Date_Filter_Operators>;
   fechaActualizacion_func?: InputMaybe<Datetime_Function_Filter_Operators>;
   fechaCreacion?: InputMaybe<Date_Filter_Operators>;
   fechaCreacion_func?: InputMaybe<Datetime_Function_Filter_Operators>;
   id?: InputMaybe<Number_Filter_Operators>;
-  nombre?: InputMaybe<String_Filter_Operators>;
+  industria?: InputMaybe<String_Filter_Operators>;
+  nombreComercial?: InputMaybe<String_Filter_Operators>;
+  pais?: InputMaybe<String_Filter_Operators>;
+  razonSocial?: InputMaybe<String_Filter_Operators>;
+  rfc?: InputMaybe<String_Filter_Operators>;
   status?: InputMaybe<String_Filter_Operators>;
+  telefono?: InputMaybe<String_Filter_Operators>;
 };
 
 export type Number_Filter_Operators = {
@@ -173,17 +247,19 @@ export type Number_Filter_Operators = {
 
 export type Puesto = {
   __typename?: 'puesto';
-  actualizadoPor?: Maybe<Scalars['String']>;
-  creadoPor?: Maybe<Scalars['String']>;
+  descripcion: Scalars['String'];
   empresa?: Maybe<Empresa>;
   fechaActualizacion?: Maybe<Scalars['Date']>;
   fechaActualizacion_func?: Maybe<Datetime_Functions>;
   fechaCreacion?: Maybe<Scalars['Date']>;
   fechaCreacion_func?: Maybe<Datetime_Functions>;
   id?: Maybe<Scalars['ID']>;
-  nombre?: Maybe<Scalars['String']>;
+  jornada: Scalars['String'];
+  nivelEstudios?: Maybe<Scalars['String']>;
+  nombre: Scalars['String'];
   numVacantes?: Maybe<Scalars['Int']>;
   status: Scalars['String'];
+  turno: Scalars['String'];
 };
 
 
@@ -219,17 +295,19 @@ export type Puesto_Aggregated_Fields = {
 export type Puesto_Filter = {
   _and?: InputMaybe<Array<InputMaybe<Puesto_Filter>>>;
   _or?: InputMaybe<Array<InputMaybe<Puesto_Filter>>>;
-  actualizadoPor?: InputMaybe<String_Filter_Operators>;
-  creadoPor?: InputMaybe<String_Filter_Operators>;
+  descripcion?: InputMaybe<String_Filter_Operators>;
   empresa?: InputMaybe<Empresa_Filter>;
   fechaActualizacion?: InputMaybe<Date_Filter_Operators>;
   fechaActualizacion_func?: InputMaybe<Datetime_Function_Filter_Operators>;
   fechaCreacion?: InputMaybe<Date_Filter_Operators>;
   fechaCreacion_func?: InputMaybe<Datetime_Function_Filter_Operators>;
   id?: InputMaybe<Number_Filter_Operators>;
+  jornada?: InputMaybe<String_Filter_Operators>;
+  nivelEstudios?: InputMaybe<String_Filter_Operators>;
   nombre?: InputMaybe<String_Filter_Operators>;
   numVacantes?: InputMaybe<Number_Filter_Operators>;
   status?: InputMaybe<String_Filter_Operators>;
+  turno?: InputMaybe<String_Filter_Operators>;
 };
 
 export type String_Filter_Operators = {
@@ -249,133 +327,88 @@ export type String_Filter_Operators = {
   _starts_with?: InputMaybe<Scalars['String']>;
 };
 
-export type EmpresasQueryVariables = Exact<{ [key: string]: never; }>;
+export type PuestosQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type EmpresasQuery = { __typename?: 'Query', empresa?: Array<{ __typename?: 'empresa', id?: string | null, fechaCreacion?: any | null, nombre?: string | null, descripcion?: string | null } | null> | null };
+export type PuestosQuery = { __typename?: 'Query', puesto?: Array<{ __typename?: 'puesto', id?: string | null, fechaCreacion?: any | null, nivelEstudios?: string | null, nombre: string, jornada: string, turno: string, descripcion: string, numVacantes?: number | null } | null> | null };
 
-export type EmpresasTestQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type EmpresasTestQuery = { __typename?: 'Query', empresa?: Array<{ __typename?: 'empresa', id?: string | null, fechaCreacion?: any | null, nombre?: string | null, descripcion?: string | null } | null> | null };
-
-export type EmpresasTest2QueryVariables = Exact<{
-  startsWith: Scalars['String'];
+export type SubmitFormAplicacionMutationVariables = Exact<{
+  data: Create_Aplicacion_Input;
 }>;
 
 
-export type EmpresasTest2Query = { __typename?: 'Query', empresa?: Array<{ __typename?: 'empresa', id?: string | null, fechaCreacion?: any | null, nombre?: string | null, descripcion?: string | null } | null> | null };
+export type SubmitFormAplicacionMutation = { __typename?: 'Mutation', success?: boolean | null };
 
 
-export const EmpresasDocument = gql`
-    query Empresas {
-  empresa {
+export const PuestosDocument = gql`
+    query Puestos {
+  puesto {
     id
     fechaCreacion
+    nivelEstudios
     nombre
+    jornada
+    turno
     descripcion
+    numVacantes
   }
 }
     `;
 
 /**
- * __useEmpresasQuery__
+ * __usePuestosQuery__
  *
- * To run a query within a React component, call `useEmpresasQuery` and pass it any options that fit your needs.
- * When your component renders, `useEmpresasQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `usePuestosQuery` and pass it any options that fit your needs.
+ * When your component renders, `usePuestosQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useEmpresasQuery({
+ * const { data, loading, error } = usePuestosQuery({
  *   variables: {
  *   },
  * });
  */
-export function useEmpresasQuery(baseOptions?: Apollo.QueryHookOptions<EmpresasQuery, EmpresasQueryVariables>) {
+export function usePuestosQuery(baseOptions?: Apollo.QueryHookOptions<PuestosQuery, PuestosQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<EmpresasQuery, EmpresasQueryVariables>(EmpresasDocument, options);
+        return Apollo.useQuery<PuestosQuery, PuestosQueryVariables>(PuestosDocument, options);
       }
-export function useEmpresasLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<EmpresasQuery, EmpresasQueryVariables>) {
+export function usePuestosLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<PuestosQuery, PuestosQueryVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<EmpresasQuery, EmpresasQueryVariables>(EmpresasDocument, options);
+          return Apollo.useLazyQuery<PuestosQuery, PuestosQueryVariables>(PuestosDocument, options);
         }
-export type EmpresasQueryHookResult = ReturnType<typeof useEmpresasQuery>;
-export type EmpresasLazyQueryHookResult = ReturnType<typeof useEmpresasLazyQuery>;
-export type EmpresasQueryResult = Apollo.QueryResult<EmpresasQuery, EmpresasQueryVariables>;
-export const EmpresasTestDocument = gql`
-    query EmpresasTest {
-  empresa(filter: {nombre: {_contains: "Sapos"}}) {
-    id
-    fechaCreacion
-    nombre
-    descripcion
-  }
+export type PuestosQueryHookResult = ReturnType<typeof usePuestosQuery>;
+export type PuestosLazyQueryHookResult = ReturnType<typeof usePuestosLazyQuery>;
+export type PuestosQueryResult = Apollo.QueryResult<PuestosQuery, PuestosQueryVariables>;
+export const SubmitFormAplicacionDocument = gql`
+    mutation SubmitFormAplicacion($data: create_aplicacion_input!) {
+  success: create_aplicacion_item(data: $data)
 }
     `;
+export type SubmitFormAplicacionMutationFn = Apollo.MutationFunction<SubmitFormAplicacionMutation, SubmitFormAplicacionMutationVariables>;
 
 /**
- * __useEmpresasTestQuery__
+ * __useSubmitFormAplicacionMutation__
  *
- * To run a query within a React component, call `useEmpresasTestQuery` and pass it any options that fit your needs.
- * When your component renders, `useEmpresasTestQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
+ * To run a mutation, you first call `useSubmitFormAplicacionMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useSubmitFormAplicacionMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
  *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
  *
  * @example
- * const { data, loading, error } = useEmpresasTestQuery({
+ * const [submitFormAplicacionMutation, { data, loading, error }] = useSubmitFormAplicacionMutation({
  *   variables: {
+ *      data: // value for 'data'
  *   },
  * });
  */
-export function useEmpresasTestQuery(baseOptions?: Apollo.QueryHookOptions<EmpresasTestQuery, EmpresasTestQueryVariables>) {
+export function useSubmitFormAplicacionMutation(baseOptions?: Apollo.MutationHookOptions<SubmitFormAplicacionMutation, SubmitFormAplicacionMutationVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<EmpresasTestQuery, EmpresasTestQueryVariables>(EmpresasTestDocument, options);
+        return Apollo.useMutation<SubmitFormAplicacionMutation, SubmitFormAplicacionMutationVariables>(SubmitFormAplicacionDocument, options);
       }
-export function useEmpresasTestLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<EmpresasTestQuery, EmpresasTestQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<EmpresasTestQuery, EmpresasTestQueryVariables>(EmpresasTestDocument, options);
-        }
-export type EmpresasTestQueryHookResult = ReturnType<typeof useEmpresasTestQuery>;
-export type EmpresasTestLazyQueryHookResult = ReturnType<typeof useEmpresasTestLazyQuery>;
-export type EmpresasTestQueryResult = Apollo.QueryResult<EmpresasTestQuery, EmpresasTestQueryVariables>;
-export const EmpresasTest2Document = gql`
-    query EmpresasTest2($startsWith: String!) {
-  empresa(filter: {nombre: {_starts_with: $startsWith}}) {
-    id
-    fechaCreacion
-    nombre
-    descripcion
-  }
-}
-    `;
-
-/**
- * __useEmpresasTest2Query__
- *
- * To run a query within a React component, call `useEmpresasTest2Query` and pass it any options that fit your needs.
- * When your component renders, `useEmpresasTest2Query` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useEmpresasTest2Query({
- *   variables: {
- *      startsWith: // value for 'startsWith'
- *   },
- * });
- */
-export function useEmpresasTest2Query(baseOptions: Apollo.QueryHookOptions<EmpresasTest2Query, EmpresasTest2QueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<EmpresasTest2Query, EmpresasTest2QueryVariables>(EmpresasTest2Document, options);
-      }
-export function useEmpresasTest2LazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<EmpresasTest2Query, EmpresasTest2QueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<EmpresasTest2Query, EmpresasTest2QueryVariables>(EmpresasTest2Document, options);
-        }
-export type EmpresasTest2QueryHookResult = ReturnType<typeof useEmpresasTest2Query>;
-export type EmpresasTest2LazyQueryHookResult = ReturnType<typeof useEmpresasTest2LazyQuery>;
-export type EmpresasTest2QueryResult = Apollo.QueryResult<EmpresasTest2Query, EmpresasTest2QueryVariables>;
+export type SubmitFormAplicacionMutationHookResult = ReturnType<typeof useSubmitFormAplicacionMutation>;
+export type SubmitFormAplicacionMutationResult = Apollo.MutationResult<SubmitFormAplicacionMutation>;
+export type SubmitFormAplicacionMutationOptions = Apollo.BaseMutationOptions<SubmitFormAplicacionMutation, SubmitFormAplicacionMutationVariables>;
