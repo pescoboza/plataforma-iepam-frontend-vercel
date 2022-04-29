@@ -3,3 +3,29 @@ query Empresas {
         id
     }
 }
+
+query FormPage_PuestosStaticPaths {
+    puestos: puesto(filter: { status: { _eq: "published" } }) {
+        id
+    }
+}
+
+query FormPage_PuestoById($id: ID!) {
+    puesto: puesto_by_id(id: $id) {
+        id
+        fechaCreacion
+        nombre
+        nivelEstudios
+        turno
+        jornada
+        numVacantes
+        empresa {
+            id
+            nombreComercial
+            ciudad
+            estado
+            colonia
+            direccion
+        }
+    }
+}

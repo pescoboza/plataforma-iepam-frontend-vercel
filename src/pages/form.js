@@ -5,7 +5,6 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useRouter } from "next/router";
 import Head from "next/head";
 import Script from "next/script";
-import { useSubmitFormAplicacionMutation } from "@/codegen/client";
 
 export default function form() {
     const router = useRouter();

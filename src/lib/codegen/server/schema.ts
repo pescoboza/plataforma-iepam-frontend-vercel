@@ -332,11 +332,51 @@ export type EmpresasQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type EmpresasQuery = { __typename?: 'Query', empresa?: Array<{ __typename?: 'empresa', id?: string | null } | null> | null };
 
+export type FormPage_PuestosStaticPathsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type FormPage_PuestosStaticPathsQuery = { __typename?: 'Query', puestos?: Array<{ __typename?: 'puesto', id?: string | null } | null> | null };
+
+export type FormPage_PuestoByIdQueryVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+
+export type FormPage_PuestoByIdQuery = { __typename?: 'Query', puesto?: { __typename?: 'puesto', id?: string | null, fechaCreacion?: any | null, nombre: string, nivelEstudios?: string | null, turno: string, jornada: string, numVacantes?: number | null, empresa?: { __typename?: 'empresa', id?: string | null, nombreComercial: string, ciudad: string, estado: string, colonia: string, direccion: string } | null } | null };
+
 
 export const EmpresasDocument = gql`
     query Empresas {
   empresa {
     id
+  }
+}
+    `;
+export const FormPage_PuestosStaticPathsDocument = gql`
+    query FormPage_PuestosStaticPaths {
+  puestos: puesto(filter: {status: {_eq: "published"}}) {
+    id
+  }
+}
+    `;
+export const FormPage_PuestoByIdDocument = gql`
+    query FormPage_PuestoById($id: ID!) {
+  puesto: puesto_by_id(id: $id) {
+    id
+    fechaCreacion
+    nombre
+    nivelEstudios
+    turno
+    jornada
+    numVacantes
+    empresa {
+      id
+      nombreComercial
+      ciudad
+      estado
+      colonia
+      direccion
+    }
   }
 }
     `;
@@ -350,6 +390,12 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
   return {
     Empresas(variables?: EmpresasQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<EmpresasQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<EmpresasQuery>(EmpresasDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'Empresas', 'query');
+    },
+    FormPage_PuestosStaticPaths(variables?: FormPage_PuestosStaticPathsQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<FormPage_PuestosStaticPathsQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<FormPage_PuestosStaticPathsQuery>(FormPage_PuestosStaticPathsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'FormPage_PuestosStaticPaths', 'query');
+    },
+    FormPage_PuestoById(variables: FormPage_PuestoByIdQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<FormPage_PuestoByIdQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<FormPage_PuestoByIdQuery>(FormPage_PuestoByIdDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'FormPage_PuestoById', 'query');
     }
   };
 }
