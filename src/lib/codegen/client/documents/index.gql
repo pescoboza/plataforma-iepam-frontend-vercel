@@ -1,26 +1,54 @@
-query Empresas {
+query Puestos {
+    puesto {
+        id
+        fechaCreacion
+        nivelEstudios
+        nombre
+        jornada
+        turno
+        descripcion
+        numVacantes
+    }
+}
+
+query Listas {
+  puesto {
+    id
+    nombre
+    jornada
     empresa {
-        id
-        fechaCreacion
-        nombre
-        descripcion
+      nombreComercial
+      ciudad
     }
+    status
+    fechaCreacion
+  }
 }
 
-query EmpresasTest {
-    empresa(filter: { nombre: { _contains: "Sapos" } }) {
-        id
-        fechaCreacion
-        nombre
-        descripcion
-    }
+query Descripcion {
+  puesto(filter: {id: {_eq: 2}}) {
+    id
+    descripcion
+    nivelEstudios
+    numVacantes
+    turno
+  }
 }
 
-query EmpresasTest2($startsWith: String!) {
-    empresa(filter: { nombre: { _starts_with: $startsWith } }) {
-        id
-        fechaCreacion
-        nombre
-        descripcion
+query filterList {
+  puesto(filter: {nombre: {_contains: "M"}}) {
+    id
+    nombre
+    jornada
+    empresa {
+      nombreComercial
+      ciudad
     }
+    status
+    fechaCreacion
+  }
+}
+
+mutation SubmitFormAplicacion($data: create_aplicacion_input!) {
+    success: create_aplicacion_item(data: $data)
 }
