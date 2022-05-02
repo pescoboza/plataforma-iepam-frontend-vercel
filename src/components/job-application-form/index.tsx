@@ -1,8 +1,9 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { useFormPage_SubmitFormDataMutation } from "@/codegen/client";
 
 interface JobApplicationFormData {
     primerNombre: string;
@@ -79,8 +80,26 @@ const JobApplicationForm: FC<{ puestoId: string }> = ({ puestoId }) => {
         resolver: yupResolver(schema),
     });
 
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState<string | null>(null);
+    const [submitData] = useFormPage_SubmitFormDataMutation();
+
     const onSubmit = handleSubmit((data) => {
-        router.push("/exito/2");
+        setLoading(true);
+        setError(null);
+
+        submitData({ variables: { ...data, puestoId } })
+            .then((res) => {
+                setLoading(false);
+                setError(null);
+
+                console.log(res);
+            })
+            .catch((err) => {
+                setLoading(false);
+                setError("Ocurrió un error inesperado, inténtelo más tarde.");
+                console.error(err);
+            });
     });
 
     return (
@@ -253,12 +272,18 @@ const JobApplicationForm: FC<{ puestoId: string }> = ({ puestoId }) => {
                             />
                             {errors.codigoPostal && <div className="red">{errors.codigoPostal.message}</div>}
                         </div>
+                        {error && (
+                            <div>
+                                <span>{error}</span>
+                            </div>
+                        )}
+
                         <div>
                             <button
                                 className="w-full py-2 px-4 bg-[#6F206A] hover:bg-blue-700 rounded-md text-white text-sm"
                                 type="submit"
                             >
-                                Enviar
+                                {loading ? "Cargando..." : "Enviar"}
                             </button>
                         </div>
                     </form>

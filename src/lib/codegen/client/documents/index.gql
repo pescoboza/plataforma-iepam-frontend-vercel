@@ -61,6 +61,7 @@ mutation FormPage_SubmitFormData(
     $correo: String
     $telefono: String!
     $fechaNacimiento: Date!
+    $puestoId: ID!
 ) {
     success: create_aplicacion_item(
         data: {
@@ -77,6 +78,9 @@ mutation FormPage_SubmitFormData(
             sexo: $sexo
             telefono: $telefono
             status: "published"
+            puesto: { id: $puestoId }
         }
-    )
+    ) {
+        id
+    }
 }

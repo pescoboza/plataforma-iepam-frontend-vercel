@@ -21,8 +21,10 @@ export type Scalars = {
 
 export type Mutation = {
   __typename?: 'Mutation';
-  create_aplicacion_item?: Maybe<Scalars['Boolean']>;
-  create_aplicacion_items?: Maybe<Scalars['Boolean']>;
+  create_aplicacion_item?: Maybe<Aplicacion>;
+  create_aplicacion_items?: Maybe<Array<Maybe<Aplicacion>>>;
+  create_puesto_item?: Maybe<Puesto>;
+  create_puesto_items?: Maybe<Array<Maybe<Puesto>>>;
 };
 
 
@@ -33,16 +35,65 @@ export type MutationCreate_Aplicacion_ItemArgs = {
 
 export type MutationCreate_Aplicacion_ItemsArgs = {
   data?: InputMaybe<Array<Create_Aplicacion_Input>>;
+  filter?: InputMaybe<Aplicacion_Filter>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  page?: InputMaybe<Scalars['Int']>;
+  search?: InputMaybe<Scalars['String']>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+
+export type MutationCreate_Puesto_ItemArgs = {
+  data: Create_Puesto_Input;
+};
+
+
+export type MutationCreate_Puesto_ItemsArgs = {
+  data?: InputMaybe<Array<Create_Puesto_Input>>;
+  filter?: InputMaybe<Puesto_Filter>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  page?: InputMaybe<Scalars['Int']>;
+  search?: InputMaybe<Scalars['String']>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
 };
 
 export type Query = {
   __typename?: 'Query';
+  aplicacion?: Maybe<Array<Maybe<Aplicacion>>>;
+  aplicacion_aggregated?: Maybe<Array<Maybe<Aplicacion_Aggregated>>>;
+  aplicacion_by_id?: Maybe<Aplicacion>;
   empresa?: Maybe<Array<Maybe<Empresa>>>;
   empresa_aggregated?: Maybe<Array<Maybe<Empresa_Aggregated>>>;
   empresa_by_id?: Maybe<Empresa>;
   puesto?: Maybe<Array<Maybe<Puesto>>>;
   puesto_aggregated?: Maybe<Array<Maybe<Puesto_Aggregated>>>;
   puesto_by_id?: Maybe<Puesto>;
+};
+
+
+export type QueryAplicacionArgs = {
+  filter?: InputMaybe<Aplicacion_Filter>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  page?: InputMaybe<Scalars['Int']>;
+  search?: InputMaybe<Scalars['String']>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+
+export type QueryAplicacion_AggregatedArgs = {
+  filter?: InputMaybe<Aplicacion_Filter>;
+  groupBy?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  search?: InputMaybe<Scalars['String']>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+
+export type QueryAplicacion_By_IdArgs = {
+  id: Scalars['ID'];
 };
 
 
@@ -93,6 +144,35 @@ export type QueryPuesto_By_IdArgs = {
   id: Scalars['ID'];
 };
 
+export type Aplicacion = {
+  __typename?: 'aplicacion';
+  id?: Maybe<Scalars['ID']>;
+};
+
+export type Aplicacion_Aggregated = {
+  __typename?: 'aplicacion_aggregated';
+  avg?: Maybe<Aplicacion_Aggregated_Fields>;
+  avgDistinct?: Maybe<Aplicacion_Aggregated_Fields>;
+  count?: Maybe<Aplicacion_Aggregated_Fields>;
+  countDistinct?: Maybe<Aplicacion_Aggregated_Fields>;
+  group?: Maybe<Scalars['JSON']>;
+  max?: Maybe<Aplicacion_Aggregated_Fields>;
+  min?: Maybe<Aplicacion_Aggregated_Fields>;
+  sum?: Maybe<Aplicacion_Aggregated_Fields>;
+  sumDistinct?: Maybe<Aplicacion_Aggregated_Fields>;
+};
+
+export type Aplicacion_Aggregated_Fields = {
+  __typename?: 'aplicacion_aggregated_fields';
+  id?: Maybe<Scalars['Float']>;
+};
+
+export type Aplicacion_Filter = {
+  _and?: InputMaybe<Array<InputMaybe<Aplicacion_Filter>>>;
+  _or?: InputMaybe<Array<InputMaybe<Aplicacion_Filter>>>;
+  id?: InputMaybe<Number_Filter_Operators>;
+};
+
 export type Count_Function_Filter_Operators = {
   count?: InputMaybe<Number_Filter_Operators>;
 };
@@ -119,9 +199,14 @@ export type Create_Aplicacion_Input = {
   id?: InputMaybe<Scalars['ID']>;
   otrosNombres?: InputMaybe<Scalars['String']>;
   primerNombre: Scalars['String'];
+  puesto?: InputMaybe<Create_Puesto_Input>;
   sexo: Scalars['String'];
   status: Scalars['String'];
   telefono: Scalars['String'];
+};
+
+export type Create_Puesto_Input = {
+  id?: InputMaybe<Scalars['ID']>;
 };
 
 export type Date_Filter_Operators = {
@@ -354,10 +439,11 @@ export type FormPage_SubmitFormDataMutationVariables = Exact<{
   correo?: InputMaybe<Scalars['String']>;
   telefono: Scalars['String'];
   fechaNacimiento: Scalars['Date'];
+  puestoId: Scalars['ID'];
 }>;
 
 
-export type FormPage_SubmitFormDataMutation = { __typename?: 'Mutation', success?: boolean | null };
+export type FormPage_SubmitFormDataMutation = { __typename?: 'Mutation', success?: { __typename?: 'aplicacion', id?: string | null } | null };
 
 
 export const PuestosDocument = gql`
@@ -524,10 +610,12 @@ export type FilterListQueryHookResult = ReturnType<typeof useFilterListQuery>;
 export type FilterListLazyQueryHookResult = ReturnType<typeof useFilterListLazyQuery>;
 export type FilterListQueryResult = Apollo.QueryResult<FilterListQuery, FilterListQueryVariables>;
 export const FormPage_SubmitFormDataDocument = gql`
-    mutation FormPage_SubmitFormData($primerNombre: String!, $otrosNombres: String!, $apellidoMaterno: String!, $apellidoPaterno: String!, $ciudad: String!, $sexo: String!, $direccion: String!, $codigoPostal: String!, $colonia: String!, $correo: String, $telefono: String!, $fechaNacimiento: Date!) {
+    mutation FormPage_SubmitFormData($primerNombre: String!, $otrosNombres: String!, $apellidoMaterno: String!, $apellidoPaterno: String!, $ciudad: String!, $sexo: String!, $direccion: String!, $codigoPostal: String!, $colonia: String!, $correo: String, $telefono: String!, $fechaNacimiento: Date!, $puestoId: ID!) {
   success: create_aplicacion_item(
-    data: {primerNombre: $primerNombre, otrosNombres: $otrosNombres, apellidoPaterno: $apellidoPaterno, apellidoMaterno: $apellidoMaterno, fechaNacimiento: $fechaNacimiento, ciudad: $ciudad, codigoPostal: $codigoPostal, colonia: $colonia, correo: $correo, direccion: $direccion, sexo: $sexo, telefono: $telefono, status: "published"}
-  )
+    data: {primerNombre: $primerNombre, otrosNombres: $otrosNombres, apellidoPaterno: $apellidoPaterno, apellidoMaterno: $apellidoMaterno, fechaNacimiento: $fechaNacimiento, ciudad: $ciudad, codigoPostal: $codigoPostal, colonia: $colonia, correo: $correo, direccion: $direccion, sexo: $sexo, telefono: $telefono, status: "published", puesto: {id: $puestoId}}
+  ) {
+    id
+  }
 }
     `;
 export type FormPage_SubmitFormDataMutationFn = Apollo.MutationFunction<FormPage_SubmitFormDataMutation, FormPage_SubmitFormDataMutationVariables>;
@@ -557,6 +645,7 @@ export type FormPage_SubmitFormDataMutationFn = Apollo.MutationFunction<FormPage
  *      correo: // value for 'correo'
  *      telefono: // value for 'telefono'
  *      fechaNacimiento: // value for 'fechaNacimiento'
+ *      puestoId: // value for 'puestoId'
  *   },
  * });
  */
