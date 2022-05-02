@@ -93,10 +93,22 @@ export type QueryPuesto_By_IdArgs = {
   id: Scalars['ID'];
 };
 
+export type Count_Function_Filter_Operators = {
+  count?: InputMaybe<Number_Filter_Operators>;
+};
+
+export type Count_Functions = {
+  __typename?: 'count_functions';
+  count?: Maybe<Scalars['Int']>;
+};
+
 export type Create_Aplicacion_Input = {
   apellidoMaterno: Scalars['String'];
   apellidoPaterno: Scalars['String'];
-  correo: Scalars['String'];
+  ciudad: Scalars['String'];
+  codigoPostal: Scalars['String'];
+  colonia: Scalars['String'];
+  correo?: InputMaybe<Scalars['String']>;
   direccion: Scalars['String'];
   fechaActualizacion?: InputMaybe<Scalars['Date']>;
   fechaActualizacion_func?: InputMaybe<Datetime_FunctionsInput>;
@@ -167,26 +179,13 @@ export type Datetime_FunctionsInput = {
 
 export type Empresa = {
   __typename?: 'empresa';
-  calle: Scalars['String'];
   ciudad: Scalars['String'];
-  clave: Scalars['String'];
-  codigoPostal: Scalars['String'];
-  colonia: Scalars['String'];
-  correo: Scalars['String'];
-  direccion: Scalars['String'];
-  estado: Scalars['String'];
-  fechaActualizacion?: Maybe<Scalars['Date']>;
-  fechaActualizacion_func?: Maybe<Datetime_Functions>;
-  fechaCreacion?: Maybe<Scalars['Date']>;
-  fechaCreacion_func?: Maybe<Datetime_Functions>;
+  direccion?: Maybe<Scalars['String']>;
+  estado?: Maybe<Scalars['String']>;
   id?: Maybe<Scalars['ID']>;
-  industria: Scalars['String'];
-  nombreComercial: Scalars['String'];
-  pais: Scalars['String'];
-  razonSocial: Scalars['String'];
-  rfc: Scalars['String'];
-  status: Scalars['String'];
-  telefono: Scalars['String'];
+  nombreComercial?: Maybe<Scalars['String']>;
+  pais?: Maybe<Scalars['String']>;
+  razonSocial?: Maybe<Scalars['String']>;
 };
 
 export type Empresa_Aggregated = {
@@ -210,26 +209,13 @@ export type Empresa_Aggregated_Fields = {
 export type Empresa_Filter = {
   _and?: InputMaybe<Array<InputMaybe<Empresa_Filter>>>;
   _or?: InputMaybe<Array<InputMaybe<Empresa_Filter>>>;
-  calle?: InputMaybe<String_Filter_Operators>;
   ciudad?: InputMaybe<String_Filter_Operators>;
-  clave?: InputMaybe<String_Filter_Operators>;
-  codigoPostal?: InputMaybe<String_Filter_Operators>;
-  colonia?: InputMaybe<String_Filter_Operators>;
-  correo?: InputMaybe<String_Filter_Operators>;
   direccion?: InputMaybe<String_Filter_Operators>;
   estado?: InputMaybe<String_Filter_Operators>;
-  fechaActualizacion?: InputMaybe<Date_Filter_Operators>;
-  fechaActualizacion_func?: InputMaybe<Datetime_Function_Filter_Operators>;
-  fechaCreacion?: InputMaybe<Date_Filter_Operators>;
-  fechaCreacion_func?: InputMaybe<Datetime_Function_Filter_Operators>;
   id?: InputMaybe<Number_Filter_Operators>;
-  industria?: InputMaybe<String_Filter_Operators>;
   nombreComercial?: InputMaybe<String_Filter_Operators>;
   pais?: InputMaybe<String_Filter_Operators>;
   razonSocial?: InputMaybe<String_Filter_Operators>;
-  rfc?: InputMaybe<String_Filter_Operators>;
-  status?: InputMaybe<String_Filter_Operators>;
-  telefono?: InputMaybe<String_Filter_Operators>;
 };
 
 export type Number_Filter_Operators = {
@@ -247,17 +233,21 @@ export type Number_Filter_Operators = {
 
 export type Puesto = {
   __typename?: 'puesto';
-  descripcion: Scalars['String'];
+  descripcion?: Maybe<Scalars['String']>;
   empresa?: Maybe<Empresa>;
   fechaActualizacion?: Maybe<Scalars['Date']>;
   fechaActualizacion_func?: Maybe<Datetime_Functions>;
   fechaCreacion?: Maybe<Scalars['Date']>;
   fechaCreacion_func?: Maybe<Datetime_Functions>;
   id?: Maybe<Scalars['ID']>;
-  jornada: Scalars['String'];
-  nivelEstudios?: Maybe<Scalars['String']>;
+  jornada?: Maybe<Scalars['String']>;
+  municipio: Scalars['String'];
+  nivelActividadFisica: Scalars['String'];
+  nivelEstudios: Scalars['String'];
   nombre: Scalars['String'];
   numVacantes?: Maybe<Scalars['Int']>;
+  sectores?: Maybe<Scalars['JSON']>;
+  sectores_func?: Maybe<Count_Functions>;
   status: Scalars['String'];
   turno: Scalars['String'];
 };
@@ -303,9 +293,13 @@ export type Puesto_Filter = {
   fechaCreacion_func?: InputMaybe<Datetime_Function_Filter_Operators>;
   id?: InputMaybe<Number_Filter_Operators>;
   jornada?: InputMaybe<String_Filter_Operators>;
+  municipio?: InputMaybe<String_Filter_Operators>;
+  nivelActividadFisica?: InputMaybe<String_Filter_Operators>;
   nivelEstudios?: InputMaybe<String_Filter_Operators>;
   nombre?: InputMaybe<String_Filter_Operators>;
   numVacantes?: InputMaybe<Number_Filter_Operators>;
+  sectores?: InputMaybe<String_Filter_Operators>;
+  sectores_func?: InputMaybe<Count_Function_Filter_Operators>;
   status?: InputMaybe<String_Filter_Operators>;
   turno?: InputMaybe<String_Filter_Operators>;
 };
@@ -335,7 +329,7 @@ export type EmpresasQuery = { __typename?: 'Query', empresa?: Array<{ __typename
 export type ListasQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type ListasQuery = { __typename?: 'Query', puesto?: Array<{ __typename?: 'puesto', id?: string | null, nombre: string, jornada: string, status: string, fechaCreacion?: any | null, empresa?: { __typename?: 'empresa', nombreComercial: string, ciudad: string } | null } | null> | null };
+export type ListasQuery = { __typename?: 'Query', puesto?: Array<{ __typename?: 'puesto', id?: string | null, nombre: string, jornada?: string | null, status: string, fechaCreacion?: any | null, empresa?: { __typename?: 'empresa', nombreComercial?: string | null, ciudad: string } | null } | null> | null };
 
 export type FormPage_PuestosStaticPathsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -347,7 +341,7 @@ export type FormPage_PuestoByIdQueryVariables = Exact<{
 }>;
 
 
-export type FormPage_PuestoByIdQuery = { __typename?: 'Query', puesto?: { __typename?: 'puesto', id?: string | null, fechaCreacion?: any | null, nombre: string, nivelEstudios?: string | null, turno: string, jornada: string, numVacantes?: number | null, empresa?: { __typename?: 'empresa', id?: string | null, nombreComercial: string, ciudad: string, estado: string, colonia: string, direccion: string } | null } | null };
+export type FormPage_PuestoByIdQuery = { __typename?: 'Query', puesto?: { __typename?: 'puesto', id?: string | null, fechaCreacion?: any | null, nombre: string, nivelEstudios: string, turno: string, jornada?: string | null, numVacantes?: number | null, empresa?: { __typename?: 'empresa', id?: string | null, nombreComercial?: string | null, ciudad: string, estado?: string | null } | null } | null };
 
 
 export const EmpresasDocument = gql`
@@ -394,8 +388,6 @@ export const FormPage_PuestoByIdDocument = gql`
       nombreComercial
       ciudad
       estado
-      colonia
-      direccion
     }
   }
 }

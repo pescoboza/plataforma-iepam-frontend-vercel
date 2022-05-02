@@ -5,17 +5,17 @@ query Empresas {
 }
 
 query Listas {
-  puesto {
-    id
-    nombre
-    jornada
-    empresa {
-      nombreComercial
-      ciudad
+    puesto {
+        id
+        nombre
+        jornada
+        empresa {
+            nombreComercial
+            ciudad
+        }
+        status
+        fechaCreacion
     }
-    status
-    fechaCreacion
-  }
 }
 
 query FormPage_PuestosStaticPaths {
@@ -38,8 +38,6 @@ query FormPage_PuestoById($id: ID!) {
             nombreComercial
             ciudad
             estado
-            colonia
-            direccion
         }
     }
 }

@@ -93,10 +93,22 @@ export type QueryPuesto_By_IdArgs = {
   id: Scalars['ID'];
 };
 
+export type Count_Function_Filter_Operators = {
+  count?: InputMaybe<Number_Filter_Operators>;
+};
+
+export type Count_Functions = {
+  __typename?: 'count_functions';
+  count?: Maybe<Scalars['Int']>;
+};
+
 export type Create_Aplicacion_Input = {
   apellidoMaterno: Scalars['String'];
   apellidoPaterno: Scalars['String'];
-  correo: Scalars['String'];
+  ciudad: Scalars['String'];
+  codigoPostal: Scalars['String'];
+  colonia: Scalars['String'];
+  correo?: InputMaybe<Scalars['String']>;
   direccion: Scalars['String'];
   fechaActualizacion?: InputMaybe<Scalars['Date']>;
   fechaActualizacion_func?: InputMaybe<Datetime_FunctionsInput>;
@@ -167,26 +179,13 @@ export type Datetime_FunctionsInput = {
 
 export type Empresa = {
   __typename?: 'empresa';
-  calle: Scalars['String'];
   ciudad: Scalars['String'];
-  clave: Scalars['String'];
-  codigoPostal: Scalars['String'];
-  colonia: Scalars['String'];
-  correo: Scalars['String'];
-  direccion: Scalars['String'];
-  estado: Scalars['String'];
-  fechaActualizacion?: Maybe<Scalars['Date']>;
-  fechaActualizacion_func?: Maybe<Datetime_Functions>;
-  fechaCreacion?: Maybe<Scalars['Date']>;
-  fechaCreacion_func?: Maybe<Datetime_Functions>;
+  direccion?: Maybe<Scalars['String']>;
+  estado?: Maybe<Scalars['String']>;
   id?: Maybe<Scalars['ID']>;
-  industria: Scalars['String'];
-  nombreComercial: Scalars['String'];
-  pais: Scalars['String'];
-  razonSocial: Scalars['String'];
-  rfc: Scalars['String'];
-  status: Scalars['String'];
-  telefono: Scalars['String'];
+  nombreComercial?: Maybe<Scalars['String']>;
+  pais?: Maybe<Scalars['String']>;
+  razonSocial?: Maybe<Scalars['String']>;
 };
 
 export type Empresa_Aggregated = {
@@ -210,26 +209,13 @@ export type Empresa_Aggregated_Fields = {
 export type Empresa_Filter = {
   _and?: InputMaybe<Array<InputMaybe<Empresa_Filter>>>;
   _or?: InputMaybe<Array<InputMaybe<Empresa_Filter>>>;
-  calle?: InputMaybe<String_Filter_Operators>;
   ciudad?: InputMaybe<String_Filter_Operators>;
-  clave?: InputMaybe<String_Filter_Operators>;
-  codigoPostal?: InputMaybe<String_Filter_Operators>;
-  colonia?: InputMaybe<String_Filter_Operators>;
-  correo?: InputMaybe<String_Filter_Operators>;
   direccion?: InputMaybe<String_Filter_Operators>;
   estado?: InputMaybe<String_Filter_Operators>;
-  fechaActualizacion?: InputMaybe<Date_Filter_Operators>;
-  fechaActualizacion_func?: InputMaybe<Datetime_Function_Filter_Operators>;
-  fechaCreacion?: InputMaybe<Date_Filter_Operators>;
-  fechaCreacion_func?: InputMaybe<Datetime_Function_Filter_Operators>;
   id?: InputMaybe<Number_Filter_Operators>;
-  industria?: InputMaybe<String_Filter_Operators>;
   nombreComercial?: InputMaybe<String_Filter_Operators>;
   pais?: InputMaybe<String_Filter_Operators>;
   razonSocial?: InputMaybe<String_Filter_Operators>;
-  rfc?: InputMaybe<String_Filter_Operators>;
-  status?: InputMaybe<String_Filter_Operators>;
-  telefono?: InputMaybe<String_Filter_Operators>;
 };
 
 export type Number_Filter_Operators = {
@@ -247,17 +233,21 @@ export type Number_Filter_Operators = {
 
 export type Puesto = {
   __typename?: 'puesto';
-  descripcion: Scalars['String'];
+  descripcion?: Maybe<Scalars['String']>;
   empresa?: Maybe<Empresa>;
   fechaActualizacion?: Maybe<Scalars['Date']>;
   fechaActualizacion_func?: Maybe<Datetime_Functions>;
   fechaCreacion?: Maybe<Scalars['Date']>;
   fechaCreacion_func?: Maybe<Datetime_Functions>;
   id?: Maybe<Scalars['ID']>;
-  jornada: Scalars['String'];
-  nivelEstudios?: Maybe<Scalars['String']>;
+  jornada?: Maybe<Scalars['String']>;
+  municipio: Scalars['String'];
+  nivelActividadFisica: Scalars['String'];
+  nivelEstudios: Scalars['String'];
   nombre: Scalars['String'];
   numVacantes?: Maybe<Scalars['Int']>;
+  sectores?: Maybe<Scalars['JSON']>;
+  sectores_func?: Maybe<Count_Functions>;
   status: Scalars['String'];
   turno: Scalars['String'];
 };
@@ -303,9 +293,13 @@ export type Puesto_Filter = {
   fechaCreacion_func?: InputMaybe<Datetime_Function_Filter_Operators>;
   id?: InputMaybe<Number_Filter_Operators>;
   jornada?: InputMaybe<String_Filter_Operators>;
+  municipio?: InputMaybe<String_Filter_Operators>;
+  nivelActividadFisica?: InputMaybe<String_Filter_Operators>;
   nivelEstudios?: InputMaybe<String_Filter_Operators>;
   nombre?: InputMaybe<String_Filter_Operators>;
   numVacantes?: InputMaybe<Number_Filter_Operators>;
+  sectores?: InputMaybe<String_Filter_Operators>;
+  sectores_func?: InputMaybe<Count_Function_Filter_Operators>;
   status?: InputMaybe<String_Filter_Operators>;
   turno?: InputMaybe<String_Filter_Operators>;
 };
@@ -330,29 +324,40 @@ export type String_Filter_Operators = {
 export type PuestosQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type PuestosQuery = { __typename?: 'Query', puesto?: Array<{ __typename?: 'puesto', id?: string | null, fechaCreacion?: any | null, nivelEstudios?: string | null, nombre: string, jornada: string, turno: string, descripcion: string, numVacantes?: number | null } | null> | null };
+export type PuestosQuery = { __typename?: 'Query', puesto?: Array<{ __typename?: 'puesto', id?: string | null, fechaCreacion?: any | null, nivelEstudios: string, nombre: string, jornada?: string | null, turno: string, descripcion?: string | null, numVacantes?: number | null } | null> | null };
 
 export type ListasQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type ListasQuery = { __typename?: 'Query', puesto?: Array<{ __typename?: 'puesto', id?: string | null, nombre: string, jornada: string, status: string, fechaCreacion?: any | null, empresa?: { __typename?: 'empresa', nombreComercial: string, ciudad: string } | null } | null> | null };
+export type ListasQuery = { __typename?: 'Query', puesto?: Array<{ __typename?: 'puesto', id?: string | null, nombre: string, jornada?: string | null, status: string, fechaCreacion?: any | null, empresa?: { __typename?: 'empresa', nombreComercial?: string | null, ciudad: string } | null } | null> | null };
 
 export type DescripcionQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type DescripcionQuery = { __typename?: 'Query', puesto?: Array<{ __typename?: 'puesto', id?: string | null, descripcion: string, nivelEstudios?: string | null, numVacantes?: number | null, turno: string } | null> | null };
+export type DescripcionQuery = { __typename?: 'Query', puesto?: Array<{ __typename?: 'puesto', id?: string | null, descripcion?: string | null, nivelEstudios: string, numVacantes?: number | null, turno: string } | null> | null };
 
 export type FilterListQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type FilterListQuery = { __typename?: 'Query', puesto?: Array<{ __typename?: 'puesto', id?: string | null, nombre: string, jornada: string, status: string, fechaCreacion?: any | null, empresa?: { __typename?: 'empresa', nombreComercial: string, ciudad: string } | null } | null> | null };
+export type FilterListQuery = { __typename?: 'Query', puesto?: Array<{ __typename?: 'puesto', id?: string | null, nombre: string, jornada?: string | null, status: string, fechaCreacion?: any | null, empresa?: { __typename?: 'empresa', nombreComercial?: string | null, ciudad: string } | null } | null> | null };
 
-export type SubmitFormAplicacionMutationVariables = Exact<{
-  data: Create_Aplicacion_Input;
+export type FormPage_SubmitFormDataMutationVariables = Exact<{
+  primerNombre: Scalars['String'];
+  otrosNombres: Scalars['String'];
+  apellidoMaterno: Scalars['String'];
+  apellidoPaterno: Scalars['String'];
+  ciudad: Scalars['String'];
+  sexo: Scalars['String'];
+  direccion: Scalars['String'];
+  codigoPostal: Scalars['String'];
+  colonia: Scalars['String'];
+  correo?: InputMaybe<Scalars['String']>;
+  telefono: Scalars['String'];
+  fechaNacimiento: Scalars['Date'];
 }>;
 
 
-export type SubmitFormAplicacionMutation = { __typename?: 'Mutation', success?: boolean | null };
+export type FormPage_SubmitFormDataMutation = { __typename?: 'Mutation', success?: boolean | null };
 
 
 export const PuestosDocument = gql`
@@ -518,34 +523,47 @@ export function useFilterListLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions
 export type FilterListQueryHookResult = ReturnType<typeof useFilterListQuery>;
 export type FilterListLazyQueryHookResult = ReturnType<typeof useFilterListLazyQuery>;
 export type FilterListQueryResult = Apollo.QueryResult<FilterListQuery, FilterListQueryVariables>;
-export const SubmitFormAplicacionDocument = gql`
-    mutation SubmitFormAplicacion($data: create_aplicacion_input!) {
-  success: create_aplicacion_item(data: $data)
+export const FormPage_SubmitFormDataDocument = gql`
+    mutation FormPage_SubmitFormData($primerNombre: String!, $otrosNombres: String!, $apellidoMaterno: String!, $apellidoPaterno: String!, $ciudad: String!, $sexo: String!, $direccion: String!, $codigoPostal: String!, $colonia: String!, $correo: String, $telefono: String!, $fechaNacimiento: Date!) {
+  success: create_aplicacion_item(
+    data: {primerNombre: $primerNombre, otrosNombres: $otrosNombres, apellidoPaterno: $apellidoPaterno, apellidoMaterno: $apellidoMaterno, fechaNacimiento: $fechaNacimiento, ciudad: $ciudad, codigoPostal: $codigoPostal, colonia: $colonia, correo: $correo, direccion: $direccion, sexo: $sexo, telefono: $telefono, status: "published"}
+  )
 }
     `;
-export type SubmitFormAplicacionMutationFn = Apollo.MutationFunction<SubmitFormAplicacionMutation, SubmitFormAplicacionMutationVariables>;
+export type FormPage_SubmitFormDataMutationFn = Apollo.MutationFunction<FormPage_SubmitFormDataMutation, FormPage_SubmitFormDataMutationVariables>;
 
 /**
- * __useSubmitFormAplicacionMutation__
+ * __useFormPage_SubmitFormDataMutation__
  *
- * To run a mutation, you first call `useSubmitFormAplicacionMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useSubmitFormAplicacionMutation` returns a tuple that includes:
+ * To run a mutation, you first call `useFormPage_SubmitFormDataMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useFormPage_SubmitFormDataMutation` returns a tuple that includes:
  * - A mutate function that you can call at any time to execute the mutation
  * - An object with fields that represent the current status of the mutation's execution
  *
  * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
  *
  * @example
- * const [submitFormAplicacionMutation, { data, loading, error }] = useSubmitFormAplicacionMutation({
+ * const [formPageSubmitFormDataMutation, { data, loading, error }] = useFormPage_SubmitFormDataMutation({
  *   variables: {
- *      data: // value for 'data'
+ *      primerNombre: // value for 'primerNombre'
+ *      otrosNombres: // value for 'otrosNombres'
+ *      apellidoMaterno: // value for 'apellidoMaterno'
+ *      apellidoPaterno: // value for 'apellidoPaterno'
+ *      ciudad: // value for 'ciudad'
+ *      sexo: // value for 'sexo'
+ *      direccion: // value for 'direccion'
+ *      codigoPostal: // value for 'codigoPostal'
+ *      colonia: // value for 'colonia'
+ *      correo: // value for 'correo'
+ *      telefono: // value for 'telefono'
+ *      fechaNacimiento: // value for 'fechaNacimiento'
  *   },
  * });
  */
-export function useSubmitFormAplicacionMutation(baseOptions?: Apollo.MutationHookOptions<SubmitFormAplicacionMutation, SubmitFormAplicacionMutationVariables>) {
+export function useFormPage_SubmitFormDataMutation(baseOptions?: Apollo.MutationHookOptions<FormPage_SubmitFormDataMutation, FormPage_SubmitFormDataMutationVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<SubmitFormAplicacionMutation, SubmitFormAplicacionMutationVariables>(SubmitFormAplicacionDocument, options);
+        return Apollo.useMutation<FormPage_SubmitFormDataMutation, FormPage_SubmitFormDataMutationVariables>(FormPage_SubmitFormDataDocument, options);
       }
-export type SubmitFormAplicacionMutationHookResult = ReturnType<typeof useSubmitFormAplicacionMutation>;
-export type SubmitFormAplicacionMutationResult = Apollo.MutationResult<SubmitFormAplicacionMutation>;
-export type SubmitFormAplicacionMutationOptions = Apollo.BaseMutationOptions<SubmitFormAplicacionMutation, SubmitFormAplicacionMutationVariables>;
+export type FormPage_SubmitFormDataMutationHookResult = ReturnType<typeof useFormPage_SubmitFormDataMutation>;
+export type FormPage_SubmitFormDataMutationResult = Apollo.MutationResult<FormPage_SubmitFormDataMutation>;
+export type FormPage_SubmitFormDataMutationOptions = Apollo.BaseMutationOptions<FormPage_SubmitFormDataMutation, FormPage_SubmitFormDataMutationVariables>;
