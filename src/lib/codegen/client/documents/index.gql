@@ -63,7 +63,7 @@ mutation FormPage_SubmitFormData(
     $fechaNacimiento: Date!
     $puestoId: ID!
 ) {
-    success: create_aplicacion_item(
+    aplicacion: create_aplicacion_item(
         data: {
             primerNombre: $primerNombre
             otrosNombres: $otrosNombres

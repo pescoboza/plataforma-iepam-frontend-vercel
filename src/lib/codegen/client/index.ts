@@ -443,7 +443,7 @@ export type FormPage_SubmitFormDataMutationVariables = Exact<{
 }>;
 
 
-export type FormPage_SubmitFormDataMutation = { __typename?: 'Mutation', success?: { __typename?: 'aplicacion', id?: string | null } | null };
+export type FormPage_SubmitFormDataMutation = { __typename?: 'Mutation', aplicacion?: { __typename?: 'aplicacion', id?: string | null } | null };
 
 
 export const PuestosDocument = gql`
@@ -611,7 +611,7 @@ export type FilterListLazyQueryHookResult = ReturnType<typeof useFilterListLazyQ
 export type FilterListQueryResult = Apollo.QueryResult<FilterListQuery, FilterListQueryVariables>;
 export const FormPage_SubmitFormDataDocument = gql`
     mutation FormPage_SubmitFormData($primerNombre: String!, $otrosNombres: String!, $apellidoMaterno: String!, $apellidoPaterno: String!, $ciudad: String!, $sexo: String!, $direccion: String!, $codigoPostal: String!, $colonia: String!, $correo: String, $telefono: String!, $fechaNacimiento: Date!, $puestoId: ID!) {
-  success: create_aplicacion_item(
+  aplicacion: create_aplicacion_item(
     data: {primerNombre: $primerNombre, otrosNombres: $otrosNombres, apellidoPaterno: $apellidoPaterno, apellidoMaterno: $apellidoMaterno, fechaNacimiento: $fechaNacimiento, ciudad: $ciudad, codigoPostal: $codigoPostal, colonia: $colonia, correo: $correo, direccion: $direccion, sexo: $sexo, telefono: $telefono, status: "published", puesto: {id: $puestoId}}
   ) {
     id

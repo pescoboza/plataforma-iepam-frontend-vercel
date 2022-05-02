@@ -92,8 +92,11 @@ const JobApplicationForm: FC<{ puestoId: string }> = ({ puestoId }) => {
             .then((res) => {
                 setLoading(false);
                 setError(null);
+                const aplicacionId = res.data?.aplicacion?.id;
+                if (typeof aplicacionId !== "string" || aplicacionId.length === 0 || isNaN(Number(aplicacionId)))
+                    throw new Error("Invalid aplicacionId");
 
-                console.log(res);
+                router.push(`/exito/${aplicacionId}`);
             })
             .catch((err) => {
                 setLoading(false);
