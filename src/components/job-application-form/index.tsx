@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useFormPage_SubmitFormDataMutation } from "@/codegen/client";
+import JobApplicationSuccess from "./components/JobApplicationSuccess";
 
 interface JobApplicationFormData {
     primerNombre: string;
@@ -71,11 +72,11 @@ const schema: yup.SchemaOf<JobApplicationFormData> = yup.object().shape({
 //     .required();
 
 const JobApplicationForm: FC<{ puestoId: string }> = ({ puestoId }) => {
-    const router = useRouter();
     const {
         register,
         handleSubmit,
         formState: { errors },
+        getValues,
     } = useForm<JobApplicationFormData>({
         resolver: yupResolver(schema),
     });
@@ -83,6 +84,9 @@ const JobApplicationForm: FC<{ puestoId: string }> = ({ puestoId }) => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const [submitData] = useFormPage_SubmitFormDataMutation();
+    const [submitted, setSubmitted] = useState(false);
+
+    if (submitted) return <JobApplicationSuccess name={getValues("primerNombre")} />;
 
     const onSubmit = handleSubmit((data) => {
         setLoading(true);
@@ -96,7 +100,7 @@ const JobApplicationForm: FC<{ puestoId: string }> = ({ puestoId }) => {
                 if (typeof aplicacionId !== "string" || aplicacionId.length === 0 || isNaN(Number(aplicacionId)))
                     throw new Error("Invalid aplicacionId");
 
-                router.push(`/exito/${aplicacionId}`);
+                setSubmitted(true);
             })
             .catch((err) => {
                 setLoading(false);
