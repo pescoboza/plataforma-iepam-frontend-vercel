@@ -1,21 +1,50 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/router' 
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
 
 
 
 type Profile = {
     firstname: string
+    othername: string
     lastname: string
     secondlastname: string
+    birthdate: Date
+    gender: string
     email: string
-    age: number
+    phonenumber: number
+    address: string
+    secondaddress: string
+    city: string
+    cp: number
+    
 
 }
 
+const schema = yup.object().shape({
+    firstname: yup.string().required().min(4),
+    othername: yup.string(),
+    lastname: yup.string().required().min(4),
+    secondlastname: yup.string().required().min(4),
+    birthdate: yup.number().required(),
+    gender: yup.string().required(),
+    email: yup.string().required().email(),
+    phonenumber: yup.string().required(),
+    address: yup.string().required(),
+    secondaddress: yup.string().required(),
+    city: yup.string().required(),
+    cp: yup.number().required(),
+  }).required();
+
 function Form() {
     const router = useRouter();
-    const { register, handleSubmit, formState: { errors } } = useForm<Profile>()
+    const { register, handleSubmit, formState: { errors } } = useForm<Profile>(
+        {
+            resolver: yupResolver<yup.AnyObjectSchema>(schema),
+        }
+    )
 
     const onSubmit = handleSubmit((data) => {
         fetch('/api/formdata', {
@@ -25,6 +54,7 @@ function Form() {
             },
             body: JSON.stringify(data)
         })
+        console.log(data);
         alert(`Es tu nombre: ${data.firstname}?`);
         router.push('/thankyou');
     })
@@ -48,6 +78,13 @@ function Form() {
                             }
                         </div>
                         <div>
+                            <label htmlFor="othername" className='text-sm font-bold text-gray-600 block'>Segundo nombre</label>
+                            <input className='w-full p-2 border border-gray-300 rounded mt-1' {...register('othername')} id="othername" name="othername" type="text" />
+                            {
+                                errors.othername && <div className="red">Ingresa tu segundo nombre</div>
+                            }
+                        </div>
+                        <div>
                             <label htmlFor="lastname" className='text-sm font-bold text-gray-600 block'>Apellido</label>
                             <input className='w-full p-2 border border-gray-300 rounded mt-1' {...register('lastname', { required: true, minLength: 4, maxLength: 20 })} id="lastname" name="lastname" type="text" />
                             {
@@ -55,24 +92,66 @@ function Form() {
                             }
                         </div>
                         <div>
-                            <label htmlFor="secondlastname" className='text-sm font-bold text-gray-600 block'>Segundo Apellido</label>
+                            <label htmlFor="secondlastname" className='text-sm font-bold text-gray-600 block'>Segundo apellido</label>
                             <input className='w-full p-2 border border-gray-300 rounded mt-1' {...register('secondlastname', { required: true, minLength: 4, maxLength: 20 })} id="secondlastname" name="secondlastname" type="text" />
                             {
-                                errors.lastname && <div className="red">Ingresa tu segundo apellido</div>
+                                errors.secondlastname && <div className="red">Ingresa tu segundo apellido</div>
+                            }
+                        </div>
+                        <div>
+                            <label htmlFor="birthdate" className='text-sm font-bold text-gray-600 block'>Año de nacimiento</label>
+                            <input className='w-full p-2 border border-gray-300 rounded mt-1' {...register('birthdate', { required: true })} id="birthdate" name="birthdate" type="date" />
+                            {
+                                errors.birthdate && <div className="red">Ingresa tu año de nacimiento</div>
+                            }
+                        </div>
+                        <div>
+                            <label htmlFor="gender" className='text-sm font-bold text-gray-600 block'>Apellido</label>
+                            <input className='w-full p-2 border border-gray-300 rounded mt-1' {...register('gender', { required: true })} id="gender" name="gender" type="text" />
+                            {
+                                errors.gender && <div className="red">Ingresa tu género</div>
                             }
                         </div>
                         <div>
                             <label htmlFor="email" className='text-sm font-bold text-gray-600 block'>Correo electrónico</label>
-                            <input className='w-full p-2 border border-gray-300 rounded mt-1' {...register('email', { required: true, minLength: 4, maxLength: 20, })} id="email" name="email" type="text" />
+                            <input className='w-full p-2 border border-gray-300 rounded mt-1' {...register('email', { required: true, minLength: 4, maxLength: 20, })} id="email" name="email" type="email" />
                             {
-                                errors.firstname && <div className="red">Ingresa tu correo</div>
+                                errors.email && <div className="red">Ingresa tu correo</div>
                             }
                         </div>
                         <div>
-                            <label htmlFor="age" className='text-sm font-bold text-gray-600 block'>Edad</label>
-                            <input className='w-full p-2 border border-gray-300 rounded mt-1' {...register('age', { required: true, minLength: 2, maxLength: 3 })} id="age" name="age" type="text" />
+                            <label htmlFor="phonenumber" className='text-sm font-bold text-gray-600 block'>Número de teléfono</label>
+                            <input className='w-full p-2 border border-gray-300 rounded mt-1' {...register('phonenumber', { required: true })} id="phonenumber" name="phonenumber" type="number" />
                             {
-                                errors.age && <div className="red">Ingresa tu edad</div>
+                                errors.phonenumber && <div className="red">Ingresa tu apellido</div>
+                            }
+                        </div>
+                        <div>
+                            <label htmlFor="address" className='text-sm font-bold text-gray-600 block'>Dirección</label>
+                            <input className='w-full p-2 border border-gray-300 rounded mt-1' {...register('address', { required: true })} id="address" name="address" type="text" />
+                            {
+                                errors.address && <div className="red">Ingresa tu dirección</div>
+                            }
+                        </div>
+                        <div>
+                            <label htmlFor="secondaddress" className='text-sm font-bold text-gray-600 block'>Colonia</label>
+                            <input className='w-full p-2 border border-gray-300 rounded mt-1' {...register('secondaddress', { required: true })} id="secondaddress" name="secondaddress" type="text" />
+                            {
+                                errors.secondaddress && <div className="red">Ingresa tu colonia</div>
+                            }
+                        </div>
+                        <div>
+                            <label htmlFor="city" className='text-sm font-bold text-gray-600 block'>Ciudad</label>
+                            <input className='w-full p-2 border border-gray-300 rounded mt-1' {...register('city', { required: true })} id="city" name="city" type="text" />
+                            {
+                                errors.city && <div className="red">Ingresa tu ciudad</div>
+                            }
+                        </div>
+                        <div>
+                            <label htmlFor="cp" className='text-sm font-bold text-gray-600 block'>Código postal</label>
+                            <input className='w-full p-2 border border-gray-300 rounded mt-1' {...register('cp', { required: true })} id="cp" name="cp" type="text" />
+                            {
+                                errors.cp && <div className="red">Ingresa tu código postal</div>
                             }
                         </div>
                         <div>
