@@ -41,3 +41,26 @@ query FormPage_PuestoById($id: ID!) {
         }
     }
 }
+
+query SuccessPage_ApplicationSummary($applicationId: ID!) {
+    application: aplicacion_by_id(id: $applicationId) {
+        id
+        primerNombre
+        otrosNombres
+        apellidoPaterno
+        apellidoMaterno
+        telefono
+        correo
+        direccion
+        colonia
+        telefono
+        puesto {
+            id
+            nombre
+            empresa {
+                id
+                nombreComercial
+            }
+        }
+    }
+}

@@ -3,9 +3,8 @@ import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { FormPage_SubmitFormDataMutationVariables } from "@/codegen/client";
 
-interface FormData {
+interface JobApplicationFormData {
     primerNombre: string;
     otrosNombres: string;
     apellidoMaterno: string;
@@ -23,7 +22,7 @@ interface FormData {
 const REQUIRED_ERROR_MSG = "Debe llenar este campo.";
 const EMAIL_ERROR_MSG = "Introducir un correo válido.";
 
-const schema: yup.SchemaOf<FormData> = yup.object().shape({
+const schema: yup.SchemaOf<JobApplicationFormData> = yup.object().shape({
     primerNombre: yup.string().required(REQUIRED_ERROR_MSG),
     otrosNombres: yup.string().required(REQUIRED_ERROR_MSG),
     apellidoMaterno: yup.string().required(REQUIRED_ERROR_MSG),
@@ -70,31 +69,22 @@ const schema: yup.SchemaOf<FormData> = yup.object().shape({
 //     })
 //     .required();
 
-function Form() {
+const JobApplicationForm: FC<{ puestoId: string }> = ({ puestoId }) => {
     const router = useRouter();
     const {
         register,
         handleSubmit,
         formState: { errors },
-    } = useForm<FormData>({
+    } = useForm<JobApplicationFormData>({
         resolver: yupResolver(schema),
     });
 
     const onSubmit = handleSubmit((data) => {
-        // fetch("/api/formdata", {
-        //     method: "POST",
-        //     headers: {
-        //         "content-type": "application/json",
-        //     },
-        //     body: JSON.stringify(data),
-        // });
-        // console.log(data);
-        // alert(`Es tu nombre: ${data.firstname}?`);
-        // router.push("/thankyou");
+        router.push("/exito/2");
     });
 
     return (
-        <main>
+        <div>
             <div className="min-h-screen bg-gray-50 flex flex-col justify-center ">
                 <div className="max-w-md w-full mx-auto">
                     <div className="text-center">
@@ -224,7 +214,19 @@ function Form() {
                             />
                             {errors.direccion && <div className="red">{errors.direccion.message}</div>}
                         </div>
-
+                        <div>
+                            <label htmlFor="colonia" className="text-sm font-bold text-gray-600 block">
+                                Colonia
+                            </label>
+                            <input
+                                className="w-full p-2 border border-gray-300 rounded mt-1"
+                                {...register("colonia")}
+                                id="colonia"
+                                name="colonia"
+                                type="text"
+                            />
+                            {errors.colonia && <div className="red">{errors.colonia.message}</div>}
+                        </div>
                         <div>
                             <label htmlFor="ciudad" className="text-sm font-bold text-gray-600 block">
                                 Ciudad
@@ -262,8 +264,8 @@ function Form() {
                     </form>
                 </div>
             </div>
-        </main>
+        </div>
     );
-}
+};
 
-export default Form;
+export default JobApplicationForm;
