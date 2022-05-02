@@ -28,7 +28,7 @@ const schema = yup.object().shape({
     othername: yup.string(),
     lastname: yup.string().required().min(4),
     secondlastname: yup.string().required().min(4),
-    birthdate: yup.number().required(),
+    birthdate: yup.date().required(),
     gender: yup.string().required(),
     email: yup.string().required().email(),
     phonenumber: yup.string().required(),
@@ -106,8 +106,16 @@ function Form() {
                             }
                         </div>
                         <div>
-                            <label htmlFor="gender" className='text-sm font-bold text-gray-600 block'>Apellido</label>
-                            <input className='w-full p-2 border border-gray-300 rounded mt-1' {...register('gender', { required: true })} id="gender" name="gender" type="text" />
+                            <label htmlFor="gender" className='text-sm font-bold text-gray-600 block'>Género</label>
+                            <select id="gender" className='w-full p-2 border border-gray-300 rounded mt-1' {...register('gender', { required: true })}>
+                                <option value="">Escoge una opción</option>
+                                <option value="Masculino">Masculino</option>
+                                <option value="Femenino">Femenino</option>
+                                <option value="Otro">Otro</option>
+                            </select>
+
+                            
+                            
                             {
                                 errors.gender && <div className="red">Ingresa tu género</div>
                             }
