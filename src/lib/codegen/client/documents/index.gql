@@ -12,43 +12,75 @@ query Puestos {
 }
 
 query Listas {
-  puesto {
-    id
-    nombre
-    jornada
-    empresa {
-      nombreComercial
-      ciudad
+    puesto {
+        id
+        nombre
+        jornada
+        empresa {
+            nombreComercial
+            ciudad
+        }
+        status
+        fechaCreacion
     }
-    status
-    fechaCreacion
-  }
 }
 
 query Descripcion {
-  puesto(filter: {id: {_eq: 2}}) {
-    id
-    descripcion
-    nivelEstudios
-    numVacantes
-    turno
-  }
+    puesto(filter: { id: { _eq: 2 } }) {
+        id
+        descripcion
+        nivelEstudios
+        numVacantes
+        turno
+    }
 }
 
 query filterList {
-  puesto(filter: {nombre: {_contains: "M"}}) {
-    id
-    nombre
-    jornada
-    empresa {
-      nombreComercial
-      ciudad
+    puesto(filter: { nombre: { _contains: "M" } }) {
+        id
+        nombre
+        jornada
+        empresa {
+            nombreComercial
+            ciudad
+        }
+        status
+        fechaCreacion
     }
-    status
-    fechaCreacion
-  }
 }
-
-mutation SubmitFormAplicacion($data: create_aplicacion_input!) {
-    success: create_aplicacion_item(data: $data)
+mutation FormPage_SubmitFormData(
+    $primerNombre: String!
+    $otrosNombres: String!
+    $apellidoMaterno: String!
+    $apellidoPaterno: String!
+    $ciudad: String!
+    $sexo: String!
+    $direccion: String!
+    $codigoPostal: String!
+    $colonia: String!
+    $correo: String
+    $telefono: String!
+    $fechaNacimiento: Date!
+    $puestoId: ID!
+) {
+    aplicacion: create_aplicacion_item(
+        data: {
+            primerNombre: $primerNombre
+            otrosNombres: $otrosNombres
+            apellidoPaterno: $apellidoPaterno
+            apellidoMaterno: $apellidoMaterno
+            fechaNacimiento: $fechaNacimiento
+            ciudad: $ciudad
+            codigoPostal: $codigoPostal
+            colonia: $colonia
+            correo: $correo
+            direccion: $direccion
+            sexo: $sexo
+            telefono: $telefono
+            status: "published"
+            puesto: { id: $puestoId }
+        }
+    ) {
+        id
+    }
 }

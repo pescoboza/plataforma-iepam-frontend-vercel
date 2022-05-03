@@ -1,0 +1,13 @@
+schema:
+  - ${NEXT_PUBLIC_GQL_ENDPOINT}:
+      headers:
+        Authorization: Bearer ${GQL_AUTH_TOKEN}
+
+generates:
+  ./src/lib/codegen/server/schema.ts:
+    documents:
+      - ./src/lib/codegen/server/documents/*.gql
+    plugins:
+      - typescript
+      - typescript-operations
+      - typescript-graphql-request

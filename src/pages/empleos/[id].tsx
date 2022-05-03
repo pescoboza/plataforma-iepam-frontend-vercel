@@ -1,6 +1,7 @@
 import type { FC } from "react";
 import type { GetStaticProps, GetStaticPaths } from "next";
 import { sdk } from "@/codegen/server";
+import JobApplicationForm from "@/components/job-application-form";
 
 export const getStaticPaths: GetStaticPaths = async () => {
     const res = await sdk.FormPage_PuestosStaticPaths();
@@ -37,14 +38,6 @@ export const getStaticProps: GetStaticProps<Props> = async (ctx) => {
     };
 };
 
-const Page: FC<Props> = (props) => {
-    return (
-        <div>
-            <h1>Aplicar a empleo</h1>
-            <pre>{JSON.stringify(props, null, 4)}</pre>
-            {/* Incluir form con id del puesto para aplicar */}
-        </div>
-    );
-};
+const Page: FC<Props> = (props) => <JobApplicationForm puestoId={props.id} />;
 
 export default Page;
