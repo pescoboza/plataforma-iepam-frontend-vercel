@@ -3,7 +3,8 @@ import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/router' 
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-
+import Head from "next/head";
+import NavbarForm from "../components/general/NavbarForm";
 
 
 type Profile = {
@@ -60,6 +61,18 @@ function Form() {
     })
 
     return (
+        <>
+        <div className='pb-20'>
+            <Head>
+                <title>IEPAM | Gobierno Nuevo León</title>
+                <meta name="author" content="Loesen SA" />
+                <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+            </Head>
+            <header>
+                <NavbarForm />
+            </header>
+        </div>
+        
         <main>
             <div className='min-h-screen bg-gray-50 flex flex-col justify-center '>
                 <div className='max-w-md w-full mx-auto'>
@@ -172,6 +185,7 @@ function Form() {
             </div>
 
         </main>
+        </>
     );
 }
 
