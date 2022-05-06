@@ -93,12 +93,6 @@ const MobileDropDown: FC<{ open: boolean }> = ({ open }) => {
                                     <div className="py-4 px-3">
                                         <div className="px-2">
                                             <a
-                                                href="/autenticacion/iniciar-sesion"
-                                                className="flex w-full cursor-pointer items-center justify-center rounded-md bg-gray-200 py-2 font-medium text-gray-900 hover:bg-gray-300"
-                                            >
-                                                Iniciar Sesión
-                                            </a>
-                                            <a
                                                 href="/autenticacion/crear-cuenta"
                                                 className="mt-3 flex w-full items-center justify-center rounded-md bg-gray-600 px-4 py-2 text-base font-medium text-white hover:bg-gray-700"
                                             >

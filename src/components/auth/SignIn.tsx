@@ -70,15 +70,6 @@ export default function SignIn() {
                                     />
                                 </div>
                             </div>
-
-                            <div className="">
-                                <button
-                                    type="submit"
-                                    className="focus:outline-none flex w-full justify-center rounded-md bg-gray-500 py-2 px-4 text-sm font-medium text-white hover:bg-gray-700 focus:ring-0"
-                                >
-                                    Iniciar Sesión
-                                </button>
-                            </div>
                         </form>
                     </div>
                 </div>

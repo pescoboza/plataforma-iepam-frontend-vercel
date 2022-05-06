@@ -61,11 +61,6 @@ export default function Navbar() {
                                             aria-label="Global"
                                             className="hidden lg:flex lg:items-center lg:space-x-2"
                                         >
-                                            <Link href="/autenticacion/iniciar-sesion" passHref>
-                                                <div className="ml-5 cursor-pointer rounded-md bg-gray-200 px-5 py-2 text-sm font-medium hover:bg-gray-300">
-                                                    Iniciar Sesión
-                                                </div>
-                                            </Link>
                                             <Link href="/autenticacion/crear-cuenta" passHref>
                                                 <div className="ml-5 cursor-pointer rounded-md bg-gray-600 px-5 py-2 text-sm font-medium text-white hover:bg-gray-700">
                                                     Crear Cuenta

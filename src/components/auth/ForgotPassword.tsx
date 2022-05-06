@@ -91,13 +91,6 @@ export default function ForgotPassword() {
                                 </div>
                             </Link>
                         </div>
-                        <div className="flex w-full content-between items-stretch justify-center text-center">
-                            <Link href="/autenticacion-sesion" passHref>
-                                <div className="focus:outline-none flex w-full cursor-pointer justify-center rounded-md border border-gray-600 py-2 px-4 text-sm font-medium text-gray-800 hover:bg-gray-50 focus:ring-0">
-                                    Iniciar Sesión
-                                </div>
-                            </Link>
-                        </div>
                     </div>
                 </div>
             </div>
