@@ -1,5 +1,5 @@
 # schema: ${NEXT_PUBLIC_GQL_ENDPOINT}
-schema: https://admins.iepam.estetoscopiando.com/grahpql
+schema: https://admins.iepam.estetoscopiando.com/graphql
 
 generates:
   ./src/lib/codegen/client/index.ts:
