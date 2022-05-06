@@ -49,10 +49,10 @@ const Page: FC<Props> = ({ ciudades, nivelesEstudios }) => {
     const [modalData, setModalData] = useState<JobListItemProps | null>(null);
     if (error) console.error(error);
 
-    console.log('[QUERY_DATA]', puestos);
+    console.debug('[QUERY_DATA]', puestos);
 
     const onSubmit = handleSubmit((data) => {
-        console.log('[FORM_FILTERS]', data);
+        console.debug('[FORM_FILTERS]', data);
 
         const filterArg: Puesto_Filter = { _and: [] };
 
@@ -271,7 +271,7 @@ const JobListItem: FC<{ puesto: JobListItemProps; onClick?: (data: JobListItemPr
                         </div>
                     </div>
                     <div className="mt-2 sm:flex sm:justify-between">
-                    grid grid-cols-1 lg:grid-cols-2 
+                        grid grid-cols-1 lg:grid-cols-2
                         <div className="grid grid-cols-1 lg:grid-cols-2  gap-2">
                             <p className="flex items-center text-sm text-gray-500">
                                 <OfficeBuildingIcon
