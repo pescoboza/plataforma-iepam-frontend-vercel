@@ -32,12 +32,13 @@ const NIVEL_ACTIVIDAD_FISICA = {
 
 interface SearchFormData {
     ciudad?: string;
+    nivelEstudios?: string;
     search?: string;
 }
 
 const FILTER_FORM_ID = 'filter-form';
 
-const Page: FC<Props> = ({ ciudades }) => {
+const Page: FC<Props> = ({ ciudades, nivelesEstudios }) => {
     const { register, handleSubmit, reset } = useForm<SearchFormData>();
     const { page, nextPage, prevPage } = usePagination(10);
 
@@ -80,6 +81,11 @@ const Page: FC<Props> = ({ ciudades }) => {
                 ciudad: { _eq: ciudad },
             });
 
+        const nivelEstudios = data.nivelEstudios;
+        if (nivelEstudios != null && nivelEstudios.length > 0)
+            filterArg._and!.push({
+                nivelEstudios: { _eq: nivelEstudios },
+            });
         setFilter(filterArg);
     });
 
@@ -108,6 +114,18 @@ const Page: FC<Props> = ({ ciudades }) => {
                                     <select {...register('ciudad')}>
                                         <option value=""></option>
                                         {ciudades.map(({ name, value }, i) => (
+                                            <option key={i} value={value}>
+                                                {name}
+                                            </option>
+                                        ))}
+                                    </select>
+                                </div>
+
+                                <div>
+                                    <label htmlFor="nivelEstudios">Nivel de estudios</label>
+                                    <select {...register('nivelEstudios')}>
+                                        <option value=""></option>
+                                        {nivelesEstudios.map(({ name, value }, i) => (
                                             <option key={i} value={value}>
                                                 {name}
                                             </option>
