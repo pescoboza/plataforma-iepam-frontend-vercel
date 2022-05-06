@@ -1,17 +1,12 @@
-import { FC, useCallback } from "react";
-import React, { useState, useRef, useEffect, Fragment } from "react";
-import {
-    useSearchPage_PuestosQuery,
-    useSearchPage_JobPostDescriptionQuery,
-    useFilterListLazyQuery,
-} from "@/codegen/client";
-import { CalendarIcon, LocationMarkerIcon, OfficeBuildingIcon, PaperClipIcon } from "@heroicons/react/solid";
-import { Dialog, Transition } from "@headlessui/react";
-import { CheckIcon } from "@heroicons/react/outline";
-import moment from "moment";
+import React, { FC, useCallback, useState, useRef, Fragment } from "react";
 import Link from "next/link";
 import startCase from "lodash/startCase";
+import moment from "moment";
 import { useForm } from "react-hook-form";
+import { CheckIcon } from "@heroicons/react/outline";
+import { CalendarIcon, LocationMarkerIcon, OfficeBuildingIcon, PaperClipIcon } from "@heroicons/react/solid";
+import { Dialog, Transition } from "@headlessui/react";
+import { useSearchPage_PuestosQuery, Puesto_Filter } from "@/codegen/client";
 
 const NIVELES_ESTUDIO = {
     primaria: 1,
@@ -58,8 +53,10 @@ const Page: FC = () => {
     const { register, handleSubmit, reset } = useForm<SearchFormData>();
     const { page, nextPage, prevPage } = usePagination(10);
 
+    const [filter, setFilter] = useState<Puesto_Filter>({});
     const { data, error, loading } = useSearchPage_PuestosQuery({
         variables: {
+            filter,
             page,
         },
         fetchPolicy: "cache-and-network",
@@ -67,18 +64,27 @@ const Page: FC = () => {
     const puestos = (data?.puestos ?? []) as JobListItemProps[];
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [modalData, setModalData] = useState<JobListItemProps | null>(null);
-
     if (error) console.error(error);
 
-    const onSubmit = handleSubmit((data) => {
-        console.log("DATA", data);
+    console.log("[QUERY_DATA]", puestos);
 
-        const filter: {
-            search?: string;
-        } = {};
+    const onSubmit = handleSubmit((data) => {
+        console.log("[FORM_FILTERS]", data);
+
+        const filterArg: Puesto_Filter = {};
 
         const search = data.search;
-        if (search != null && search.length > 0) filter.search = search;
+        if (search != null && search.length > 0)
+            filterArg._or = [
+                { nombre: { _contains: search } },
+                {
+                    descripcion: {
+                        _contains: search,
+                    },
+                },
+            ];
+
+        setFilter(filterArg);
     });
 
     return (
