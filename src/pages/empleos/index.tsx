@@ -1,3 +1,6 @@
+import Head from "next/head";
+import NavbarSignedOut from "components/general/NavbarSignedOut";
+import Footer from "components/general/Footer";
 import { FC, useCallback } from "react";
 import React, { useState, useRef, useEffect, Fragment } from "react";
 import {
@@ -83,7 +86,16 @@ const Page: FC = () => {
 
     return (
         <div>
-            <div>
+            <Head>
+                <title>IEPAM | Gobierno Nuevo León</title>
+                <meta name="author" content="Loesen SA" />
+                <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+            </Head>
+            <header>
+                <NavbarSignedOut />
+            </header>
+            <main className="overflow-hidden bg-white">
+            <div className="mt-4 pt-12">
                 <form id={FILTER_FORM_ID} onSubmit={onSubmit}>
                     <div>
                         <label>Búsqueda</label>
@@ -110,6 +122,9 @@ const Page: FC = () => {
                     Limpiar filtros
                 </button>
             </div>
+            </main>
+
+
             {/* <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="bg-white overflow-hidden shadow rounded-lg">
                     <div className="px-4 py-5 sm:px-6">
@@ -148,6 +163,7 @@ const Page: FC = () => {
                     <JobModal isOpen={isModalOpen} onRequestClose={() => setIsModalOpen(false)} puesto={modalData} />
                 </div>
             )}
+            <Footer />
         </div>
     );
 };
