@@ -126,15 +126,6 @@ const JobApplicationForm: FC<{ puestoId: string } & Props> = ({ puestoId, nombre
             <main className="overflow-hidden bg-white">
                 <div className="mt-4 pt-12">
                     <div className="mx-auto max-w-7xl px-4 sm:px-6 py-5">
-<<<<<<< HEAD
-                        <div className="text-3xl font-bold text-gray-900 text-center">Formulario</div>
-                        <form onSubmit={onSubmit} className="space-y-6">
-                            <div className="py-5 px-8 grid grid-rows gap-15">
-                                <p className="text-lg font-semibold uppercase tracking-wider text-gray-500 py-4">
-                                    Nombre
-                                </p>
-                                <div className="bg-gray-100 rounded-lg py-5 px-5 grid grid-cols-1 lg:grid-cols-2 gap-6">
-=======
                         <div className="text-3xl font-bold text-gray-900 text-center">
                             Formulario
                             <div>
@@ -152,7 +143,6 @@ const JobApplicationForm: FC<{ puestoId: string } & Props> = ({ puestoId, nombre
                                 Nombre
                                 </p>                   
                                  <div className="bg-gray-100 rounded-lg py-5 px-5 grid grid-cols-1 lg:grid-cols-2 gap-6">
->>>>>>> ac0f81a088a97543ad5d37162ad7cd4b925b6988
                                     <div>
                                         <label
                                             htmlFor="primerNombre"
