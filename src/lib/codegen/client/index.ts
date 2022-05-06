@@ -374,6 +374,7 @@ export type Number_Filter_Operators = {
 
 export type Puesto = {
   __typename?: 'puesto';
+  ciudad: Scalars['String'];
   descripcion?: Maybe<Scalars['String']>;
   empresa?: Maybe<Empresa>;
   fechaActualizacion?: Maybe<Scalars['Date']>;
@@ -426,6 +427,7 @@ export type Puesto_Aggregated_Fields = {
 export type Puesto_Filter = {
   _and?: InputMaybe<Array<InputMaybe<Puesto_Filter>>>;
   _or?: InputMaybe<Array<InputMaybe<Puesto_Filter>>>;
+  ciudad?: InputMaybe<String_Filter_Operators>;
   descripcion?: InputMaybe<String_Filter_Operators>;
   empresa?: InputMaybe<Empresa_Filter>;
   fechaActualizacion?: InputMaybe<Date_Filter_Operators>;

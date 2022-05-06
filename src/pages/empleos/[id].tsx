@@ -1,7 +1,7 @@
-import type { FC } from "react";
-import type { GetStaticProps, GetStaticPaths } from "next";
-import { sdk } from "@/codegen/server";
-import JobApplicationForm from "@/components/job-application-form";
+import type { FC } from 'react';
+import type { GetStaticProps, GetStaticPaths } from 'next';
+import { sdk } from '@/codegen/server';
+import JobApplicationForm from '@/components/job-application-form';
 
 export const getStaticPaths: GetStaticPaths = async () => {
     const res = await sdk.FormPage_PuestosStaticPaths();
@@ -16,14 +16,14 @@ export const getStaticPaths: GetStaticPaths = async () => {
     return { paths, fallback: true };
 };
 
-export type Props = NonNullable<Awaited<ReturnType<typeof sdk["FormPage_PuestoById"]>>["puesto"]> & {
+export type Props = NonNullable<Awaited<ReturnType<typeof sdk['FormPage_PuestoById']>>['puesto']> & {
     id: string;
     fechaCreacion: string;
 };
 
 export const getStaticProps: GetStaticProps<Props> = async (ctx) => {
     const id = ctx.params?.id;
-    if (typeof id !== "string" || id.length === 0 || isNaN(Number(id))) return { notFound: true };
+    if (typeof id !== 'string' || id.length === 0 || isNaN(Number(id))) return { notFound: true };
 
     const { puesto } = await sdk.FormPage_PuestoById({ id });
 
