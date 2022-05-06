@@ -10,6 +10,7 @@ import { Dialog, Transition } from "@headlessui/react";
 import { CheckIcon } from "@heroicons/react/outline";
 import moment from "moment";
 import Link from "next/link";
+import startCase from "lodash/startCase";
 
 const Page: FC = () => {
     const { data, error, loading } = useSearchPage_PuestosQuery();
@@ -279,6 +280,8 @@ const JobModal: FC<{
     onRequestClose: () => void;
     puesto: JobListItemProps;
 }> = ({ puesto, isOpen, onRequestClose }) => {
+    const cancelBtnRef = useRef<HTMLButtonElement>(null);
+
     return (
         <Transition.Root show={isOpen} as={Fragment}>
             <Dialog
@@ -373,7 +376,7 @@ const JobModal: FC<{
                                     type="button"
                                     className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:mt-0 sm:col-start-1 sm:text-sm"
                                     onClick={onRequestClose}
-                                    // ref={cancelButtonRef}
+                                    ref={cancelBtnRef}
                                 >
                                     Cancelar
                                 </button>
