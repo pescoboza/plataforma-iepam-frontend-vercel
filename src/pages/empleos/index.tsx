@@ -110,9 +110,9 @@ const Page: FC<Props> = ({ ciudades }) => {
                             <input type="text" {...register('search')} />
                         </div>
                         {/* <div>
-                        <label>Nivel de Estudios</label>
-                        <input />
-                    </div> */}
+                            <label>Nivel de Estudios</label>
+                            <input />
+                        </div> */}
                     </form>
                     <button
                         form={FILTER_FORM_ID}
@@ -129,10 +129,9 @@ const Page: FC<Props> = ({ ciudades }) => {
                     >
                         Limpiar filtros
                     </button>
-                </div>
-            </main>
 
-            {/* <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="mx-auto max-w-7xl py-12 px-4 sm:px-6 lg:py-16 lg:px-8">
+                        {/* <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="bg-white overflow-hidden shadow rounded-lg">
                     <div className="px-4 py-5 sm:px-6">
                         <h1>Trabajos Disponibles</h1>
@@ -155,21 +154,28 @@ const Page: FC<Props> = ({ ciudades }) => {
                 </div>
             </div> */}
 
-            <div className="bg-white shadow overflow-hidden sm:rounded-md">
-                <JobList
-                    puestos={puestos}
-                    onJobPostClick={(puesto) => {
-                        setModalData(puesto);
-                        setIsModalOpen(true);
-                    }}
-                />
-            </div>
+                        <div className="bg-white shadow overflow-hidden sm:rounded-md">
+                            <JobList
+                                puestos={puestos}
+                                onJobPostClick={(puesto) => {
+                                    setModalData(puesto);
+                                    setIsModalOpen(true);
+                                }}
+                            />
+                        </div>
 
-            {modalData && (
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <JobModal isOpen={isModalOpen} onRequestClose={() => setIsModalOpen(false)} puesto={modalData} />
+                        {modalData && (
+                            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                                <JobModal
+                                    isOpen={isModalOpen}
+                                    onRequestClose={() => setIsModalOpen(false)}
+                                    puesto={modalData}
+                                />
+                            </div>
+                        )}
+                    </div>
                 </div>
-            )}
+            </main>
             <Footer />
         </div>
     );
