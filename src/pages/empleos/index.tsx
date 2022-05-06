@@ -97,13 +97,15 @@ const Page: FC<Props> = ({ ciudades, nivelesEstudios }) => {
             </header>
             <main className="overflow-hidden bg-white">
                 <div className="mt-4 pt-12">
-                    <div className="mx-auto max-w-7xl px-4 sm:px-6 py-5">
-                        <div className="text-3xl font-bold text-gray-900 text-center">Job Board</div>
+                    <div className="mx-auto max-w-7xl px-4 sm:px-6 py-5 pt2">
+                        <div className="text-3xl font-bold text-gray-900 text-center">Vacantes</div>
                         <form id={FILTER_FORM_ID} onSubmit={onSubmit} className="space-y-2">
                             <div className="py-5 px-8 grid grid-rows gap-15">
                                 <div className="bg-gray-100 rounded-lg py-5 px-5 grid grid-cols-1 lg:grid-cols-3 gap-6">
                                     <div>
-                                        <label htmlFor="search">Búsqueda</label>
+                                        <label htmlFor="search" className="py-2 text-md font-bold text-gray-600 block">
+                                            Búsqueda
+                                        </label>
                                         <input
                                             className="w-full p-2 border border-gray-300 rounded mt-1"
                                             type="text"
@@ -111,7 +113,9 @@ const Page: FC<Props> = ({ ciudades, nivelesEstudios }) => {
                                         />
                                     </div>
                                     <div>
-                                        <label htmlFor="ciudad">Ciudad</label>
+                                        <label htmlFor="ciudad" className="py-2 text-md font-bold text-gray-600 block">
+                                            Ciudad                                        
+                                        </label>
                                         <select
                                             className="w-full p-2 border border-gray-300 rounded mt-1"
                                             {...register('ciudad')}
@@ -126,7 +130,9 @@ const Page: FC<Props> = ({ ciudades, nivelesEstudios }) => {
                                     </div>
 
                                     <div>
-                                        <label htmlFor="nivelEstudios">Nivel de estudios</label>
+                                        <label htmlFor="nivelEstudios" className="py-2 text-md font-bold text-gray-600 block">
+                                            Nivel de estudios
+                                        </label>
                                         <select
                                             className="w-full p-2 border border-gray-300 rounded mt-1"
                                             {...register('nivelEstudios')}
@@ -146,26 +152,30 @@ const Page: FC<Props> = ({ ciudades, nivelesEstudios }) => {
                             </div> */}
                             </div>
                         </form>
-                        {isFilterActive ? (
-                            <button
-                                className="inline-flex items-center px-3 py-2 border border-transparent shadow-sm text-sm leading-4 font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-                                onClick={() => {
-                                    reset();
-                                    setFilter({});
-                                    setIsfilterActive(false);
-                                }}
-                            >
-                                Limpiar filtros
-                            </button>
-                        ) : (
-                            <button
-                                form={FILTER_FORM_ID}
-                                className="inline-flex items-center px-3 py-2 border border-transparent shadow-sm text-sm leading-4 font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-                                type="submit"
-                            >
-                                Filtrar
-                            </button>
-                        )}
+                        <div className="px-8 grid grid-rows gap-1 items-right">
+                            <div className="flex justify-end m-0">
+                            {isFilterActive ? (
+                                <button
+                                    className="text-lg shadow bg-blue-500 hover:bg-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"                    
+                                    onClick={() => {
+                                        reset();
+                                        setFilter({});
+                                        setIsfilterActive(false);
+                                    }}
+                                >
+                                    Limpiar filtros
+                                </button>
+                            ) : (
+                                <button
+                                    form={FILTER_FORM_ID}
+                                    className="text-lg shadow bg-blue-500 hover:bg-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"                    
+                                    type="submit"
+                                >
+                                    Filtrar
+                                </button>
+                            )}                                
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div className="mx-auto max-w-7xl py-5 px-4 sm:px-6 lg:py-5 lg:px-8">
@@ -374,9 +384,6 @@ const JobModal: FC<{
                                         <h3 className="text-lg leading-6 font-medium text-gray-900">
                                             Descripción del Trabajo
                                         </h3>
-                                        <p className="mt-1 max-w-2xl text-sm text-gray-500">
-                                            Personal details and application.
-                                        </p>
                                     </div>
                                     <div className="border-t border-gray-200 px-4 py-5 sm:px-6">
                                         <dl className="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
