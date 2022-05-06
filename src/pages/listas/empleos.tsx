@@ -15,6 +15,8 @@ const Page: FC = () => {
     const { data, error, loading } = useSearchPage_PuestosQuery();
     const puestos = (data?.puestos ?? []) as JobListItemProps[];
 
+    if (error) console.error(error);
+
     // const { data, loading, error } = useListasQuery();
     // if (loading) return "Loading...";
     // if (error) return `Error! ${error.message}`;
@@ -195,17 +197,23 @@ interface JobListItemProps {
     };
 }
 
-const JobList: FC<{ puestos: JobListItemProps[] }> = ({ puestos }) => (
+const JobList: FC<{ puestos: JobListItemProps[]; onJobPostClick?: (puesto: JobListItemProps) => void }> = ({
+    puestos,
+    onJobPostClick,
+}) => (
     <ul className="divide-y divide-gray-200">
-        {puestos.map((p) => (
-            <JobListItem {...p} key={p.id} />
+        {puestos.map((puesto) => (
+            <JobListItem puesto={puesto} key={puesto.id} onClick={onJobPostClick} />
         ))}
     </ul>
 );
 
-const JobListItem: FC<JobListItemProps> = ({ nombre, jornada, fechaCreacion, empresa }) => {
+const JobListItem: FC<{ puesto: JobListItemProps; onClick?: (data: JobListItemProps) => void }> = ({
+    onClick: handleClick,
+    puesto,
+}) => {
     return (
-        <li>
+        <li onClick={handleClick ? () => handleClick(puesto) : undefined}>
             <a
                 href=""
                 className="block hover:bg-gray-50"
@@ -216,10 +224,10 @@ const JobListItem: FC<JobListItemProps> = ({ nombre, jornada, fechaCreacion, emp
             >
                 <div className="px-4 py-4 sm:px-6">
                     <div className="flex items-center justify-between">
-                        <p className="text-sm font-medium text-blue-600 truncate">{nombre}</p>
+                        <p className="text-sm font-medium text-blue-600 truncate">{puesto.nombre}</p>
                         <div className="ml-2 flex-shrink-0 flex">
                             <p className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                                {jornada}
+                                {puesto.jornada}
                             </p>
                         </div>
                     </div>
@@ -230,21 +238,21 @@ const JobListItem: FC<JobListItemProps> = ({ nombre, jornada, fechaCreacion, emp
                                     className="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400"
                                     aria-hidden="true"
                                 />
-                                {empresa.nombreComercial}
+                                {puesto.empresa.nombreComercial}
                             </p>
                             <p className="mt-2 flex items-center text-sm text-gray-500 sm:mt-0 sm:ml-6">
                                 <LocationMarkerIcon
                                     className="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400"
                                     aria-hidden="true"
                                 />
-                                {empresa.ciudad}
+                                {puesto.empresa.ciudad}
                             </p>
                         </div>
                         <div className="mt-2 flex items-center text-sm text-gray-500 sm:mt-0">
                             <CalendarIcon className="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" aria-hidden="true" />
                             <p>
                                 {/* {position.status}{" "} */}
-                                <time>{moment(fechaCreacion).format("YYYY-MM-DD HH:mm")}</time>
+                                <time>{moment(puesto.fechaCreacion).format("YYYY-MM-DD HH:mm")}</time>
                             </p>
                         </div>
                     </div>
