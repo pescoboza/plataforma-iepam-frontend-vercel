@@ -48,7 +48,7 @@ export default function Navbar() {
                                             </div>
                                         </Link>
                                         <span className="mx-5 hidden rounded-md border border-gray-500 bg-gray-50 py-1 px-3 text-sm text-gray-600 md:block">
-                                            Candidatos
+                                            Beta
                                         </span>
                                     </div>
                                 </div>
@@ -60,9 +60,6 @@ export default function Navbar() {
                                             aria-label="Global"
                                             className="hidden lg:flex lg:items-center lg:space-x-2"
                                         >
-                                            <div className="ml-5 cursor-pointer rounded-md bg-gray-600 px-5 py-2 text-sm font-medium text-white hover:bg-gray-700">
-                                                Crear Cuenta
-                                            </div>
                                         </nav>
                                     </div>
                                 </div>
