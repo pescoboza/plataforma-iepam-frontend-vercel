@@ -33,6 +33,7 @@ const FILTER_FORM_ID = 'filter-form';
 const Page: FC<Props> = ({ ciudades, nivelesEstudios }) => {
     const { register, handleSubmit, reset } = useForm<SearchFormData>();
     const { page, nextPage, prevPage } = usePagination(10);
+    const [isFilterActive, setIsfilterActive] = useState(false);
 
     const [filter, setFilter] = useState<Puesto_Filter>({});
     const { data, error, loading } = useSearchPage_PuestosQuery({
@@ -79,6 +80,8 @@ const Page: FC<Props> = ({ ciudades, nivelesEstudios }) => {
             filterArg._and!.push({
                 nivelEstudios: { _eq: nivelEstudios },
             });
+
+        if (filterArg._and?.length) setIsfilterActive(true);
         setFilter(filterArg);
     });
 
@@ -130,22 +133,26 @@ const Page: FC<Props> = ({ ciudades, nivelesEstudios }) => {
                             <input />
                         </div> */}
                             </form>
-                            <button
-                                form={FILTER_FORM_ID}
-                                className="inline-flex items-center px-3 py-2 border border-transparent shadow-sm text-sm leading-4 font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-                                type="submit"
-                            >
-                                Filtrar
-                            </button>
-                            <button
-                                className="inline-flex items-center px-3 py-2 border border-transparent shadow-sm text-sm leading-4 font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-                                onClick={() => {
-                                    reset();
-                                    setFilter({});
-                                }}
-                            >
-                                Limpiar filtros
-                            </button>
+                            {isFilterActive ? (
+                                <button
+                                    form={FILTER_FORM_ID}
+                                    className="inline-flex items-center px-3 py-2 border border-transparent shadow-sm text-sm leading-4 font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                                    type="submit"
+                                >
+                                    Filtrar
+                                </button>
+                            ) : (
+                                <button
+                                    className="inline-flex items-center px-3 py-2 border border-transparent shadow-sm text-sm leading-4 font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                                    onClick={() => {
+                                        reset();
+                                        setFilter({});
+                                        setIsfilterActive(false);
+                                    }}
+                                >
+                                    Limpiar filtros
+                                </button>
+                            )}
                         </div>
                     </div>
                     <div className="mx-auto max-w-7xl py-5 px-4 sm:px-6 lg:py-5 lg:px-8">
