@@ -52,7 +52,6 @@ export default function Navbar() {
                                         </span>
                                     </div>
                                 </div>
-                                <SearchBar />
                                 <MobileDropDownSignedOut open={open} />
 
                                 <div className="hidden lg:flex lg:items-center">
@@ -61,11 +60,9 @@ export default function Navbar() {
                                             aria-label="Global"
                                             className="hidden lg:flex lg:items-center lg:space-x-2"
                                         >
-                                            <Link href="/autenticacion/crear-cuenta" passHref>
-                                                <div className="ml-5 cursor-pointer rounded-md bg-gray-600 px-5 py-2 text-sm font-medium text-white hover:bg-gray-700">
-                                                    Crear Cuenta
-                                                </div>
-                                            </Link>
+                                            <div className="ml-5 cursor-pointer rounded-md bg-gray-600 px-5 py-2 text-sm font-medium text-white hover:bg-gray-700">
+                                                Crear Cuenta
+                                            </div>
                                         </nav>
                                     </div>
                                 </div>

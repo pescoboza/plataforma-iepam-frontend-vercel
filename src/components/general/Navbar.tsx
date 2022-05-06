@@ -60,7 +60,6 @@ export default function Navbar() {
                                         </span>
                                     </div>
                                 </div>
-                                <SearchBar />
                                 <MobileDropDown open={open} />
                                 <>
                                     <div className="hidden lg:flex lg:items-center">
