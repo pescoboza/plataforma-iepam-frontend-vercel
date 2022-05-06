@@ -60,13 +60,10 @@ export default function Navbar() {
                                             aria-label="Global"
                                             className="hidden lg:flex lg:items-center lg:space-x-2"
                                         >
-<<<<<<< HEAD
-=======
                                             <div className="ml-5 cursor-pointer rounded-md bg-gray-600 px-5 py-2 text-sm font-medium text-white hover:bg-gray-700">
                                                 Ver Empleos
                                                 {/* Crear Cuenta */}
                                             </div>
->>>>>>> bbaeb879c6aee9aa7d38a4621a4d4afd86f67497
                                         </nav>
                                     </div>
                                 </div>

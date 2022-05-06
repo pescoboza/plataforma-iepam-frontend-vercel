@@ -75,7 +75,7 @@ const schema: yup.SchemaOf<JobApplicationFormData> = yup.object().shape({
 //     })
 //     .required();
 
-const JobApplicationForm: FC<{ puestoId: string } & Props> = ({ puestoId }) => {
+const JobApplicationForm: FC<{ puestoId: string } & Props> = ({ puestoId, nombre}) => {
     const {
         register,
         handleSubmit,
@@ -127,11 +127,19 @@ const JobApplicationForm: FC<{ puestoId: string } & Props> = ({ puestoId }) => {
                 <div className="mt-4 pt-12">
                     <div className="mx-auto max-w-7xl px-4 sm:px-6 py-5">
                         <div className="text-3xl font-bold text-gray-900 text-center">
-                        Formulario
+                            Formulario
+                            <div>
+                                <span className="text-lg font-semibold uppercase tracking-wider text-gray-500 px-2">
+                                Puesto:   
+                                </span>   
+                                <span className="text-lg font-semibold uppercase tracking-wider text-gray-400 px-2">
+                                {nombre}
+                                </span>   
+                            </div>
                         </div>
-                        <form onSubmit={onSubmit} className="space-y-6">
+                        <form onSubmit={onSubmit} className="space-y-2">
                             <div className="py-5 px-8 grid grid-rows gap-15">  
-                                <p className="text-lg font-semibold uppercase tracking-wider text-gray-500 py-4">
+                                <p className="text-lg font-semibold uppercase tracking-wider text-gray-500 pb-4">
                                 Nombre
                                 </p>                   
                                  <div className="bg-gray-100 rounded-lg py-5 px-5 grid grid-cols-1 lg:grid-cols-2 gap-6">

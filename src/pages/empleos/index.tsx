@@ -93,59 +93,63 @@ const Page: FC<Props> = ({ ciudades, nivelesEstudios }) => {
             </header>
             <main className="overflow-hidden bg-white">
                 <div className="mt-4 pt-12">
-                    <div className="mx-auto max-w-7xl py-5 px-4 sm:px-6 lg:py-5 lg:px-8">
-                        <div className="bg-white shadow overflow-hidden sm:rounded-md">
-                            <form id={FILTER_FORM_ID} onSubmit={onSubmit}>
-                                <div>
-                                    <label htmlFor="search">Búsqueda</label>
-                                    <input type="text" {...register('search')} />
-                                </div>
+                    <div className="mx-auto max-w-7xl px-4 sm:px-6 py-5">
+                        <div className="text-3xl font-bold text-gray-900 text-center">
+                            Job Board
+                        </div>
+                            <form id={FILTER_FORM_ID} onSubmit={onSubmit} className="space-y-2">
+                                <div className="py-5 px-8 grid grid-rows gap-15">
+                                    <div className="bg-gray-100 rounded-lg py-5 px-5 grid grid-cols-1 lg:grid-cols-3 gap-6">  
+                                        <div>
+                                            <label htmlFor="search">Búsqueda</label>
+                                            <input className="w-full p-2 border border-gray-300 rounded mt-1" type="text" {...register('search')} />
+                                        </div>
+                                        <div>
+                                            <label htmlFor="ciudad">Ciudad</label>
+                                            <select className="w-full p-2 border border-gray-300 rounded mt-1" {...register('ciudad')}>
+                                                <option value=""></option>
+                                                {ciudades.map(({ name, value }, i) => (
+                                                    <option key={i} value={value}>
+                                                        {name}
+                                                    </option>
+                                                ))}
+                                            </select>
+                                        </div>
 
-                                <div>
-                                    <label htmlFor="ciudad">Ciudad</label>
-                                    <select {...register('ciudad')}>
-                                        <option value=""></option>
-                                        {ciudades.map(({ name, value }, i) => (
-                                            <option key={i} value={value}>
-                                                {name}
-                                            </option>
-                                        ))}
-                                    </select>
+                                        <div>
+                                            <label htmlFor="nivelEstudios">Nivel de estudios</label>
+                                            <select className="w-full p-2 border border-gray-300 rounded mt-1" {...register('nivelEstudios')}>
+                                                <option value=""></option>
+                                                {nivelesEstudios.map(({ name, value }, i) => (
+                                                    <option key={i} value={value}>
+                                                        {name}
+                                                    </option>
+                                                ))}
+                                            </select>
+                                        </div>
+                                    </div>
+                                    {/* <div>
+                                <label>Nivel de Estudios</label>
+                                <input />
+                            </div> */}
                                 </div>
-
-                                <div>
-                                    <label htmlFor="nivelEstudios">Nivel de estudios</label>
-                                    <select {...register('nivelEstudios')}>
-                                        <option value=""></option>
-                                        {nivelesEstudios.map(({ name, value }, i) => (
-                                            <option key={i} value={value}>
-                                                {name}
-                                            </option>
-                                        ))}
-                                    </select>
-                                </div>
-                                {/* <div>
-                            <label>Nivel de Estudios</label>
-                            <input />
-                        </div> */}
                             </form>
                             <button
                                 form={FILTER_FORM_ID}
-                                className="inline-flex items-center px-3 py-2 border border-transparent shadow-sm text-sm leading-4 font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                                className="text-lg shadow bg-blue-500 hover:bg-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
                                 type="submit"
                             >
                                 Filtrar
                             </button>
                             <button
-                                className="inline-flex items-center px-3 py-2 border border-transparent shadow-sm text-sm leading-4 font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-                                onClick={() => {
+                                    className="text-lg shadow bg-blue-500 hover:bg-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
+                                    onClick={() => {
                                     reset();
                                     setFilter({});
                                 }}
                             >
                                 Limpiar filtros
                             </button>
-                        </div>
                     </div>
                     <div className="mx-auto max-w-7xl py-5 px-4 sm:px-6 lg:py-5 lg:px-8">
                         {/* <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
