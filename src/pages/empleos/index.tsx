@@ -1,12 +1,15 @@
 import React, { FC, useCallback, useState, useRef, Fragment } from "react";
-import Link from "next/link";
-import startCase from "lodash/startCase";
-import moment from "moment";
-import { useForm } from "react-hook-form";
-import { CheckIcon } from "@heroicons/react/outline";
+import Head from "next/head";
+import NavbarSignedOut from "components/general/NavbarSignedOut";
+import Footer from "components/general/Footer";
+import { useSearchPage_PuestosQuery, Puesto_Filter } from "@/codegen/client";
 import { CalendarIcon, LocationMarkerIcon, OfficeBuildingIcon, PaperClipIcon } from "@heroicons/react/solid";
 import { Dialog, Transition } from "@headlessui/react";
-import { useSearchPage_PuestosQuery, Puesto_Filter } from "@/codegen/client";
+import { CheckIcon } from "@heroicons/react/outline";
+import moment from "moment";
+import Link from "next/link";
+import startCase from "lodash/startCase";
+import { useForm } from "react-hook-form";
 
 const NIVELES_ESTUDIO = {
     primaria: 1,
@@ -89,33 +92,44 @@ const Page: FC = () => {
 
     return (
         <div>
-            <div>
-                <form id={FILTER_FORM_ID} onSubmit={onSubmit}>
-                    <div>
-                        <label>Búsqueda</label>
-                        <input type="text" {...register("search")} />
-                    </div>
-                    {/* <div>
+            <Head>
+                <title>IEPAM | Gobierno Nuevo León</title>
+                <meta name="author" content="Loesen SA" />
+                <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+            </Head>
+            <header>
+                <NavbarSignedOut />
+            </header>
+            <main className="overflow-hidden bg-white">
+                <div className="mt-4 pt-12">
+                    <form id={FILTER_FORM_ID} onSubmit={onSubmit}>
+                        <div>
+                            <label>Búsqueda</label>
+                            <input type="text" {...register("search")} />
+                        </div>
+                        {/* <div>
                         <label>Nivel de Estudios</label>
                         <input />
                     </div> */}
-                </form>
-                <button
-                    form={FILTER_FORM_ID}
-                    className="inline-flex items-center px-3 py-2 border border-transparent shadow-sm text-sm leading-4 font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-                    type="submit"
-                >
-                    Filtrar
-                </button>
-                <button
-                    className="inline-flex items-center px-3 py-2 border border-transparent shadow-sm text-sm leading-4 font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-                    onClick={() => {
-                        reset();
-                    }}
-                >
-                    Limpiar filtros
-                </button>
-            </div>
+                    </form>
+                    <button
+                        form={FILTER_FORM_ID}
+                        className="inline-flex items-center px-3 py-2 border border-transparent shadow-sm text-sm leading-4 font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                        type="submit"
+                    >
+                        Filtrar
+                    </button>
+                    <button
+                        className="inline-flex items-center px-3 py-2 border border-transparent shadow-sm text-sm leading-4 font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                        onClick={() => {
+                            reset();
+                        }}
+                    >
+                        Limpiar filtros
+                    </button>
+                </div>
+            </main>
+
             {/* <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="bg-white overflow-hidden shadow rounded-lg">
                     <div className="px-4 py-5 sm:px-6">
@@ -154,6 +168,7 @@ const Page: FC = () => {
                     <JobModal isOpen={isModalOpen} onRequestClose={() => setIsModalOpen(false)} puesto={modalData} />
                 </div>
             )}
+            <Footer />
         </div>
     );
 };
