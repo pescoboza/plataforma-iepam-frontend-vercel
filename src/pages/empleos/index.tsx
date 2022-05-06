@@ -253,7 +253,7 @@ const JobListItem: FC<{ puesto: JobListItemProps; onClick?: (data: JobListItemPr
     if ((largo-21) < 0)
         largo = 0
     else 
-        largo = largo -21
+        largo = largo -17
     var white_spaces = " ".repeat(largo);
     var razon_social = puesto.empresa.razonSocial.length > 18 ? puesto.empresa.razonSocial.substring(0, 17) + " ..." : puesto.empresa.razonSocial+white_spaces
 
