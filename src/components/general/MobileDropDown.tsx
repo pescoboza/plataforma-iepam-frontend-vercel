@@ -76,7 +76,7 @@ const MobileDropDown: FC<{ open: boolean }> = ({ open }) => {
                                                 </>
                                             </Link>
                                             <span className="ml-3 rounded-md border border-gray-500 bg-gray-50 py-1 px-3 text-center text-sm leading-none tracking-tighter text-gray-600">
-                                                Candidatos
+                                                Beta
                                             </span>
                                         </div>
                                         <div className="-mr-0.5">
