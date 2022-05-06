@@ -249,13 +249,17 @@ const JobListItem: FC<{ puesto: JobListItemProps; onClick?: (data: JobListItemPr
     onClick: handleClick,
     puesto,
 }) => {
-    var largo = puesto.empresa.razonSocial.length;
-    if ((largo-21) < 0)
-        largo = 0
-    else 
-        largo = largo -17
-    var white_spaces = " ".repeat(largo);
-    var razon_social = puesto.empresa.razonSocial.length > 18 ? puesto.empresa.razonSocial.substring(0, 17) + " ..." : puesto.empresa.razonSocial+white_spaces
+
+            
+    let largo = puesto.empresa.razonSocial.length
+    let wsp = 0;
+    if (largo == 17)
+        wsp = 8
+    else if (largo < 17)
+       wsp = 21-largo
+
+    let white_spaces = "\xa0".repeat(wsp)
+    let razon_social = puesto.empresa.razonSocial.length > 18 ? puesto.empresa.razonSocial.substring(0, 6) + " ..." : puesto.empresa.razonSocial+white_spaces
 
     return (
         <li onClick={handleClick ? () => handleClick(puesto) : undefined}>
