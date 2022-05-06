@@ -75,7 +75,7 @@ const schema: yup.SchemaOf<JobApplicationFormData> = yup.object().shape({
 //     })
 //     .required();
 
-const JobApplicationForm: FC<{ puestoId: string } & Props> = ({ puestoId, nombre}) => {
+const JobApplicationForm: FC<{ puestoId: string } & Props> = ({ puestoId, nombre, empresa }) => {
     const {
         register,
         handleSubmit,
@@ -130,19 +130,20 @@ const JobApplicationForm: FC<{ puestoId: string } & Props> = ({ puestoId, nombre
                             Formulario
                             <div>
                                 <span className="text-lg font-semibold uppercase tracking-wider text-gray-500 px-2">
-                                Puesto:   
-                                </span>   
+                                    Puesto:
+                                </span>
                                 <span className="text-lg font-semibold uppercase tracking-wider text-gray-400 px-2">
-                                {nombre}
-                                </span>   
+                                    {nombre}
+                                    {empresa?.nombreComercial ? ` en ${empresa?.nombreComercial}` : ''}
+                                </span>
                             </div>
                         </div>
                         <form onSubmit={onSubmit} className="space-y-2">
-                            <div className="py-5 px-8 grid grid-rows gap-15">  
+                            <div className="py-5 px-8 grid grid-rows gap-15">
                                 <p className="text-lg font-semibold uppercase tracking-wider text-gray-500 pb-4">
-                                Nombre
-                                </p>                   
-                                 <div className="bg-gray-100 rounded-lg py-5 px-5 grid grid-cols-1 lg:grid-cols-2 gap-6">
+                                    Nombre
+                                </p>
+                                <div className="bg-gray-100 rounded-lg py-5 px-5 grid grid-cols-1 lg:grid-cols-2 gap-6">
                                     <div>
                                         <label
                                             htmlFor="primerNombre"
