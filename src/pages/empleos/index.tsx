@@ -251,7 +251,7 @@ const JobListItem: FC<{ puesto: JobListItemProps; onClick?: (data: JobListItemPr
                         </div>
                     </div>
                     <div className="mt-2 sm:flex sm:justify-between">
-                        <div className="sm:flex">
+                        <div className="grid grid-cols-4 gap-2">
                             <p className="flex items-center text-sm text-gray-500">
                                 <OfficeBuildingIcon
                                     className="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400"
