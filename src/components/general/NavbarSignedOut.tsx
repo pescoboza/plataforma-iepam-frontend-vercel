@@ -24,7 +24,7 @@ export default function Navbar() {
                                 <div className="flex px-2 lg:px-0">
                                     <div className="flex items-center">
                                         <Link href="/">
-                                            <>
+                                            <div>
                                                 <span className="sr-only">Home</span>
                                                 <img
                                                     className="h-14 w-auto cursor-pointer md:hidden"
@@ -33,10 +33,10 @@ export default function Navbar() {
                                                     width={100}
                                                     height={100}
                                                 />
-                                            </>
+                                            </div>
                                         </Link>
                                         <Link href="/">
-                                            <>
+                                            <div>
                                                 <span className="sr-only">Home</span>
                                                 <img
                                                     className="hidden h-14 w-auto cursor-pointer md:block"
@@ -45,7 +45,7 @@ export default function Navbar() {
                                                     width={340}
                                                     height={100}
                                                 />
-                                            </>
+                                            </div>
                                         </Link>
                                         <span className="mx-5 hidden rounded-md border border-gray-500 bg-gray-50 py-1 px-3 text-sm text-gray-600 md:block">
                                             Candidatos
