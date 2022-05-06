@@ -1,14 +1,14 @@
 import Head from 'next/head';
 import NavbarSignedOut from 'components/general/NavbarSignedOut';
 import Footer from 'components/general/Footer';
-import { FC, useState } from "react";
-import { useForm } from "react-hook-form";
-import { useRouter } from "next/router";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
-import { useFormPage_SubmitFormDataMutation } from "@/codegen/client";
-import JobApplicationSuccess from "./components/JobApplicationSuccess";
-import type { Props } from "../../pages/empleos/[id]";
+import { FC, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { useRouter } from 'next/router';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
+import { useFormPage_SubmitFormDataMutation } from '@/codegen/client';
+import JobApplicationSuccess from './components/JobApplicationSuccess';
+import type { Props } from '../../pages/empleos/[id]';
 
 interface JobApplicationFormData {
     primerNombre: string;
@@ -25,8 +25,8 @@ interface JobApplicationFormData {
     fechaNacimiento: string;
 }
 
-const REQUIRED_ERROR_MSG = "Debe llenar este campo.";
-const EMAIL_ERROR_MSG = "Introducir un correo válido.";
+const REQUIRED_ERROR_MSG = 'Debe llenar este campo.';
+const EMAIL_ERROR_MSG = 'Introducir un correo válido.';
 
 const schema: yup.SchemaOf<JobApplicationFormData> = yup.object().shape({
     primerNombre: yup.string().required(REQUIRED_ERROR_MSG),
@@ -90,7 +90,7 @@ const JobApplicationForm: FC<{ puestoId: string } & Props> = ({ puestoId, nombre
     const [submitData] = useFormPage_SubmitFormDataMutation();
     const [submitted, setSubmitted] = useState(false);
 
-    if (submitted) return <JobApplicationSuccess name={getValues("primerNombre")} />;
+    if (submitted) return <JobApplicationSuccess name={getValues('primerNombre')} />;
 
     const onSubmit = handleSubmit((data) => {
         setLoading(true);
@@ -101,14 +101,14 @@ const JobApplicationForm: FC<{ puestoId: string } & Props> = ({ puestoId, nombre
                 setLoading(false);
                 setError(null);
                 const aplicacionId = res.data?.aplicacion?.id;
-                if (typeof aplicacionId !== "string" || aplicacionId.length === 0 || isNaN(Number(aplicacionId)))
-                    throw new Error("Invalid aplicacionId");
+                if (typeof aplicacionId !== 'string' || aplicacionId.length === 0 || isNaN(Number(aplicacionId)))
+                    throw new Error('Invalid aplicacionId');
 
                 setSubmitted(true);
             })
             .catch((err) => {
                 setLoading(false);
-                setError("Ocurrió un error inesperado, inténtelo más tarde.");
+                setError('Ocurrió un error inesperado, inténtelo más tarde.');
                 console.error(err);
             });
     });
@@ -126,6 +126,15 @@ const JobApplicationForm: FC<{ puestoId: string } & Props> = ({ puestoId, nombre
             <main className="overflow-hidden bg-white">
                 <div className="mt-4 pt-12">
                     <div className="mx-auto max-w-7xl px-4 sm:px-6 py-5">
+<<<<<<< HEAD
+                        <div className="text-3xl font-bold text-gray-900 text-center">Formulario</div>
+                        <form onSubmit={onSubmit} className="space-y-6">
+                            <div className="py-5 px-8 grid grid-rows gap-15">
+                                <p className="text-lg font-semibold uppercase tracking-wider text-gray-500 py-4">
+                                    Nombre
+                                </p>
+                                <div className="bg-gray-100 rounded-lg py-5 px-5 grid grid-cols-1 lg:grid-cols-2 gap-6">
+=======
                         <div className="text-3xl font-bold text-gray-900 text-center">
                             Formulario
                             <div>
@@ -143,75 +152,101 @@ const JobApplicationForm: FC<{ puestoId: string } & Props> = ({ puestoId, nombre
                                 Nombre
                                 </p>                   
                                  <div className="bg-gray-100 rounded-lg py-5 px-5 grid grid-cols-1 lg:grid-cols-2 gap-6">
+>>>>>>> ac0f81a088a97543ad5d37162ad7cd4b925b6988
                                     <div>
-                                        <label htmlFor="primerNombre" className="py-2 text-md font-bold text-gray-600 block">
-                                        Nombre
+                                        <label
+                                            htmlFor="primerNombre"
+                                            className="py-2 text-md font-bold text-gray-600 block"
+                                        >
+                                            Nombre
                                         </label>
                                         <input
                                             className="w-full p-2 border border-gray-300 rounded mt-1"
-                                            {...register("primerNombre")}
+                                            {...register('primerNombre')}
                                             id="primerNombre"
                                             name="primerNombre"
                                             type="text"
                                         />
-                                        {errors.primerNombre && <div className="red">{errors.primerNombre.message}</div>}
+                                        {errors.primerNombre && (
+                                            <div className="red">{errors.primerNombre.message}</div>
+                                        )}
                                     </div>
                                     <div>
-                                        <label htmlFor="otrosNombres" className="py-2 text-md font-bold text-gray-600 block">
+                                        <label
+                                            htmlFor="otrosNombres"
+                                            className="py-2 text-md font-bold text-gray-600 block"
+                                        >
                                             Segundo nombre
                                         </label>
                                         <input
                                             className="w-full p-2 border border-gray-300 rounded mt-1"
-                                            {...register("otrosNombres")}
+                                            {...register('otrosNombres')}
                                             id="otrosNombres"
                                             name="otrosNombres"
                                             type="text"
                                         />
-                                        {errors.otrosNombres && <div className="red">{errors.otrosNombres.message}</div>}
+                                        {errors.otrosNombres && (
+                                            <div className="red">{errors.otrosNombres.message}</div>
+                                        )}
                                     </div>
                                     <div>
-                                        <label htmlFor="apellidoPaterno" className="py-2 text-md font-bold text-gray-600 block">
+                                        <label
+                                            htmlFor="apellidoPaterno"
+                                            className="py-2 text-md font-bold text-gray-600 block"
+                                        >
                                             Apellido paterno
                                         </label>
                                         <input
                                             className="w-full p-2 border border-gray-300 rounded mt-1"
-                                            {...register("apellidoPaterno")}
+                                            {...register('apellidoPaterno')}
                                             id="apellidoPaterno"
                                             name="apellidoPaterno"
                                             type="text"
                                         />
-                                        {errors.apellidoPaterno && <div className="red">{errors.apellidoPaterno.message}</div>}
+                                        {errors.apellidoPaterno && (
+                                            <div className="red">{errors.apellidoPaterno.message}</div>
+                                        )}
                                     </div>
                                     <div>
-                                        <label htmlFor="apellidoMaterno" className="py-2 text-md font-bold text-gray-600 block">
+                                        <label
+                                            htmlFor="apellidoMaterno"
+                                            className="py-2 text-md font-bold text-gray-600 block"
+                                        >
                                             Apellido materno
                                         </label>
                                         <input
                                             className="w-full p-2 border border-gray-300 rounded mt-1"
-                                            {...register("apellidoMaterno")}
+                                            {...register('apellidoMaterno')}
                                             id="apellidoMaterno"
                                             name="apellidoMaterno"
                                             type="text"
                                         />
-                                        {errors.apellidoMaterno && <div className="red">{errors.apellidoMaterno.message}</div>}
+                                        {errors.apellidoMaterno && (
+                                            <div className="red">{errors.apellidoMaterno.message}</div>
+                                        )}
                                     </div>
                                 </div>
                                 <p className="text-lg font-semibold uppercase tracking-wider text-gray-500 py-4">
-                                 Datos Personales
-                                </p>                      
+                                    Datos Personales
+                                </p>
                                 <div className="bg-gray-100 rounded-lg py-5 px-5 grid grid-cols-1 lg:grid-cols-2 gap-6">
                                     <div>
-                                        <label htmlFor="fechaNacimiento" className="py-2 text-md font-bold text-gray-600 block">
+                                        <label
+                                            htmlFor="fechaNacimiento"
+                                            className="py-2 text-md font-bold text-gray-600 block"
+                                        >
                                             Fecha de nacimiento
                                         </label>
                                         <input
                                             className="w-full p-2 border border-gray-300 rounded mt-1"
-                                            {...register("fechaNacimiento")}
+                                            {...register('fechaNacimiento')}
                                             id="fechaNacimiento"
                                             name="fechaNacimiento"
                                             type="date"
                                         />
-                                        {errors.fechaNacimiento && <div className="red">{errors.fechaNacimiento.message}</div>}
+                                        {errors.fechaNacimiento && (
+                                            <div className="red">{errors.fechaNacimiento.message}</div>
+                                        )}
                                     </div>
                                     <div>
                                         <label htmlFor="sexo" className="py-2 text-md font-bold text-gray-600 block">
@@ -220,7 +255,7 @@ const JobApplicationForm: FC<{ puestoId: string } & Props> = ({ puestoId, nombre
                                         <select
                                             id="sexo"
                                             className="w-full p-2 border border-gray-300 rounded mt-1"
-                                            {...register("sexo")}
+                                            {...register('sexo')}
                                         >
                                             <option value="">Escoge una opción</option>
                                             <option value="H">Masculino</option>
@@ -235,7 +270,7 @@ const JobApplicationForm: FC<{ puestoId: string } & Props> = ({ puestoId, nombre
                                         </label>
                                         <input
                                             className="w-full p-2 border border-gray-300 rounded mt-1"
-                                            {...register("correo")}
+                                            {...register('correo')}
                                             id="correo"
                                             name="correo"
                                             type="correo"
@@ -243,12 +278,15 @@ const JobApplicationForm: FC<{ puestoId: string } & Props> = ({ puestoId, nombre
                                         {errors.correo && <div className="red">{errors.correo.message}</div>}
                                     </div>
                                     <div>
-                                        <label htmlFor="telefono" className="py-2 text-md font-bold text-gray-600 block">
+                                        <label
+                                            htmlFor="telefono"
+                                            className="py-2 text-md font-bold text-gray-600 block"
+                                        >
                                             Número de teléfono
                                         </label>
                                         <input
                                             className="w-full p-2 border border-gray-300 rounded mt-1"
-                                            {...register("telefono")}
+                                            {...register('telefono')}
                                             id="telefono"
                                             name="telefono"
                                             type="number"
@@ -257,16 +295,19 @@ const JobApplicationForm: FC<{ puestoId: string } & Props> = ({ puestoId, nombre
                                     </div>
                                 </div>
                                 <p className="text-lg font-semibold uppercase tracking-wider text-gray-500 py-4">
-                                 Dirección
-                                </p>      
+                                    Dirección
+                                </p>
                                 <div className="bg-gray-100 rounded-lg py-5 px-5 grid grid-cols-1 lg:grid-cols-2 gap-6">
                                     <div>
-                                        <label htmlFor="direccion" className="py-2 text-md font-bold text-gray-600 block">
+                                        <label
+                                            htmlFor="direccion"
+                                            className="py-2 text-md font-bold text-gray-600 block"
+                                        >
                                             Dirección
                                         </label>
                                         <input
                                             className="w-full p-2 border border-gray-300 rounded mt-1"
-                                            {...register("direccion")}
+                                            {...register('direccion')}
                                             id="direccion"
                                             name="direccion"
                                             type="text"
@@ -279,7 +320,7 @@ const JobApplicationForm: FC<{ puestoId: string } & Props> = ({ puestoId, nombre
                                         </label>
                                         <input
                                             className="w-full p-2 border border-gray-300 rounded mt-1"
-                                            {...register("colonia")}
+                                            {...register('colonia')}
                                             id="colonia"
                                             name="colonia"
                                             type="text"
@@ -292,7 +333,7 @@ const JobApplicationForm: FC<{ puestoId: string } & Props> = ({ puestoId, nombre
                                         </label>
                                         <input
                                             className="w-full p-2 border border-gray-300 rounded mt-1"
-                                            {...register("ciudad")}
+                                            {...register('ciudad')}
                                             id="ciudad"
                                             name="ciudad"
                                             type="text"
@@ -300,17 +341,22 @@ const JobApplicationForm: FC<{ puestoId: string } & Props> = ({ puestoId, nombre
                                         {errors.ciudad && <div className="red">{errors.ciudad.message}</div>}
                                     </div>
                                     <div>
-                                        <label htmlFor="codigoPostal" className="py-2 text-md font-bold text-gray-600 block">
+                                        <label
+                                            htmlFor="codigoPostal"
+                                            className="py-2 text-md font-bold text-gray-600 block"
+                                        >
                                             Código postal
                                         </label>
                                         <input
                                             className="w-full p-2 border border-gray-300 rounded mt-1"
-                                            {...register("codigoPostal")}
+                                            {...register('codigoPostal')}
                                             id="codigoPostal"
                                             name="codigoPostal"
                                             type="text"
                                         />
-                                        {errors.codigoPostal && <div className="red">{errors.codigoPostal.message}</div>}
+                                        {errors.codigoPostal && (
+                                            <div className="red">{errors.codigoPostal.message}</div>
+                                        )}
                                     </div>
                                 </div>
                                 {error && (
@@ -324,10 +370,9 @@ const JobApplicationForm: FC<{ puestoId: string } & Props> = ({ puestoId, nombre
                                     className="text-lg shadow bg-blue-500 hover:bg-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
                                     type="submit"
                                 >
-                                    {loading ? "Cargando..." : "Enviar"}
+                                    {loading ? 'Cargando...' : 'Enviar'}
                                 </button>
                             </div>
-
                         </form>
                     </div>
                 </div>
