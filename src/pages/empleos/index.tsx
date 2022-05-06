@@ -1,4 +1,4 @@
-import type { FC } from "react";
+import { FC, useCallback } from "react";
 import React, { useState, useRef, useEffect, Fragment } from "react";
 import {
     useSearchPage_PuestosQuery,
@@ -11,43 +11,83 @@ import { CheckIcon } from "@heroicons/react/outline";
 import moment from "moment";
 import Link from "next/link";
 import startCase from "lodash/startCase";
+import { useForm } from "react-hook-form";
+
+const NIVELES_ESTUDIO = {
+    primaria: 1,
+    secundaria: 2,
+    preparatoria: 3,
+    "carrera-trunca": 4,
+    licenciatura: 5,
+    posgrado: 6,
+};
+
+const NIVEL_ACTIVIDAD_FISICA = {
+    baja: 1,
+    media: 2,
+    alta: 3,
+};
+
+interface SearchFormData {
+    nivelEstudiosIn?: string[];
+    search?: string;
+}
+
+function usePagination(maxPage: number) {
+    const [page, setPage] = useState(1);
+
+    const prevPage = useCallback(() => {
+        if (!(page < 1)) return;
+        setPage(page - 1);
+    }, [page]);
+
+    const nextPage = useCallback(() => {
+        setPage(page + 1);
+    }, [page]);
+
+    return {
+        page,
+        prevPage,
+        nextPage,
+    };
+}
+
+const FILTER_FORM_ID = "filter-form";
 
 const Page: FC = () => {
-    const { data, error, loading } = useSearchPage_PuestosQuery();
+    const { register, handleSubmit, reset } = useForm<SearchFormData>();
+    const { page, nextPage, prevPage } = usePagination(10);
+
+    const { data, error, loading } = useSearchPage_PuestosQuery({
+        variables: {
+            page,
+        },
+        fetchPolicy: "cache-and-network",
+    });
     const puestos = (data?.puestos ?? []) as JobListItemProps[];
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [modalData, setModalData] = useState<JobListItemProps | null>(null);
 
     if (error) console.error(error);
 
-    // const { data, loading, error } = useListasQuery();
-    // if (loading) return "Loading...";
-    // if (error) return `Error! ${error.message}`;
-    // const [open, setOpen] = useState(false);
-    // const cancelButtonRef = useRef(null);
-
-    // const [value, setValue] = useState("2");
-
-    // const [filterData, setfilterData] = useState(data);
-
-    // const [getDesc, { dat, load, err }] = useDescripcionLazyQuery();
-    // const [getFilt, { datF, loadF, errF }] = useFilterListLazyQuery();
-
-    // function filg() {
-    //     getFilt({ value });
-    //     setfilterData(datF);
-    // }
-
-    // function modaF(ida) {
-    //     setOpen(true);
-    //     ida = ida.toString();
-    //     getDesc({ ida });
-    //     if (load) return "Loading...";
-    //     if (err) return `Error! ${err.message}`;
-    // }
-
     return (
         <div>
+            <div>
+                <form id={FILTER_FORM_ID}>
+                    <div>
+                        <label>Búsqueda</label>
+                        <input type="text" {...register("search")} />
+                    </div>
+                    {/* <div>
+                        <label>Nivel de Estudios</label>
+                        <input />
+                    </div> */}
+                </form>
+                <button type="submit" form={FILTER_FORM_ID}>
+                    Filtrar
+                </button>
+                <button>Limpiar filtros</button>
+            </div>
             {/* <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="bg-white overflow-hidden shadow rounded-lg">
                     <div className="px-4 py-5 sm:px-6">

@@ -467,10 +467,15 @@ export type PuestosQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type PuestosQuery = { __typename?: 'Query', puesto?: Array<{ __typename?: 'puesto', id?: string | null, fechaCreacion?: any | null, nivelEstudios: string, nombre: string, jornada?: string | null, turno: string, descripcion?: string | null, numVacantes?: number | null } | null> | null };
 
-export type SearchPage_PuestosQueryVariables = Exact<{ [key: string]: never; }>;
+export type SearchPage_PuestosQueryVariables = Exact<{
+  filter?: InputMaybe<Puesto_Filter>;
+  sort?: InputMaybe<Array<Scalars['String']> | Scalars['String']>;
+  limit?: InputMaybe<Scalars['Int']>;
+  page?: InputMaybe<Scalars['Int']>;
+}>;
 
 
-export type SearchPage_PuestosQuery = { __typename?: 'Query', puestos?: Array<{ __typename?: 'puesto', id?: string | null, nombre: string, jornada?: string | null, fechaCreacion?: any | null, turno: string, numVacantes?: number | null, descripcion?: string | null, empresa?: { __typename?: 'empresa', nombreComercial?: string | null, ciudad: string } | null } | null> | null };
+export type SearchPage_PuestosQuery = { __typename?: 'Query', puestos?: Array<{ __typename?: 'puesto', id?: string | null, nombre: string, jornada?: string | null, fechaCreacion?: any | null, turno: string, numVacantes?: number | null, nivelEstudios: string, descripcion?: string | null, empresa?: { __typename?: 'empresa', nombreComercial?: string | null, ciudad: string } | null } | null> | null };
 
 export type SearchPage_JobPostDescriptionQueryVariables = Exact<{
   puestoId: Scalars['ID'];
@@ -546,14 +551,15 @@ export type PuestosQueryHookResult = ReturnType<typeof usePuestosQuery>;
 export type PuestosLazyQueryHookResult = ReturnType<typeof usePuestosLazyQuery>;
 export type PuestosQueryResult = Apollo.QueryResult<PuestosQuery, PuestosQueryVariables>;
 export const SearchPage_PuestosDocument = gql`
-    query SearchPage_Puestos {
-  puestos: puesto {
+    query SearchPage_Puestos($filter: puesto_filter, $sort: [String!], $limit: Int = 50, $page: Int = 1) {
+  puestos: puesto(filter: $filter, sort: $sort, limit: $limit, page: $page) {
     id
     nombre
     jornada
     fechaCreacion
     turno
     numVacantes
+    nivelEstudios
     descripcion
     empresa {
       nombreComercial
@@ -575,6 +581,10 @@ export const SearchPage_PuestosDocument = gql`
  * @example
  * const { data, loading, error } = useSearchPage_PuestosQuery({
  *   variables: {
+ *      filter: // value for 'filter'
+ *      sort: // value for 'sort'
+ *      limit: // value for 'limit'
+ *      page: // value for 'page'
  *   },
  * });
  */

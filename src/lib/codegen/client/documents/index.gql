@@ -10,15 +10,15 @@ query Puestos {
         numVacantes
     }
 }
-
-query SearchPage_Puestos {
-    puestos: puesto {
+query SearchPage_Puestos($filter: puesto_filter, $sort: [String!], $limit: Int = 50, $page: Int = 1) {
+    puestos: puesto(filter: $filter, sort: $sort, limit: $limit, page: $page) {
         id
         nombre
         jornada
         fechaCreacion
         turno
         numVacantes
+        nivelEstudios
         descripcion
         empresa {
             nombreComercial
