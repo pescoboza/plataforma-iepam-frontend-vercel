@@ -1,18 +1,18 @@
 // Package Imports
-import { useState, useEffect } from "react";
-import { Popover } from "@headlessui/react";
-import Link from "next/link";
+import { useState, useEffect } from 'react';
+import { Popover } from '@headlessui/react';
+import Link from 'next/link';
 
 // Component Imports
-import MobileDropDownSignedOut from "./MobileDropDownSignedOut";
-import SearchBar from "./SearchBar";
+import MobileDropDownSignedOut from './MobileDropDownSignedOut';
+import SearchBar from './SearchBar';
 
 // Component
 export default function Navbar() {
     const [user, setuser] = useState(false);
     useEffect(() => {
-        if (typeof window === "undefined") return;
-        setuser(JSON.parse(localStorage.getItem("user") ?? "null"));
+        if (typeof window === 'undefined') return;
+        setuser(JSON.parse(localStorage.getItem('user') ?? 'null'));
     }, []);
     return (
         <div className="fixed z-10 w-full">
@@ -61,7 +61,8 @@ export default function Navbar() {
                                             className="hidden lg:flex lg:items-center lg:space-x-2"
                                         >
                                             <div className="ml-5 cursor-pointer rounded-md bg-gray-600 px-5 py-2 text-sm font-medium text-white hover:bg-gray-700">
-                                                Crear Cuenta
+                                                Ver Empleos
+                                                {/* Crear Cuenta */}
                                             </div>
                                         </nav>
                                     </div>

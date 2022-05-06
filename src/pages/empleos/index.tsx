@@ -209,6 +209,7 @@ interface JobListItemProps {
     nivelEstudios: string;
     empresa: {
         nombreComercial: string;
+        razonSocial: string;
         ciudad: string;
     };
 }
@@ -238,9 +239,11 @@ const JobListItem: FC<{ puesto: JobListItemProps; onClick?: (data: JobListItemPr
                     // modaF(position.id);
                 }}
             >
-                <div className="px-4 py-4 sm:px-6">
+                <div className="px-8 py-4 sm:px-6">
                     <div className="flex items-center justify-between">
-                        <p className="text-sm font-medium text-blue-600 truncate">{puesto.nombre}</p>
+                        <p className="text-sm font-medium text-blue-600 truncate">
+                            {puesto.nombre} en {puesto.empresa.nombreComercial}
+                        </p>
                         <div className="ml-2 flex-shrink-0 flex">
                             <p className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
                                 {kebabCaseToCapitalize(puesto.turno)}
@@ -254,7 +257,7 @@ const JobListItem: FC<{ puesto: JobListItemProps; onClick?: (data: JobListItemPr
                                     className="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400"
                                     aria-hidden="true"
                                 />
-                                {puesto.empresa.nombreComercial}
+                                {puesto.empresa.razonSocial}
                             </p>
                             <p className="mt-2 flex items-center text-sm text-gray-500 sm:mt-0 sm:ml-6">
                                 <LocationMarkerIcon
@@ -349,9 +352,7 @@ const JobModal: FC<{
                                         <dl className="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
                                             <div className="sm:col-span-1">
                                                 <dt className="text-sm font-medium text-gray-500">Empresa</dt>
-                                                <dd className="mt-1 text-sm text-gray-900">
-                                                    {puesto.empresa.nombreComercial}
-                                                </dd>
+                                                <dd className="mt-1 text-sm text-gray-900">{puesto.empresa.razon}</dd>
                                             </div>
                                             <div className="sm:col-span-1">
                                                 <dt className="text-sm font-medium text-gray-500">Vacante</dt>

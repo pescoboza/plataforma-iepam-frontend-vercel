@@ -23,6 +23,7 @@ query SearchPage_Puestos($filter: puesto_filter, $sort: [String!], $limit: Int =
         descripcion
         empresa {
             nombreComercial
+            razonSocial
             ciudad
         }
     }

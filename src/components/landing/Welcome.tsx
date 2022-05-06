@@ -5,7 +5,7 @@ export default function Welcome() {
             <div className="mx-auto w-full max-w-7xl pt-16 pb-20 text-center lg:py-32 lg:text-left">
                 <div className="px-4 lg:w-1/2 xl:pr-16">
                     <h1 className="text-4xl font-semibold tracking-tight text-gray-900 lg:text-5xl">
-                        <span className="block xl:inline">Encuentra el empleo</span>{" "}
+                        <span className="block xl:inline">Encuentra el empleo</span>{' '}
                         <span className="block text-gray-600 xl:inline">adecuado para ti.</span>
                     </h1>
                     <p className="mx-auto mt-3 max-w-md text-lg leading-none text-gray-500 md:mt-5 md:max-w-3xl">
@@ -18,7 +18,7 @@ export default function Welcome() {
                                 href="/empleos"
                                 className="flex w-full items-center justify-center rounded-md bg-gray-600 px-8 py-3 text-base font-medium text-white hover:bg-gray-700 md:py-4 md:px-10 md:text-lg"
                             >
-                                Explorar Lista de puestos
+                                Coseguir Trabajo
                             </a>
                         </div>
                     </div>
