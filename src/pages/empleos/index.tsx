@@ -259,17 +259,16 @@ const JobListItem: FC<{ puesto: JobListItemProps; onClick?: (data: JobListItemPr
     onClick: handleClick,
     puesto,
 }) => {
-
-            
-    let largo = puesto.empresa.razonSocial.length
+    let largo = puesto.empresa.razonSocial.length;
     let wsp = 0;
-    if (largo == 17)
-        wsp = 8
-    else if (largo < 17)
-       wsp = 21-largo
+    if (largo == 17) wsp = 8;
+    else if (largo < 17) wsp = 21 - largo;
 
-    let white_spaces = "\xa0".repeat(wsp)
-    let razon_social = puesto.empresa.razonSocial.length > 18 ? puesto.empresa.razonSocial.substring(0, 6) + " ..." : puesto.empresa.razonSocial+white_spaces
+    let white_spaces = '\xa0'.repeat(wsp);
+    let razon_social =
+        puesto.empresa.razonSocial.length > 18
+            ? puesto.empresa.razonSocial.substring(0, 6) + ' ...'
+            : puesto.empresa.razonSocial + white_spaces;
 
     return (
         <li onClick={handleClick ? () => handleClick(puesto) : undefined}>
@@ -283,7 +282,9 @@ const JobListItem: FC<{ puesto: JobListItemProps; onClick?: (data: JobListItemPr
             >
                 <div className="px-8 py-4 sm:px-6">
                     <div className="flex items-center justify-between">
-                        <p className="text-sm font-medium text-blue-600 truncate">{puesto.nombre}</p>
+                        <p className="text-sm font-medium text-blue-600 truncate">
+                            {puesto.nombre} en {puesto.empresa.nombreComercial}
+                        </p>
                         <div className="ml-2 flex-shrink-0 flex">
                             <p className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
                                 {kebabCaseToCapitalize(puesto.turno)}
