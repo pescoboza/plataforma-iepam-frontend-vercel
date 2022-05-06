@@ -3,58 +3,34 @@ import Head from 'next/head';
 import NavbarSignedOut from 'components/general/NavbarSignedOut';
 import Footer from 'components/general/Footer';
 import { useSearchPage_PuestosQuery, Puesto_Filter } from '@/codegen/client';
-import { CalendarIcon, LocationMarkerIcon, OfficeBuildingIcon, PaperClipIcon } from '@heroicons/react/solid';
+import {
+    CalendarIcon,
+    LocationMarkerIcon,
+    OfficeBuildingIcon,
+    AcademicCapIcon,
+    ClockIcon,
+    PaperClipIcon,
+} from '@heroicons/react/solid';
 import { Dialog, Transition } from '@headlessui/react';
 import { CheckIcon } from '@heroicons/react/outline';
-import moment from 'moment';
 import Link from 'next/link';
 import startCase from 'lodash/startCase';
+import capitalize from 'lodash/capitalize';
 import { useForm } from 'react-hook-form';
 import { GetStaticProps } from 'next';
 import { sdk } from '@/lib/codegen/server';
-
-const NIVELES_ESTUDIO = {
-    primaria: 1,
-    secundaria: 2,
-    preparatoria: 3,
-    'carrera-trunca': 4,
-    licenciatura: 5,
-    posgrado: 6,
-};
-
-const NIVEL_ACTIVIDAD_FISICA = {
-    baja: 1,
-    media: 2,
-    alta: 3,
-};
+import usePagination from '@/hooks/usePagination';
+import kebabCaseToCapitalize from '@/helpers/kebabCaseToCapitalize';
 
 interface SearchFormData {
-    nivelEstudiosIn?: string[];
+    ciudad?: string;
+    nivelEstudios?: string;
     search?: string;
-}
-
-function usePagination(maxPage: number) {
-    const [page, setPage] = useState(1);
-
-    const prevPage = useCallback(() => {
-        if (!(page < 1)) return;
-        setPage(page - 1);
-    }, [page]);
-
-    const nextPage = useCallback(() => {
-        setPage(page + 1);
-    }, [page]);
-
-    return {
-        page,
-        prevPage,
-        nextPage,
-    };
 }
 
 const FILTER_FORM_ID = 'filter-form';
 
-const Page: FC<Props> = ({ ciudades }) => {
+const Page: FC<Props> = ({ ciudades, nivelesEstudios }) => {
     const { register, handleSubmit, reset } = useForm<SearchFormData>();
     const { page, nextPage, prevPage } = usePagination(10);
 
@@ -76,19 +52,32 @@ const Page: FC<Props> = ({ ciudades }) => {
     const onSubmit = handleSubmit((data) => {
         console.log('[FORM_FILTERS]', data);
 
-        const filterArg: Puesto_Filter = {};
+        const filterArg: Puesto_Filter = { _and: [] };
 
         const search = data.search;
         if (search != null && search.length > 0)
-            filterArg._or = [
-                { nombre: { _contains: search } },
-                {
-                    descripcion: {
-                        _contains: search,
+            filterArg._and!.push({
+                _or: [
+                    { nombre: { _contains: search } },
+                    {
+                        descripcion: {
+                            _contains: search,
+                        },
                     },
-                },
-            ];
+                ],
+            });
 
+        const ciudad = data.ciudad;
+        if (ciudad != null && ciudad.length > 0)
+            filterArg._and!.push({
+                ciudad: { _eq: ciudad },
+            });
+
+        const nivelEstudios = data.nivelEstudios;
+        if (nivelEstudios != null && nivelEstudios.length > 0)
+            filterArg._and!.push({
+                nivelEstudios: { _eq: nivelEstudios },
+            });
         setFilter(filterArg);
     });
 
@@ -105,6 +94,7 @@ const Page: FC<Props> = ({ ciudades }) => {
             <main className="overflow-hidden bg-white">
                 <div className="mt-4 pt-12">
                     <div className="mx-auto max-w-7xl py-5 px-4 sm:px-6 lg:py-5 lg:px-8">
+<<<<<<< HEAD
 
                     <div className="bg-white shadow overflow-hidden sm:rounded-md">
                     <form id={FILTER_FORM_ID} onSubmit={onSubmit}>
@@ -116,6 +106,42 @@ const Page: FC<Props> = ({ ciudades }) => {
                                 <label>Nivel de Estudios</label>
                                 <input />
                             </div> */}
+=======
+                        <div className="bg-white shadow overflow-hidden sm:rounded-md">
+                            <form id={FILTER_FORM_ID} onSubmit={onSubmit}>
+                                <div>
+                                    <label htmlFor="search">Búsqueda</label>
+                                    <input type="text" {...register('search')} />
+                                </div>
+
+                                <div>
+                                    <label htmlFor="ciudad">Ciudad</label>
+                                    <select {...register('ciudad')}>
+                                        <option value=""></option>
+                                        {ciudades.map(({ name, value }, i) => (
+                                            <option key={i} value={value}>
+                                                {name}
+                                            </option>
+                                        ))}
+                                    </select>
+                                </div>
+
+                                <div>
+                                    <label htmlFor="nivelEstudios">Nivel de estudios</label>
+                                    <select {...register('nivelEstudios')}>
+                                        <option value=""></option>
+                                        {nivelesEstudios.map(({ name, value }, i) => (
+                                            <option key={i} value={value}>
+                                                {name}
+                                            </option>
+                                        ))}
+                                    </select>
+                                </div>
+                                {/* <div>
+                            <label>Nivel de Estudios</label>
+                            <input />
+                        </div> */}
+>>>>>>> bbaeb879c6aee9aa7d38a4621a4d4afd86f67497
                             </form>
                             <button
                                 form={FILTER_FORM_ID}
@@ -128,15 +154,23 @@ const Page: FC<Props> = ({ ciudades }) => {
                                 className="inline-flex items-center px-3 py-2 border border-transparent shadow-sm text-sm leading-4 font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
                                 onClick={() => {
                                     reset();
+<<<<<<< HEAD
+=======
+                                    setFilter({});
+>>>>>>> bbaeb879c6aee9aa7d38a4621a4d4afd86f67497
                                 }}
                             >
                                 Limpiar filtros
                             </button>
+<<<<<<< HEAD
                     </div>  
                     </div>  
+=======
+                        </div>
+                    </div>
+>>>>>>> bbaeb879c6aee9aa7d38a4621a4d4afd86f67497
                     <div className="mx-auto max-w-7xl py-5 px-4 sm:px-6 lg:py-5 lg:px-8">
-                    
-            {/* <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                        {/* <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="bg-white overflow-hidden shadow rounded-lg">
                     <div className="px-4 py-5 sm:px-6">
                         <h1>Trabajos Disponibles</h1>
@@ -193,8 +227,11 @@ interface JobListItemProps {
     jornada: string;
     turno: string;
     fechaCreacion: string;
+    ciudad: string;
+    nivelEstudios: string;
     empresa: {
         nombreComercial: string;
+        razonSocial: string;
         ciudad: string;
     };
 }
@@ -224,37 +261,52 @@ const JobListItem: FC<{ puesto: JobListItemProps; onClick?: (data: JobListItemPr
                     // modaF(position.id);
                 }}
             >
-                <div className="px-4 py-4 sm:px-6">
+                <div className="px-8 py-4 sm:px-6">
                     <div className="flex items-center justify-between">
-                        <p className="text-sm font-medium text-blue-600 truncate">{puesto.nombre}</p>
+                        <p className="text-sm font-medium text-blue-600 truncate">
+                            {puesto.nombre} en {puesto.empresa.nombreComercial}
+                        </p>
                         <div className="ml-2 flex-shrink-0 flex">
                             <p className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                                {puesto.jornada}
+                                {kebabCaseToCapitalize(puesto.turno)}
                             </p>
                         </div>
                     </div>
                     <div className="mt-2 sm:flex sm:justify-between">
-                        <div className="sm:flex">
+                        <div className="grid grid-cols-4 gap-2">
                             <p className="flex items-center text-sm text-gray-500">
                                 <OfficeBuildingIcon
                                     className="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400"
                                     aria-hidden="true"
                                 />
-                                {puesto.empresa.nombreComercial}
+                                {puesto.empresa.razonSocial}
                             </p>
                             <p className="mt-2 flex items-center text-sm text-gray-500 sm:mt-0 sm:ml-6">
                                 <LocationMarkerIcon
                                     className="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400"
                                     aria-hidden="true"
                                 />
-                                {puesto.empresa.ciudad}
+                                {puesto.ciudad}
+                            </p>
+                            <p className="mt-2 flex items-center text-sm text-gray-500 sm:mt-0 sm:ml-6">
+                                <AcademicCapIcon
+                                    className="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400"
+                                    aria-hidden="true"
+                                />
+                                {startCase(puesto.nivelEstudios)}
+                            </p>
+                            <p className="mt-2 flex items-center text-sm text-gray-500 sm:mt-0 sm:ml-6">
+                                <ClockIcon className="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" aria-hidden="true" />
+                                {kebabCaseToCapitalize(puesto.jornada)}
                             </p>
                         </div>
                         <div className="mt-2 flex items-center text-sm text-gray-500 sm:mt-0">
                             <CalendarIcon className="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" aria-hidden="true" />
                             <p>
                                 {/* {position.status}{" "} */}
-                                <time>{moment(puesto.fechaCreacion).format('YYYY-MM-DD HH:mm')}</time>
+                                <time>
+                                    {new Date(puesto.fechaCreacion).toLocaleDateString('es-MX', { dateStyle: 'long' })}
+                                </time>
                             </p>
                         </div>
                     </div>
@@ -323,7 +375,7 @@ const JobModal: FC<{
                                             <div className="sm:col-span-1">
                                                 <dt className="text-sm font-medium text-gray-500">Empresa</dt>
                                                 <dd className="mt-1 text-sm text-gray-900">
-                                                    {puesto.empresa.nombreComercial}
+                                                    {puesto.empresa.razonSocial}
                                                 </dd>
                                             </div>
                                             <div className="sm:col-span-1">
@@ -336,12 +388,14 @@ const JobModal: FC<{
                                                     {startCase(puesto.turno)}
                                                 </div>
                                             </div>
-                                            {/* <div className="sm:col-span-1">
-                                            <dt className="text-sm font-medium text-gray-500">Salario</dt>
-                                            <dd className="mt-1 text-sm text-gray-900">$120,000</dd>
-                                        </div> */}
+                                            <div className="sm:col-span-1">
+                                                <dt className="text-sm font-medium text-gray-500">Jornada</dt>
+                                                <dd className="mt-1 text-sm text-gray-900">
+                                                    {kebabCaseToCapitalize(puesto.jornada)}
+                                                </dd>
+                                            </div>
                                             <div className="sm:col-span-2">
-                                                <dt className="text-sm font-medium text-gray-500">Acerca</dt>
+                                                <dt className="text-sm font-medium text-gray-500">Descripción</dt>
                                                 <dd className="mt-1 text-sm text-gray-900">{puesto.descripcion}</dd>
                                             </div>
                                         </dl>
@@ -375,25 +429,37 @@ const JobModal: FC<{
 };
 
 interface Props {
-    ciudades: {
-        name: string;
-        value: string;
-    }[];
+    ciudades: { name: string; value: string }[];
+    nivelesEstudios: { name: string; value: string }[];
 }
+
 export const getStaticProps: GetStaticProps<Props> = async (ctx) => {
-    const { puesto } = await sdk.SearchPage_AllCities();
+    const { puesto } = await sdk.SearchPage_FilterOptions();
 
     const citiesSet = new Set<string>();
-
+    const nivelesEstudioSet = new Set<string>();
     puesto?.forEach((p) => {
         if (p == null) return;
-        citiesSet.add(p.ciudad.trim());
+        citiesSet.add(p.ciudad);
+        nivelesEstudioSet.add(p.nivelEstudios);
     });
 
+    const ciudades = Array.from(citiesSet)
+        .sort((a, b) => a.localeCompare(b))
+        .map((c) => ({ name: startCase(c), value: c }));
+
+    const nivelesEstudios = Array.from(nivelesEstudioSet)
+        .sort((a, b) => a.localeCompare(b))
+        .map((ne) => ({ name: startCase(ne), value: ne }));
+
+    const props = {
+        ciudades,
+        nivelesEstudios,
+    };
+
+    console.debug('[FILTER OPTIONS]', props);
     return {
-        props: {
-            ciudades: Array.from(citiesSet).map((c) => ({ name: c, value: c })),
-        },
+        props,
     };
 };
 
