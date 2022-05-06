@@ -49,10 +49,10 @@ const Page: FC<Props> = ({ ciudades, nivelesEstudios }) => {
     const [modalData, setModalData] = useState<JobListItemProps | null>(null);
     if (error) console.error(error);
 
-    console.log('[QUERY_DATA]', puestos);
+    console.debug('[QUERY_DATA]', puestos);
 
     const onSubmit = handleSubmit((data) => {
-        console.log('[FORM_FILTERS]', data);
+        console.debug('[FORM_FILTERS]', data);
 
         const filterArg: Puesto_Filter = { _and: [] };
 
@@ -273,9 +273,7 @@ const JobListItem: FC<{ puesto: JobListItemProps; onClick?: (data: JobListItemPr
             >
                 <div className="px-8 py-4 sm:px-6">
                     <div className="flex items-center justify-between">
-                        <p className="text-sm font-medium text-blue-600 truncate">
-                            {puesto.nombre}
-                        </p>
+                        <p className="text-sm font-medium text-blue-600 truncate">{puesto.nombre}</p>
                         <div className="ml-2 flex-shrink-0 flex">
                             <p className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
                                 {kebabCaseToCapitalize(puesto.turno)}
@@ -283,7 +281,7 @@ const JobListItem: FC<{ puesto: JobListItemProps; onClick?: (data: JobListItemPr
                         </div>
                     </div>
                     <div className="mt-2 sm:flex sm:justify-between">
-                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">  
+                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
                             <p className="mt-2 flex items-center text-sm text-gray-500 sm:mt-0 sm:ml-6">
                                 <OfficeBuildingIcon
                                     className="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400"
