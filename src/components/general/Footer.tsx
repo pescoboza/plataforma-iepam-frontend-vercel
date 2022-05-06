@@ -16,17 +16,17 @@ const navigation = {
     social: [
         {
             name: "Facebook",
-            href: "https://www.facebook.com/",
+            href: "https://www.facebook.com/IEPAM",
             icon: iconFacebook,
         },
         {
             name: "Instagram",
-            href: "https://www.instagram.com/",
+            href: "https://www.instagram.com/iepam.nl/",
             icon: iconInstagram,
         },
         {
             name: "Twitter",
-            href: "https://www.twitter.com/",
+            href: "https://www.twitter.com/IEPAM1",
             icon: iconTwitter,
         },
     ],
