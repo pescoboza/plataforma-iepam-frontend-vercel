@@ -15,18 +15,10 @@ export default function Welcome() {
                     <div className="mt-10 sm:flex sm:justify-center lg:justify-start">
                         <div className="rounded-md">
                             <a
-                                href="/autenticacion/crear-cuenta"
+                                href="/empleos"
                                 className="flex w-full items-center justify-center rounded-md bg-gray-600 px-8 py-3 text-base font-medium text-white hover:bg-gray-700 md:py-4 md:px-10 md:text-lg"
                             >
-                                Crear Cuenta
-                            </a>
-                        </div>
-                        <div className="mt-3 rounded-md sm:mt-0 sm:ml-3">
-                            <a
-                                href="#"
-                                className="flex w-full items-center justify-center rounded-md bg-gray-100 px-8 py-3 text-base font-medium text-gray-600 hover:bg-gray-200 md:py-4 md:px-10 md:text-lg"
-                            >
-                                Navegar Puestos
+                                Explorar Lista de puestos
                             </a>
                         </div>
                     </div>
