@@ -38,6 +38,6 @@ export const getStaticProps: GetStaticProps<Props> = async (ctx) => {
     };
 };
 
-const Page: FC<Props> = (props) => <JobApplicationForm puestoId={props.id} />;
+const Page: FC<Props> = (props) => <JobApplicationForm puestoId={props.id} {...props} />;
 
 export default Page;
