@@ -1228,10 +1228,10 @@ export type FormPage_JobDataQueryVariables = Exact<{
 
 export type FormPage_JobDataQuery = { __typename?: 'Query', puesto?: { __typename?: 'puesto', id?: string | null, nombre: string, empresa?: { __typename?: 'empresa', nombreComercial?: string | null } | null } | null };
 
-export type SearchPage_AllCitiesQueryVariables = Exact<{ [key: string]: never; }>;
+export type SearchPage_FilterOptionsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type SearchPage_AllCitiesQuery = { __typename?: 'Query', puesto?: Array<{ __typename?: 'puesto', ciudad: string, municipio: string } | null> | null };
+export type SearchPage_FilterOptionsQuery = { __typename?: 'Query', puesto?: Array<{ __typename?: 'puesto', ciudad: string, municipio: string, nivelEstudios: string } | null> | null };
 
 
 export const EmpresasDocument = gql`
@@ -1317,11 +1317,12 @@ export const FormPage_JobDataDocument = gql`
   }
 }
     `;
-export const SearchPage_AllCitiesDocument = gql`
-    query SearchPage_AllCities {
+export const SearchPage_FilterOptionsDocument = gql`
+    query SearchPage_FilterOptions {
   puesto {
     ciudad
     municipio
+    nivelEstudios
   }
 }
     `;
@@ -1351,8 +1352,8 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     FormPage_JobData(variables: FormPage_JobDataQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<FormPage_JobDataQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<FormPage_JobDataQuery>(FormPage_JobDataDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'FormPage_JobData', 'query');
     },
-    SearchPage_AllCities(variables?: SearchPage_AllCitiesQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<SearchPage_AllCitiesQuery> {
-      return withWrapper((wrappedRequestHeaders) => client.request<SearchPage_AllCitiesQuery>(SearchPage_AllCitiesDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'SearchPage_AllCities', 'query');
+    SearchPage_FilterOptions(variables?: SearchPage_FilterOptionsQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<SearchPage_FilterOptionsQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<SearchPage_FilterOptionsQuery>(SearchPage_FilterOptionsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'SearchPage_FilterOptions', 'query');
     }
   };
 }

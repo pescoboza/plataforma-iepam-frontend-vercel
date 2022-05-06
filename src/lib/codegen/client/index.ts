@@ -477,7 +477,7 @@ export type SearchPage_PuestosQueryVariables = Exact<{
 }>;
 
 
-export type SearchPage_PuestosQuery = { __typename?: 'Query', puestos?: Array<{ __typename?: 'puesto', id?: string | null, nombre: string, jornada?: string | null, fechaCreacion?: any | null, turno: string, numVacantes?: number | null, nivelEstudios: string, descripcion?: string | null, empresa?: { __typename?: 'empresa', nombreComercial?: string | null, ciudad: string } | null } | null> | null };
+export type SearchPage_PuestosQuery = { __typename?: 'Query', puestos?: Array<{ __typename?: 'puesto', id?: string | null, nombre: string, jornada?: string | null, fechaCreacion?: any | null, turno: string, numVacantes?: number | null, ciudad: string, nivelEstudios: string, descripcion?: string | null, empresa?: { __typename?: 'empresa', nombreComercial?: string | null, ciudad: string } | null } | null> | null };
 
 export type SearchPage_JobPostDescriptionQueryVariables = Exact<{
   puestoId: Scalars['ID'];
@@ -561,6 +561,7 @@ export const SearchPage_PuestosDocument = gql`
     fechaCreacion
     turno
     numVacantes
+    ciudad
     nivelEstudios
     descripcion
     empresa {

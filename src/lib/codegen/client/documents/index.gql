@@ -18,6 +18,7 @@ query SearchPage_Puestos($filter: puesto_filter, $sort: [String!], $limit: Int =
         fechaCreacion
         turno
         numVacantes
+        ciudad
         nivelEstudios
         descripcion
         empresa {

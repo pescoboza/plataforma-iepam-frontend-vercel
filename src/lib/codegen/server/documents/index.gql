@@ -75,9 +75,10 @@ query FormPage_JobData($puestoId: ID!) {
     }
 }
 
-query SearchPage_AllCities {
+query SearchPage_FilterOptions {
     puesto {
         ciudad
         municipio
+        nivelEstudios
     }
 }

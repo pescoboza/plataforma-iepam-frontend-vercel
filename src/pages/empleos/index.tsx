@@ -9,6 +9,7 @@ import { CheckIcon } from '@heroicons/react/outline';
 import moment from 'moment';
 import Link from 'next/link';
 import startCase from 'lodash/startCase';
+import capitalize from 'lodash/capitalize';
 import { useForm } from 'react-hook-form';
 import { GetStaticProps } from 'next';
 import { sdk } from '@/lib/codegen/server';
@@ -58,18 +59,26 @@ const Page: FC<Props> = ({ ciudades }) => {
     const onSubmit = handleSubmit((data) => {
         console.log('[FORM_FILTERS]', data);
 
-        const filterArg: Puesto_Filter = {};
+        const filterArg: Puesto_Filter = { _and: [] };
 
         const search = data.search;
         if (search != null && search.length > 0)
-            filterArg._or = [
-                { nombre: { _contains: search } },
-                {
-                    descripcion: {
-                        _contains: search,
+            filterArg._and!.push({
+                _or: [
+                    { nombre: { _contains: search } },
+                    {
+                        descripcion: {
+                            _contains: search,
+                        },
                     },
-                },
-            ];
+                ],
+            });
+
+        const ciudad = data.ciudad;
+        if (ciudad != null && ciudad.length > 0)
+            filterArg._and!.push({
+                ciudad: { _eq: ciudad },
+            });
 
         setFilter(filterArg);
     });
@@ -86,39 +95,49 @@ const Page: FC<Props> = ({ ciudades }) => {
             </header>
             <main className="overflow-hidden bg-white">
                 <div className="mt-4 pt-12">
-                <div className="mx-auto max-w-7xl py-5 px-4 sm:px-6 lg:py-5 lg:px-8">
+                    <div className="mx-auto max-w-7xl py-5 px-4 sm:px-6 lg:py-5 lg:px-8">
+                        <div className="bg-white shadow overflow-hidden sm:rounded-md">
+                            <form id={FILTER_FORM_ID} onSubmit={onSubmit}>
+                                <div>
+                                    <label htmlFor="search">Búsqueda</label>
+                                    <input type="text" {...register('search')} />
+                                </div>
 
-                <div className="bg-white shadow overflow-hidden sm:rounded-md">
-                <form id={FILTER_FORM_ID} onSubmit={onSubmit}>
-                            <div>
-                                <label>Búsqueda</label>
-                                <input type="text" {...register("search")} />
-                            </div>
-                            {/* <div>
+                                <div>
+                                    <label htmlFor="ciudad">Ciudad</label>
+                                    <select {...register('ciudad')}>
+                                        <option value=""></option>
+                                        {ciudades.map(({ name, value }, i) => (
+                                            <option key={i} value={value}>
+                                                {name}
+                                            </option>
+                                        ))}
+                                    </select>
+                                </div>
+                                {/* <div>
                             <label>Nivel de Estudios</label>
                             <input />
                         </div> */}
-                        </form>
-                        <button
-                            form={FILTER_FORM_ID}
-                            className="inline-flex items-center px-3 py-2 border border-transparent shadow-sm text-sm leading-4 font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-                            type="submit"
-                        >
-                            Filtrar
-                        </button>
-                        <button
-                            className="inline-flex items-center px-3 py-2 border border-transparent shadow-sm text-sm leading-4 font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-                            onClick={() => {
-                                reset();
-                            }}
-                        >
-                            Limpiar filtros
-                        </button>
-                </div>  
-                </div>  
+                            </form>
+                            <button
+                                form={FILTER_FORM_ID}
+                                className="inline-flex items-center px-3 py-2 border border-transparent shadow-sm text-sm leading-4 font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                                type="submit"
+                            >
+                                Filtrar
+                            </button>
+                            <button
+                                className="inline-flex items-center px-3 py-2 border border-transparent shadow-sm text-sm leading-4 font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                                onClick={() => {
+                                    reset();
+                                }}
+                            >
+                                Limpiar filtros
+                            </button>
+                        </div>
+                    </div>
                     <div className="mx-auto max-w-7xl py-5 px-4 sm:px-6 lg:py-5 lg:px-8">
-                    
-            {/* <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                        {/* <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="bg-white overflow-hidden shadow rounded-lg">
                     <div className="px-4 py-5 sm:px-6">
                         <h1>Trabajos Disponibles</h1>
@@ -175,6 +194,7 @@ interface JobListItemProps {
     jornada: string;
     turno: string;
     fechaCreacion: string;
+    ciudad: string;
     empresa: {
         nombreComercial: string;
         ciudad: string;
@@ -211,7 +231,7 @@ const JobListItem: FC<{ puesto: JobListItemProps; onClick?: (data: JobListItemPr
                         <p className="text-sm font-medium text-blue-600 truncate">{puesto.nombre}</p>
                         <div className="ml-2 flex-shrink-0 flex">
                             <p className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                                {puesto.jornada}
+                                {capitalize(puesto.jornada).replace(/-/g, ' ')}
                             </p>
                         </div>
                     </div>
@@ -229,7 +249,7 @@ const JobListItem: FC<{ puesto: JobListItemProps; onClick?: (data: JobListItemPr
                                     className="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400"
                                     aria-hidden="true"
                                 />
-                                {puesto.empresa.ciudad}
+                                {puesto.ciudad}
                             </p>
                         </div>
                         <div className="mt-2 flex items-center text-sm text-gray-500 sm:mt-0">
@@ -357,25 +377,37 @@ const JobModal: FC<{
 };
 
 interface Props {
-    ciudades: {
-        name: string;
-        value: string;
-    }[];
+    ciudades: { name: string; value: string }[];
+    nivelesEstudios: { name: string; value: string }[];
 }
+
 export const getStaticProps: GetStaticProps<Props> = async (ctx) => {
-    const { puesto } = await sdk.SearchPage_AllCities();
+    const { puesto } = await sdk.SearchPage_FilterOptions();
 
     const citiesSet = new Set<string>();
-
+    const nivelesEstudioSet = new Set<string>();
     puesto?.forEach((p) => {
         if (p == null) return;
-        citiesSet.add(p.ciudad.trim());
+        citiesSet.add(p.ciudad);
+        nivelesEstudioSet.add(p.nivelEstudios);
     });
 
+    const ciudades = Array.from(citiesSet)
+        .sort((a, b) => a.localeCompare(b))
+        .map((c) => ({ name: startCase(c), value: c }));
+
+    const nivelesEstudios = Array.from(nivelesEstudioSet)
+        .sort((a, b) => a.localeCompare(b))
+        .map((ne) => ({ name: startCase(ne), value: ne }));
+
+    const props = {
+        ciudades,
+        nivelesEstudios,
+    };
+
+    console.log('[PROPS]', props);
     return {
-        props: {
-            ciudades: Array.from(citiesSet).map((c) => ({ name: c, value: c })),
-        },
+        props,
     };
 };
 
