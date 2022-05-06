@@ -467,10 +467,10 @@ export type PuestosQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type PuestosQuery = { __typename?: 'Query', puesto?: Array<{ __typename?: 'puesto', id?: string | null, fechaCreacion?: any | null, nivelEstudios: string, nombre: string, jornada?: string | null, turno: string, descripcion?: string | null, numVacantes?: number | null } | null> | null };
 
-export type ListasQueryVariables = Exact<{ [key: string]: never; }>;
+export type SearchPage_PuestosQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type ListasQuery = { __typename?: 'Query', puesto?: Array<{ __typename?: 'puesto', id?: string | null, nombre: string, jornada?: string | null, status: string, fechaCreacion?: any | null, empresa?: { __typename?: 'empresa', nombreComercial?: string | null, ciudad: string } | null } | null> | null };
+export type SearchPage_PuestosQuery = { __typename?: 'Query', puestos?: Array<{ __typename?: 'puesto', id?: string | null, nombre: string, jornada?: string | null, fechaCreacion?: any | null, turno: string, numVacantes?: number | null, descripcion?: string | null, empresa?: { __typename?: 'empresa', nombreComercial?: string | null, ciudad: string } | null } | null> | null };
 
 export type SearchPage_JobPostDescriptionQueryVariables = Exact<{
   puestoId: Scalars['ID'];
@@ -545,48 +545,50 @@ export function usePuestosLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Pu
 export type PuestosQueryHookResult = ReturnType<typeof usePuestosQuery>;
 export type PuestosLazyQueryHookResult = ReturnType<typeof usePuestosLazyQuery>;
 export type PuestosQueryResult = Apollo.QueryResult<PuestosQuery, PuestosQueryVariables>;
-export const ListasDocument = gql`
-    query Listas {
-  puesto {
+export const SearchPage_PuestosDocument = gql`
+    query SearchPage_Puestos {
+  puestos: puesto {
     id
     nombre
     jornada
+    fechaCreacion
+    turno
+    numVacantes
+    descripcion
     empresa {
       nombreComercial
       ciudad
     }
-    status
-    fechaCreacion
   }
 }
     `;
 
 /**
- * __useListasQuery__
+ * __useSearchPage_PuestosQuery__
  *
- * To run a query within a React component, call `useListasQuery` and pass it any options that fit your needs.
- * When your component renders, `useListasQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useSearchPage_PuestosQuery` and pass it any options that fit your needs.
+ * When your component renders, `useSearchPage_PuestosQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useListasQuery({
+ * const { data, loading, error } = useSearchPage_PuestosQuery({
  *   variables: {
  *   },
  * });
  */
-export function useListasQuery(baseOptions?: Apollo.QueryHookOptions<ListasQuery, ListasQueryVariables>) {
+export function useSearchPage_PuestosQuery(baseOptions?: Apollo.QueryHookOptions<SearchPage_PuestosQuery, SearchPage_PuestosQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<ListasQuery, ListasQueryVariables>(ListasDocument, options);
+        return Apollo.useQuery<SearchPage_PuestosQuery, SearchPage_PuestosQueryVariables>(SearchPage_PuestosDocument, options);
       }
-export function useListasLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ListasQuery, ListasQueryVariables>) {
+export function useSearchPage_PuestosLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<SearchPage_PuestosQuery, SearchPage_PuestosQueryVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<ListasQuery, ListasQueryVariables>(ListasDocument, options);
+          return Apollo.useLazyQuery<SearchPage_PuestosQuery, SearchPage_PuestosQueryVariables>(SearchPage_PuestosDocument, options);
         }
-export type ListasQueryHookResult = ReturnType<typeof useListasQuery>;
-export type ListasLazyQueryHookResult = ReturnType<typeof useListasLazyQuery>;
-export type ListasQueryResult = Apollo.QueryResult<ListasQuery, ListasQueryVariables>;
+export type SearchPage_PuestosQueryHookResult = ReturnType<typeof useSearchPage_PuestosQuery>;
+export type SearchPage_PuestosLazyQueryHookResult = ReturnType<typeof useSearchPage_PuestosLazyQuery>;
+export type SearchPage_PuestosQueryResult = Apollo.QueryResult<SearchPage_PuestosQuery, SearchPage_PuestosQueryVariables>;
 export const SearchPage_JobPostDescriptionDocument = gql`
     query SearchPage_JobPostDescription($puestoId: ID!) {
   puesto: puesto_by_id(id: $puestoId) {
