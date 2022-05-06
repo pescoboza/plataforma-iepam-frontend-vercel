@@ -1,5 +1,8 @@
 schema:
-  - ${NEXT_PUBLIC_GQL_ENDPOINT}:
+  # - ${NEXT_PUBLIC_GQL_ENDPOINT}:
+  #     headers:
+  #       Authorization: Bearer ${GQL_AUTH_TOKEN}
+  - https://admins.iepam.estetoscopiando.com/grahpql:
       headers:
         Authorization: Bearer ${GQL_AUTH_TOKEN}
 
