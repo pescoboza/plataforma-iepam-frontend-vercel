@@ -39,6 +39,7 @@ const Page: FC<Props> = ({ ciudades, nivelesEstudios }) => {
         variables: {
             filter,
             page,
+            sort: ['-fechaCreacion'],
         },
         fetchPolicy: 'cache-and-network',
     });
