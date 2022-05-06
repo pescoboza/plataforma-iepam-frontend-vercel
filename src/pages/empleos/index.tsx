@@ -12,6 +12,7 @@ import startCase from 'lodash/startCase';
 import { useForm } from 'react-hook-form';
 import { GetStaticProps } from 'next';
 import { sdk } from '@/lib/codegen/server';
+import usePagination from '@/hooks/usePagination';
 
 const NIVELES_ESTUDIO = {
     primaria: 1,
@@ -29,27 +30,8 @@ const NIVEL_ACTIVIDAD_FISICA = {
 };
 
 interface SearchFormData {
-    nivelEstudiosIn?: string[];
+    ciudad?: string;
     search?: string;
-}
-
-function usePagination(maxPage: number) {
-    const [page, setPage] = useState(1);
-
-    const prevPage = useCallback(() => {
-        if (!(page < 1)) return;
-        setPage(page - 1);
-    }, [page]);
-
-    const nextPage = useCallback(() => {
-        setPage(page + 1);
-    }, [page]);
-
-    return {
-        page,
-        prevPage,
-        nextPage,
-    };
 }
 
 const FILTER_FORM_ID = 'filter-form';
