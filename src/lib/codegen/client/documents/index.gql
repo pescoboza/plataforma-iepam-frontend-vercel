@@ -11,17 +11,19 @@ query Puestos {
     }
 }
 
-query Listas {
-    puesto {
+query SearchPage_Puestos {
+    puestos: puesto {
         id
         nombre
         jornada
+        fechaCreacion
+        turno
+        numVacantes
+        descripcion
         empresa {
             nombreComercial
             ciudad
         }
-        status
-        fechaCreacion
     }
 }
 
