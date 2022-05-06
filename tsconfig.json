@@ -23,7 +23,8 @@
             "@/codegen/*": ["lib/codegen/*"],
             "@/components/*": ["components/*"],
             "@/hooks/*": ["lib/hooks/*"],
-            "@/styles/*":["styles/*"]
+            "@/styles/*": ["styles/*"],
+            "@/poges/*": ["pages/*"]
         }
     },
     "include": ["next-env.d.ts", "./**/*.ts", "./**/*.tsx"],

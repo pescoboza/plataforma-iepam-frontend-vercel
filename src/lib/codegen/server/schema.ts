@@ -1217,6 +1217,13 @@ export type SuccessPage_ApplicationSummaryQueryVariables = Exact<{
 
 export type SuccessPage_ApplicationSummaryQuery = { __typename?: 'Query', application?: { __typename?: 'aplicacion', id?: string | null, primerNombre: string, otrosNombres?: string | null, apellidoPaterno: string, apellidoMaterno: string, telefono: string, correo?: string | null, direccion: string, colonia: string, puesto?: { __typename?: 'puesto', id?: string | null, nombre: string, empresa?: { __typename?: 'empresa', id?: string | null, nombreComercial?: string | null } | null } | null } | null };
 
+export type FormPage_JobDataQueryVariables = Exact<{
+  puestoId: Scalars['ID'];
+}>;
+
+
+export type FormPage_JobDataQuery = { __typename?: 'Query', puesto?: { __typename?: 'puesto', id?: string | null, nombre: string, empresa?: { __typename?: 'empresa', nombreComercial?: string | null } | null } | null };
+
 
 export const EmpresasDocument = gql`
     query Empresas {
@@ -1290,6 +1297,17 @@ export const SuccessPage_ApplicationSummaryDocument = gql`
   }
 }
     `;
+export const FormPage_JobDataDocument = gql`
+    query FormPage_JobData($puestoId: ID!) {
+  puesto: puesto_by_id(id: $puestoId) {
+    id
+    nombre
+    empresa {
+      nombreComercial
+    }
+  }
+}
+    `;
 
 export type SdkFunctionWrapper = <T>(action: (requestHeaders?:Record<string, string>) => Promise<T>, operationName: string, operationType?: string) => Promise<T>;
 
@@ -1312,6 +1330,9 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     },
     SuccessPage_ApplicationSummary(variables: SuccessPage_ApplicationSummaryQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<SuccessPage_ApplicationSummaryQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<SuccessPage_ApplicationSummaryQuery>(SuccessPage_ApplicationSummaryDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'SuccessPage_ApplicationSummary', 'query');
+    },
+    FormPage_JobData(variables: FormPage_JobDataQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<FormPage_JobDataQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<FormPage_JobDataQuery>(FormPage_JobDataDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'FormPage_JobData', 'query');
     }
   };
 }

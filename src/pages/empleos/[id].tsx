@@ -16,7 +16,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
     return { paths, fallback: true };
 };
 
-type Props = NonNullable<Awaited<ReturnType<typeof sdk["FormPage_PuestoById"]>>["puesto"]> & {
+export type Props = NonNullable<Awaited<ReturnType<typeof sdk["FormPage_PuestoById"]>>["puesto"]> & {
     id: string;
     fechaCreacion: string;
 };

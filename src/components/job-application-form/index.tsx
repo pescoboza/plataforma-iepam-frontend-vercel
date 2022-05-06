@@ -5,6 +5,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useFormPage_SubmitFormDataMutation } from "@/codegen/client";
 import JobApplicationSuccess from "./components/JobApplicationSuccess";
+import type { Props } from "../../pages/empleos/[id]";
 
 interface JobApplicationFormData {
     primerNombre: string;
@@ -71,7 +72,7 @@ const schema: yup.SchemaOf<JobApplicationFormData> = yup.object().shape({
 //     })
 //     .required();
 
-const JobApplicationForm: FC<{ puestoId: string }> = ({ puestoId }) => {
+const JobApplicationForm: FC<{ puestoId: string } & Props> = ({ puestoId }) => {
     const {
         register,
         handleSubmit,

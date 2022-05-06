@@ -64,3 +64,13 @@ query SuccessPage_ApplicationSummary($applicationId: ID!) {
         }
     }
 }
+
+query FormPage_JobData($puestoId: ID!) {
+    puesto: puesto_by_id(id: $puestoId) {
+        id
+        nombre
+        empresa {
+            nombreComercial
+        }
+    }
+}

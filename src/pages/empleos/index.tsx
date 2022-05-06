@@ -70,10 +70,17 @@ const Page: FC = () => {
 
     if (error) console.error(error);
 
+    const onSubmit = handleSubmit((data) => {
+        console.log("DATA", data);
+
+        const search = data.search
+        if ( search === "null" )
+    });
+
     return (
         <div>
             <div>
-                <form id={FILTER_FORM_ID}>
+                <form id={FILTER_FORM_ID} onSubmit={onSubmit}>
                     <div>
                         <label>Búsqueda</label>
                         <input type="text" {...register("search")} />
@@ -83,10 +90,21 @@ const Page: FC = () => {
                         <input />
                     </div> */}
                 </form>
-                <button type="submit" form={FILTER_FORM_ID}>
+                <button
+                    form={FILTER_FORM_ID}
+                    className="inline-flex items-center px-3 py-2 border border-transparent shadow-sm text-sm leading-4 font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                    type="submit"
+                >
                     Filtrar
                 </button>
-                <button>Limpiar filtros</button>
+                <button
+                    className="inline-flex items-center px-3 py-2 border border-transparent shadow-sm text-sm leading-4 font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                    onClick={() => {
+                        reset();
+                    }}
+                >
+                    Limpiar filtros
+                </button>
             </div>
             {/* <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="bg-white overflow-hidden shadow rounded-lg">
