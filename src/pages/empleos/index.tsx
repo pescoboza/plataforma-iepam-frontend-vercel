@@ -102,6 +102,9 @@ const Page: FC = () => {
             </header>
             <main className="overflow-hidden bg-white">
                 <div className="mt-4 pt-12">
+                <div className="mx-auto max-w-7xl py-5 px-4 sm:px-6 lg:py-5 lg:px-8">
+
+                <div className="bg-white shadow overflow-hidden sm:rounded-md">
                 <form id={FILTER_FORM_ID} onSubmit={onSubmit}>
                             <div>
                                 <label>Búsqueda</label>
@@ -127,9 +130,9 @@ const Page: FC = () => {
                         >
                             Limpiar filtros
                         </button>
-                    
-                    <div className="mx-auto max-w-7xl py-12 px-4 sm:px-6 lg:py-16 lg:px-8">
-
+                </div>  
+                </div>  
+                    <div className="mx-auto max-w-7xl py-5 px-4 sm:px-6 lg:py-5 lg:px-8">
                     
             {/* <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="bg-white overflow-hidden shadow rounded-lg">
