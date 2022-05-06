@@ -19,10 +19,10 @@
         "paths": {
             "@/lib/*": ["lib/*"],
             "@/env/*": ["lib/env/*"],
-            "@/helpers/*": ["lib/helpers/*"],
             "@/codegen/*": ["lib/codegen/*"],
             "@/components/*": ["components/*"],
             "@/hooks/*": ["lib/hooks/*"],
+            "@/helpers/*": ["lib/helpers/*"],
             "@/styles/*": ["styles/*"],
             "@/poges/*": ["pages/*"]
         }

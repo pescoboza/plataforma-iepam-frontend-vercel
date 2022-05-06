@@ -3,10 +3,16 @@ import Head from 'next/head';
 import NavbarSignedOut from 'components/general/NavbarSignedOut';
 import Footer from 'components/general/Footer';
 import { useSearchPage_PuestosQuery, Puesto_Filter } from '@/codegen/client';
-import { CalendarIcon, LocationMarkerIcon, OfficeBuildingIcon, PaperClipIcon } from '@heroicons/react/solid';
+import {
+    CalendarIcon,
+    LocationMarkerIcon,
+    OfficeBuildingIcon,
+    AcademicCapIcon,
+    ClockIcon,
+    PaperClipIcon,
+} from '@heroicons/react/solid';
 import { Dialog, Transition } from '@headlessui/react';
 import { CheckIcon } from '@heroicons/react/outline';
-import moment from 'moment';
 import Link from 'next/link';
 import startCase from 'lodash/startCase';
 import capitalize from 'lodash/capitalize';
@@ -14,21 +20,7 @@ import { useForm } from 'react-hook-form';
 import { GetStaticProps } from 'next';
 import { sdk } from '@/lib/codegen/server';
 import usePagination from '@/hooks/usePagination';
-
-const NIVELES_ESTUDIO = {
-    primaria: 1,
-    secundaria: 2,
-    preparatoria: 3,
-    'carrera-trunca': 4,
-    licenciatura: 5,
-    posgrado: 6,
-};
-
-const NIVEL_ACTIVIDAD_FISICA = {
-    baja: 1,
-    media: 2,
-    alta: 3,
-};
+import kebabCaseToCapitalize from '@/helpers/kebabCaseToCapitalize';
 
 interface SearchFormData {
     ciudad?: string;
@@ -148,6 +140,7 @@ const Page: FC<Props> = ({ ciudades, nivelesEstudios }) => {
                                 className="inline-flex items-center px-3 py-2 border border-transparent shadow-sm text-sm leading-4 font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
                                 onClick={() => {
                                     reset();
+                                    setFilter({});
                                 }}
                             >
                                 Limpiar filtros
@@ -213,6 +206,7 @@ interface JobListItemProps {
     turno: string;
     fechaCreacion: string;
     ciudad: string;
+    nivelEstudios: string;
     empresa: {
         nombreComercial: string;
         ciudad: string;
@@ -249,7 +243,7 @@ const JobListItem: FC<{ puesto: JobListItemProps; onClick?: (data: JobListItemPr
                         <p className="text-sm font-medium text-blue-600 truncate">{puesto.nombre}</p>
                         <div className="ml-2 flex-shrink-0 flex">
                             <p className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                                {capitalize(puesto.jornada).replace(/-/g, ' ')}
+                                {kebabCaseToCapitalize(puesto.turno)}
                             </p>
                         </div>
                     </div>
@@ -269,12 +263,25 @@ const JobListItem: FC<{ puesto: JobListItemProps; onClick?: (data: JobListItemPr
                                 />
                                 {puesto.ciudad}
                             </p>
+                            <p className="mt-2 flex items-center text-sm text-gray-500 sm:mt-0 sm:ml-6">
+                                <AcademicCapIcon
+                                    className="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400"
+                                    aria-hidden="true"
+                                />
+                                {startCase(puesto.nivelEstudios)}
+                            </p>
+                            <p className="mt-2 flex items-center text-sm text-gray-500 sm:mt-0 sm:ml-6">
+                                <ClockIcon className="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" aria-hidden="true" />
+                                {kebabCaseToCapitalize(puesto.jornada)}
+                            </p>
                         </div>
                         <div className="mt-2 flex items-center text-sm text-gray-500 sm:mt-0">
                             <CalendarIcon className="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" aria-hidden="true" />
                             <p>
                                 {/* {position.status}{" "} */}
-                                <time>{moment(puesto.fechaCreacion).format('YYYY-MM-DD HH:mm')}</time>
+                                <time>
+                                    {new Date(puesto.fechaCreacion).toLocaleDateString('es-MX', { dateStyle: 'long' })}
+                                </time>
                             </p>
                         </div>
                     </div>
@@ -356,12 +363,14 @@ const JobModal: FC<{
                                                     {startCase(puesto.turno)}
                                                 </div>
                                             </div>
-                                            {/* <div className="sm:col-span-1">
-                                            <dt className="text-sm font-medium text-gray-500">Salario</dt>
-                                            <dd className="mt-1 text-sm text-gray-900">$120,000</dd>
-                                        </div> */}
+                                            <div className="sm:col-span-1">
+                                                <dt className="text-sm font-medium text-gray-500">Jornada</dt>
+                                                <dd className="mt-1 text-sm text-gray-900">
+                                                    {kebabCaseToCapitalize(puesto.jornada)}
+                                                </dd>
+                                            </div>
                                             <div className="sm:col-span-2">
-                                                <dt className="text-sm font-medium text-gray-500">Acerca</dt>
+                                                <dt className="text-sm font-medium text-gray-500">Descripción</dt>
                                                 <dd className="mt-1 text-sm text-gray-900">{puesto.descripcion}</dd>
                                             </div>
                                         </dl>
@@ -423,7 +432,7 @@ export const getStaticProps: GetStaticProps<Props> = async (ctx) => {
         nivelesEstudios,
     };
 
-    console.log('[PROPS]', props);
+    console.debug('[FILTER OPTIONS]', props);
     return {
         props,
     };
