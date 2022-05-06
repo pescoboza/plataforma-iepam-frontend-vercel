@@ -60,10 +60,11 @@ export default function Navbar() {
                                             aria-label="Global"
                                             className="hidden lg:flex lg:items-center lg:space-x-2"
                                         >
+                                        <Link href="/empleos">
                                             <div className="ml-5 cursor-pointer rounded-md bg-gray-600 px-5 py-2 text-sm font-medium text-white hover:bg-gray-700">
                                                 Ver Empleos
-                                                {/* Crear Cuenta */}
                                             </div>
+                                        </Link>
                                         </nav>
                                     </div>
                                 </div>
