@@ -48,7 +48,7 @@ export default function Navbar() {
                                             </div>
                                         </Link>
                                         <span className="mx-5 hidden rounded-md border border-gray-500 bg-gray-50 py-1 px-3 text-sm text-gray-600 md:block">
-                                            Candidatos
+                                            Beta
                                         </span>
                                     </div>
                                 </div>
