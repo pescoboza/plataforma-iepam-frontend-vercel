@@ -73,8 +73,12 @@ const Page: FC = () => {
     const onSubmit = handleSubmit((data) => {
         console.log("DATA", data);
 
-        const search = data.search
-        if ( search === "null" )
+        const filter: {
+            search?: string;
+        } = {};
+
+        const search = data.search;
+        if (search != null && search.length > 0) filter.search = search;
     });
 
     return (
