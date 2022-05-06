@@ -25,8 +25,8 @@ query Listas {
     }
 }
 
-query Descripcion {
-    puesto(filter: { id: { _eq: 2 } }) {
+query SearchPage_JobPostDescription($puestoId: ID!) {
+    puesto: puesto_by_id(id: $puestoId) {
         id
         descripcion
         nivelEstudios

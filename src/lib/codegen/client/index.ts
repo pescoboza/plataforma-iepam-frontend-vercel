@@ -146,7 +146,31 @@ export type QueryPuesto_By_IdArgs = {
 
 export type Aplicacion = {
   __typename?: 'aplicacion';
+  apellidoMaterno: Scalars['String'];
+  apellidoPaterno: Scalars['String'];
+  ciudad: Scalars['String'];
+  codigoPostal: Scalars['String'];
+  colonia: Scalars['String'];
+  correo?: Maybe<Scalars['String']>;
+  direccion: Scalars['String'];
+  fechaNacimiento: Scalars['Date'];
+  fechaNacimiento_func?: Maybe<Date_Functions>;
   id?: Maybe<Scalars['ID']>;
+  otrosNombres?: Maybe<Scalars['String']>;
+  primerNombre: Scalars['String'];
+  puesto?: Maybe<Puesto>;
+  sexo: Scalars['String'];
+  telefono: Scalars['String'];
+};
+
+
+export type AplicacionPuestoArgs = {
+  filter?: InputMaybe<Puesto_Filter>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  page?: InputMaybe<Scalars['Int']>;
+  search?: InputMaybe<Scalars['String']>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
 };
 
 export type Aplicacion_Aggregated = {
@@ -165,12 +189,27 @@ export type Aplicacion_Aggregated = {
 export type Aplicacion_Aggregated_Fields = {
   __typename?: 'aplicacion_aggregated_fields';
   id?: Maybe<Scalars['Float']>;
+  puesto?: Maybe<Scalars['Float']>;
 };
 
 export type Aplicacion_Filter = {
   _and?: InputMaybe<Array<InputMaybe<Aplicacion_Filter>>>;
   _or?: InputMaybe<Array<InputMaybe<Aplicacion_Filter>>>;
+  apellidoMaterno?: InputMaybe<String_Filter_Operators>;
+  apellidoPaterno?: InputMaybe<String_Filter_Operators>;
+  ciudad?: InputMaybe<String_Filter_Operators>;
+  codigoPostal?: InputMaybe<String_Filter_Operators>;
+  colonia?: InputMaybe<String_Filter_Operators>;
+  correo?: InputMaybe<String_Filter_Operators>;
+  direccion?: InputMaybe<String_Filter_Operators>;
+  fechaNacimiento?: InputMaybe<Date_Filter_Operators>;
+  fechaNacimiento_func?: InputMaybe<Date_Function_Filter_Operators>;
   id?: InputMaybe<Number_Filter_Operators>;
+  otrosNombres?: InputMaybe<String_Filter_Operators>;
+  primerNombre?: InputMaybe<String_Filter_Operators>;
+  puesto?: InputMaybe<Puesto_Filter>;
+  sexo?: InputMaybe<String_Filter_Operators>;
+  telefono?: InputMaybe<String_Filter_Operators>;
 };
 
 export type Count_Function_Filter_Operators = {
@@ -218,6 +257,23 @@ export type Date_Filter_Operators = {
   _neq?: InputMaybe<Scalars['String']>;
   _nnull?: InputMaybe<Scalars['Boolean']>;
   _null?: InputMaybe<Scalars['Boolean']>;
+};
+
+export type Date_Function_Filter_Operators = {
+  day?: InputMaybe<Number_Filter_Operators>;
+  month?: InputMaybe<Number_Filter_Operators>;
+  week?: InputMaybe<Number_Filter_Operators>;
+  weekday?: InputMaybe<Number_Filter_Operators>;
+  year?: InputMaybe<Number_Filter_Operators>;
+};
+
+export type Date_Functions = {
+  __typename?: 'date_functions';
+  day?: Maybe<Scalars['Int']>;
+  month?: Maybe<Scalars['Int']>;
+  week?: Maybe<Scalars['Int']>;
+  weekday?: Maybe<Scalars['Int']>;
+  year?: Maybe<Scalars['Int']>;
 };
 
 export type Date_FunctionsInput = {
@@ -416,10 +472,12 @@ export type ListasQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type ListasQuery = { __typename?: 'Query', puesto?: Array<{ __typename?: 'puesto', id?: string | null, nombre: string, jornada?: string | null, status: string, fechaCreacion?: any | null, empresa?: { __typename?: 'empresa', nombreComercial?: string | null, ciudad: string } | null } | null> | null };
 
-export type DescripcionQueryVariables = Exact<{ [key: string]: never; }>;
+export type SearchPage_JobPostDescriptionQueryVariables = Exact<{
+  puestoId: Scalars['ID'];
+}>;
 
 
-export type DescripcionQuery = { __typename?: 'Query', puesto?: Array<{ __typename?: 'puesto', id?: string | null, descripcion?: string | null, nivelEstudios: string, numVacantes?: number | null, turno: string } | null> | null };
+export type SearchPage_JobPostDescriptionQuery = { __typename?: 'Query', puesto?: { __typename?: 'puesto', id?: string | null, descripcion?: string | null, nivelEstudios: string, numVacantes?: number | null, turno: string } | null };
 
 export type FilterListQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -529,9 +587,9 @@ export function useListasLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Lis
 export type ListasQueryHookResult = ReturnType<typeof useListasQuery>;
 export type ListasLazyQueryHookResult = ReturnType<typeof useListasLazyQuery>;
 export type ListasQueryResult = Apollo.QueryResult<ListasQuery, ListasQueryVariables>;
-export const DescripcionDocument = gql`
-    query Descripcion {
-  puesto(filter: {id: {_eq: 2}}) {
+export const SearchPage_JobPostDescriptionDocument = gql`
+    query SearchPage_JobPostDescription($puestoId: ID!) {
+  puesto: puesto_by_id(id: $puestoId) {
     id
     descripcion
     nivelEstudios
@@ -542,31 +600,32 @@ export const DescripcionDocument = gql`
     `;
 
 /**
- * __useDescripcionQuery__
+ * __useSearchPage_JobPostDescriptionQuery__
  *
- * To run a query within a React component, call `useDescripcionQuery` and pass it any options that fit your needs.
- * When your component renders, `useDescripcionQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useSearchPage_JobPostDescriptionQuery` and pass it any options that fit your needs.
+ * When your component renders, `useSearchPage_JobPostDescriptionQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useDescripcionQuery({
+ * const { data, loading, error } = useSearchPage_JobPostDescriptionQuery({
  *   variables: {
+ *      puestoId: // value for 'puestoId'
  *   },
  * });
  */
-export function useDescripcionQuery(baseOptions?: Apollo.QueryHookOptions<DescripcionQuery, DescripcionQueryVariables>) {
+export function useSearchPage_JobPostDescriptionQuery(baseOptions: Apollo.QueryHookOptions<SearchPage_JobPostDescriptionQuery, SearchPage_JobPostDescriptionQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<DescripcionQuery, DescripcionQueryVariables>(DescripcionDocument, options);
+        return Apollo.useQuery<SearchPage_JobPostDescriptionQuery, SearchPage_JobPostDescriptionQueryVariables>(SearchPage_JobPostDescriptionDocument, options);
       }
-export function useDescripcionLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<DescripcionQuery, DescripcionQueryVariables>) {
+export function useSearchPage_JobPostDescriptionLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<SearchPage_JobPostDescriptionQuery, SearchPage_JobPostDescriptionQueryVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<DescripcionQuery, DescripcionQueryVariables>(DescripcionDocument, options);
+          return Apollo.useLazyQuery<SearchPage_JobPostDescriptionQuery, SearchPage_JobPostDescriptionQueryVariables>(SearchPage_JobPostDescriptionDocument, options);
         }
-export type DescripcionQueryHookResult = ReturnType<typeof useDescripcionQuery>;
-export type DescripcionLazyQueryHookResult = ReturnType<typeof useDescripcionLazyQuery>;
-export type DescripcionQueryResult = Apollo.QueryResult<DescripcionQuery, DescripcionQueryVariables>;
+export type SearchPage_JobPostDescriptionQueryHookResult = ReturnType<typeof useSearchPage_JobPostDescriptionQuery>;
+export type SearchPage_JobPostDescriptionLazyQueryHookResult = ReturnType<typeof useSearchPage_JobPostDescriptionLazyQuery>;
+export type SearchPage_JobPostDescriptionQueryResult = Apollo.QueryResult<SearchPage_JobPostDescriptionQuery, SearchPage_JobPostDescriptionQueryVariables>;
 export const FilterListDocument = gql`
     query filterList {
   puesto(filter: {nombre: {_contains: "M"}}) {
