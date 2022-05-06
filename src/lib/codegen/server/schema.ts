@@ -503,6 +503,7 @@ export type Create_Empresa_Input = {
 
 export type Create_Puesto_Input = {
   actualizadoPor?: InputMaybe<Create_Directus_Users_Input>;
+  ciudad: Scalars['String'];
   creadoPor?: InputMaybe<Create_Directus_Users_Input>;
   descripcion?: InputMaybe<Scalars['String']>;
   empresa?: InputMaybe<Create_Empresa_Input>;
@@ -934,6 +935,7 @@ export type Number_Filter_Operators = {
 export type Puesto = {
   __typename?: 'puesto';
   actualizadoPor?: Maybe<Directus_Users>;
+  ciudad: Scalars['String'];
   creadoPor?: Maybe<Directus_Users>;
   descripcion?: Maybe<Scalars['String']>;
   empresa?: Maybe<Empresa>;
@@ -1008,6 +1010,7 @@ export type Puesto_Filter = {
   _and?: InputMaybe<Array<InputMaybe<Puesto_Filter>>>;
   _or?: InputMaybe<Array<InputMaybe<Puesto_Filter>>>;
   actualizadoPor?: InputMaybe<Directus_Users_Filter>;
+  ciudad?: InputMaybe<String_Filter_Operators>;
   creadoPor?: InputMaybe<Directus_Users_Filter>;
   descripcion?: InputMaybe<String_Filter_Operators>;
   empresa?: InputMaybe<Empresa_Filter>;
@@ -1168,6 +1171,7 @@ export type Update_Empresa_Input = {
 
 export type Update_Puesto_Input = {
   actualizadoPor?: InputMaybe<Update_Directus_Users_Input>;
+  ciudad?: InputMaybe<Scalars['String']>;
   creadoPor?: InputMaybe<Update_Directus_Users_Input>;
   descripcion?: InputMaybe<Scalars['String']>;
   empresa?: InputMaybe<Update_Empresa_Input>;
@@ -1223,6 +1227,11 @@ export type FormPage_JobDataQueryVariables = Exact<{
 
 
 export type FormPage_JobDataQuery = { __typename?: 'Query', puesto?: { __typename?: 'puesto', id?: string | null, nombre: string, empresa?: { __typename?: 'empresa', nombreComercial?: string | null } | null } | null };
+
+export type SearchPage_AllCitiesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type SearchPage_AllCitiesQuery = { __typename?: 'Query', puesto?: Array<{ __typename?: 'puesto', ciudad: string, municipio: string } | null> | null };
 
 
 export const EmpresasDocument = gql`
@@ -1308,6 +1317,14 @@ export const FormPage_JobDataDocument = gql`
   }
 }
     `;
+export const SearchPage_AllCitiesDocument = gql`
+    query SearchPage_AllCities {
+  puesto {
+    ciudad
+    municipio
+  }
+}
+    `;
 
 export type SdkFunctionWrapper = <T>(action: (requestHeaders?:Record<string, string>) => Promise<T>, operationName: string, operationType?: string) => Promise<T>;
 
@@ -1333,6 +1350,9 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     },
     FormPage_JobData(variables: FormPage_JobDataQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<FormPage_JobDataQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<FormPage_JobDataQuery>(FormPage_JobDataDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'FormPage_JobData', 'query');
+    },
+    SearchPage_AllCities(variables?: SearchPage_AllCitiesQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<SearchPage_AllCitiesQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<SearchPage_AllCitiesQuery>(SearchPage_AllCitiesDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'SearchPage_AllCities', 'query');
     }
   };
 }

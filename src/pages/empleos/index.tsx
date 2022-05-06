@@ -1,21 +1,23 @@
-import React, { FC, useCallback, useState, useRef, Fragment } from "react";
-import Head from "next/head";
-import NavbarSignedOut from "components/general/NavbarSignedOut";
-import Footer from "components/general/Footer";
-import { useSearchPage_PuestosQuery, Puesto_Filter } from "@/codegen/client";
-import { CalendarIcon, LocationMarkerIcon, OfficeBuildingIcon, PaperClipIcon } from "@heroicons/react/solid";
-import { Dialog, Transition } from "@headlessui/react";
-import { CheckIcon } from "@heroicons/react/outline";
-import moment from "moment";
-import Link from "next/link";
-import startCase from "lodash/startCase";
-import { useForm } from "react-hook-form";
+import React, { FC, useCallback, useState, useRef, Fragment } from 'react';
+import Head from 'next/head';
+import NavbarSignedOut from 'components/general/NavbarSignedOut';
+import Footer from 'components/general/Footer';
+import { useSearchPage_PuestosQuery, Puesto_Filter } from '@/codegen/client';
+import { CalendarIcon, LocationMarkerIcon, OfficeBuildingIcon, PaperClipIcon } from '@heroicons/react/solid';
+import { Dialog, Transition } from '@headlessui/react';
+import { CheckIcon } from '@heroicons/react/outline';
+import moment from 'moment';
+import Link from 'next/link';
+import startCase from 'lodash/startCase';
+import { useForm } from 'react-hook-form';
+import { GetStaticProps } from 'next';
+import { sdk } from '@/lib/codegen/server';
 
 const NIVELES_ESTUDIO = {
     primaria: 1,
     secundaria: 2,
     preparatoria: 3,
-    "carrera-trunca": 4,
+    'carrera-trunca': 4,
     licenciatura: 5,
     posgrado: 6,
 };
@@ -50,9 +52,9 @@ function usePagination(maxPage: number) {
     };
 }
 
-const FILTER_FORM_ID = "filter-form";
+const FILTER_FORM_ID = 'filter-form';
 
-const Page: FC = () => {
+const Page: FC<Props> = ({ ciudades }) => {
     const { register, handleSubmit, reset } = useForm<SearchFormData>();
     const { page, nextPage, prevPage } = usePagination(10);
 
@@ -62,17 +64,17 @@ const Page: FC = () => {
             filter,
             page,
         },
-        fetchPolicy: "cache-and-network",
+        fetchPolicy: 'cache-and-network',
     });
     const puestos = (data?.puestos ?? []) as JobListItemProps[];
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [modalData, setModalData] = useState<JobListItemProps | null>(null);
     if (error) console.error(error);
 
-    console.log("[QUERY_DATA]", puestos);
+    console.log('[QUERY_DATA]', puestos);
 
     const onSubmit = handleSubmit((data) => {
-        console.log("[FORM_FILTERS]", data);
+        console.log('[FORM_FILTERS]', data);
 
         const filterArg: Puesto_Filter = {};
 
@@ -105,7 +107,7 @@ const Page: FC = () => {
                     <form id={FILTER_FORM_ID} onSubmit={onSubmit}>
                         <div>
                             <label>Búsqueda</label>
-                            <input type="text" {...register("search")} />
+                            <input type="text" {...register('search')} />
                         </div>
                         {/* <div>
                         <label>Nivel de Estudios</label>
@@ -241,7 +243,7 @@ const JobListItem: FC<{ puesto: JobListItemProps; onClick?: (data: JobListItemPr
                             <CalendarIcon className="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" aria-hidden="true" />
                             <p>
                                 {/* {position.status}{" "} */}
-                                <time>{moment(puesto.fechaCreacion).format("YYYY-MM-DD HH:mm")}</time>
+                                <time>{moment(puesto.fechaCreacion).format('YYYY-MM-DD HH:mm')}</time>
                             </p>
                         </div>
                     </div>
@@ -359,6 +361,29 @@ const JobModal: FC<{
             </Dialog>
         </Transition.Root>
     );
+};
+
+interface Props {
+    ciudades: {
+        name: string;
+        value: string;
+    }[];
+}
+export const getStaticProps: GetStaticProps<Props> = async (ctx) => {
+    const { puesto } = await sdk.SearchPage_AllCities();
+
+    const citiesSet = new Set<string>();
+
+    puesto?.forEach((p) => {
+        if (p == null) return;
+        citiesSet.add(p.ciudad.trim());
+    });
+
+    return {
+        props: {
+            ciudades: Array.from(citiesSet).map((c) => ({ name: c, value: c })),
+        },
+    };
 };
 
 export default Page;
